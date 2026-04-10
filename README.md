@@ -1,36 +1,125 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SUNXBÜ — Premium Webdesign
 
-## Getting Started
+> Stuttgart × Dubai
 
-First, run the development server:
+Premium Webdesign-Website gebaut mit Next.js, TypeScript und Tailwind CSS.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Sprache:** TypeScript
+- **Styling:** Tailwind CSS v4
+- **Animationen:** Framer Motion
+- **Fonts:** Cormorant Garamond + Inter (Google Fonts via next/font)
+- **Deployment:** Vercel (vorbereitet)
+
+---
+
+## Struktur
+
+```
+src/
+├── app/
+│   ├── api/contact/route.ts   # Contact form API endpoint
+│   ├── globals.css            # Tailwind theme + global styles
+│   ├── layout.tsx             # Root layout (fonts, metadata, SEO)
+│   └── page.tsx               # Main page
+├── components/
+│   ├── Nav.tsx                # Sticky navigation + mobile menu
+│   ├── CaseStudyOverlay.tsx   # Slide-in case study panel
+│   ├── sections/
+│   │   ├── Hero.tsx
+│   │   ├── SocialProof.tsx
+│   │   ├── Services.tsx       # Premium package selection
+│   │   ├── WhySunxbu.tsx
+│   │   ├── Process.tsx
+│   │   ├── Work.tsx           # Portfolio with case study overlay
+│   │   ├── FAQ.tsx
+│   │   ├── Contact.tsx        # Form + Cal.com booking
+│   │   └── Footer.tsx
+│   └── ui/
+│       └── Button.tsx
+├── context/
+│   └── LanguageContext.tsx    # DE/EN language switcher
+└── translations/
+    └── index.ts               # All strings in DE + EN
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Lokale Entwicklung
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev
+```
 
-## Learn More
+Öffne [http://localhost:3000](http://localhost:3000)
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## E-Mail Integration einrichten
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Die Kontaktformular-API unter `src/app/api/contact/route.ts` ist vorbereitet. Empfehlung: **Resend** (kostenloser Tier verfügbar).
 
-## Deploy on Vercel
+```bash
+npm install resend
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Erstelle `.env.local`:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+RESEND_API_KEY=re_xxxxxxxxxxxxxx
+```
+
+Dann im API-Route die kommentierten Zeilen aktivieren und E-Mail-Adressen eintragen.
+
+---
+
+## Terminbuchung (Cal.com)
+
+Im `Contact.tsx` den Placeholder-Link durch deine Cal.com-URL ersetzen:
+
+```tsx
+href="https://cal.com/DEIN-USERNAME"
+```
+
+---
+
+## Inhalte anpassen
+
+Alle Texte, Pakete, Projekte und Referenzen befinden sich in:
+
+```
+src/translations/index.ts
+```
+
+Zwei Objekte: `de` (Deutsch) und `en` (Englisch). Einfach bearbeiten, keine Komponenten anfassen.
+
+---
+
+## Deployment auf Vercel
+
+```bash
+vercel
+```
+
+Oder direkt im Dashboard: [vercel.com/new](https://vercel.com/new) → Import Git Repository
+
+---
+
+## Platzhalter ersetzen
+
+| Was | Wo |
+|-----|-----|
+| Logo | `Nav.tsx` — SUNXBÜ Text durch `<Image>` ersetzen |
+| Projektbilder | `Work.tsx` + `CaseStudyOverlay.tsx` — Placeholder divs durch `<Image>` ersetzen |
+| OG-Bild | `public/og-image.jpg` hinzufügen (1200×630px) |
+| Cal.com URL | `Contact.tsx` — Link aktualisieren |
+| E-Mail | `src/app/api/contact/route.ts` — Integration aktivieren |
+
+---
+
+*SUNXBÜ · Aysun Caliskan & Büsra Alili · Stuttgart × Dubai*
