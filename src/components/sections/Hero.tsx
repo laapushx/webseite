@@ -45,15 +45,22 @@ export default function Hero() {
           {/* Headline */}
           <motion.h1
             {...fadeUp(0.25)}
-            className="heading-display text-ink mb-8 md:mb-10"
-            style={{ fontSize: 'clamp(3rem, 8vw, 7.5rem)' }}
+            className="heading-display text-ink mb-10 md:mb-14"
+            style={{ fontSize: 'clamp(2.75rem, 7.5vw, 7rem)' }}
           >
             {h.headline.split('\n').map((line, i) => (
-              <span key={i} className="block">
-                {i === 1 ? (
-                  <span className="italic text-muted">{line}</span>
+              <span key={i} className={`block ${i === 1 ? 'mt-1' : ''}`}>
+                {i === 0 ? (
+                  // Line 1 — full dominance
+                  <span className="text-ink">{line}</span>
                 ) : (
-                  line
+                  // Line 2 — deliberately secondary: lighter, italic, smaller
+                  <span
+                    className="italic text-muted font-[300]"
+                    style={{ fontSize: '0.72em' }}
+                  >
+                    {line}
+                  </span>
                 )}
               </span>
             ))}
@@ -62,7 +69,7 @@ export default function Hero() {
           {/* Subline */}
           <motion.p
             {...fadeUp(0.4)}
-            className="text-muted text-lg md:text-xl leading-relaxed max-w-2xl mb-12 md:mb-14"
+            className="text-muted text-base md:text-lg leading-relaxed max-w-xl mb-12 md:mb-16"
           >
             {h.subline}
           </motion.p>

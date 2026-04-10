@@ -56,12 +56,19 @@ export default function Nav() {
 
             {/* Desktop right */}
             <div className="hidden md:flex items-center gap-5">
+              {/* DE | EN toggle */}
               <button
                 onClick={() => setLang(lang === 'de' ? 'en' : 'de')}
-                className="label-sm text-muted hover:text-ink transition-colors duration-200"
+                className="flex items-center gap-1.5 label-sm"
                 aria-label="Toggle language"
               >
-                {lang === 'de' ? 'EN' : 'DE'}
+                <span className={lang === 'de' ? 'text-ink' : 'text-muted hover:text-ink transition-colors'}>
+                  DE
+                </span>
+                <span className="text-border select-none">|</span>
+                <span className={lang === 'en' ? 'text-ink' : 'text-muted hover:text-ink transition-colors'}>
+                  EN
+                </span>
               </button>
               <a
                 href="#kontakt"
@@ -75,9 +82,11 @@ export default function Nav() {
             <div className="flex md:hidden items-center gap-4">
               <button
                 onClick={() => setLang(lang === 'de' ? 'en' : 'de')}
-                className="label-sm text-muted"
+                className="flex items-center gap-1 label-sm"
               >
-                {lang === 'de' ? 'EN' : 'DE'}
+                <span className={lang === 'de' ? 'text-ink' : 'text-muted'}>DE</span>
+                <span className="text-border select-none">|</span>
+                <span className={lang === 'en' ? 'text-ink' : 'text-muted'}>EN</span>
               </button>
               <button
                 onClick={() => setMenuOpen(!menuOpen)}

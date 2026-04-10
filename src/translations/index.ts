@@ -7,14 +7,14 @@ export const t = {
         { label: 'Prozess', href: '#prozess' },
         { label: 'Kontakt', href: '#kontakt' },
       ],
-      cta: 'Gespräch buchen',
+      cta: 'Termin buchen',
     },
     hero: {
       eyebrow: 'Webdesign. Stuttgart × Dubai.',
-      headline: 'Websites, die verkaufen.\nNicht nur gefallen.',
+      headline: 'Webdesign ist kein Kunstprojekt.\nEs ist Ihr stärkster Vertriebskanal.',
       subline:
-        'Wir gestalten digitale Präsenzen, die Vertrauen aufbauen, Besucher überzeugen und Unternehmen wachsen lassen. Ohne Kompromisse.',
-      cta_primary: 'Jetzt Termin buchen',
+        'Strategisch konzipiert. Messbar wirksam. Für Unternehmen, die Qualität nicht verhandeln.',
+      cta_primary: 'Kostenloses Erstgespräch',
       cta_secondary: 'Leistungen ansehen',
     },
     social_proof: {
@@ -293,10 +293,10 @@ export const t = {
     },
     hero: {
       eyebrow: 'Web Design. Stuttgart × Dubai.',
-      headline: 'Websites that sell.\nNot just impress.',
+      headline: 'Web design is not an art project.\nIt is your strongest sales channel.',
       subline:
-        'We design digital presences that build trust, convert visitors, and grow businesses. Without compromise.',
-      cta_primary: 'Book a call',
+        'Strategically designed. Measurably effective. For businesses that don\'t negotiate quality.',
+      cta_primary: 'Free consultation',
       cta_secondary: 'View services',
     },
     social_proof: {
