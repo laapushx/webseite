@@ -49,7 +49,7 @@ function PackageRow({
         <div className="flex-1 min-w-0">
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-2">
             <h3
-              className="font-serif text-2xl md:text-3xl text-ink transition-colors duration-300 group-hover:text-accent"
+              className="font-sans text-2xl md:text-3xl text-ink transition-colors duration-300 group-hover:text-accent"
               style={{ lineHeight: 1.15 }}
             >
               {pkg.name}
@@ -76,7 +76,7 @@ function PackageRow({
         {/* Price + actions */}
         <div className="flex items-center gap-5 md:gap-8 shrink-0">
           <span
-            className="font-serif text-xl md:text-2xl"
+            className="font-sans text-xl md:text-2xl"
             style={{ color: '#C5A882', letterSpacing: '-0.01em' }}
           >
             {pkg.priceRange}
@@ -86,7 +86,7 @@ function PackageRow({
             <a
               href="#kontakt"
               onClick={(e) => e.stopPropagation()}
-              className="label-sm bg-ink text-surface px-5 py-2.5 rounded hover:bg-accent hover:text-ink transition-all duration-250 hidden sm:inline-block"
+              className="label-sm bg-ink text-surface px-7 py-3.5 rounded-full hover:bg-accent hover:text-ink transition-all duration-250 hidden sm:inline-block"
               style={{ fontSize: '0.68rem', letterSpacing: '0.12em' }}
             >
               {cta_label}
@@ -95,7 +95,7 @@ function PackageRow({
             <motion.button
               animate={{ rotate: open ? 45 : 0 }}
               transition={{ duration: 0.22 }}
-              className="w-8 h-8 border border-border rounded flex items-center justify-center text-muted hover:text-ink hover:border-ink transition-all duration-200"
+              className="w-8 h-8 border border-border rounded-full flex items-center justify-center text-muted hover:text-ink hover:border-ink transition-all duration-200"
               aria-label={open ? 'Schließen' : 'Details'}
             >
               <span className="text-base leading-none block">+</span>
@@ -131,7 +131,7 @@ function PackageRow({
               {/* Mobile CTA */}
               <a
                 href="#kontakt"
-                className="sm:hidden label-sm inline-flex items-center gap-2 bg-ink text-surface px-6 py-3 rounded hover:bg-accent hover:text-ink transition-all duration-200"
+                className="sm:hidden label-sm inline-flex items-center gap-2 bg-ink text-surface px-7 py-3.5 rounded-full hover:bg-accent hover:text-ink transition-all duration-200"
                 style={{ fontSize: '0.68rem' }}
               >
                 {cta_label} ↗

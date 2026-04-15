@@ -181,7 +181,7 @@ export default function Contact() {
               >
                 <span style={{ color: '#C5A882', fontSize: '1.2rem' }}>✓</span>
               </div>
-              <p className="font-serif text-2xl md:text-3xl text-white mb-2">{f.success}</p>
+              <p className="font-sans text-2xl md:text-3xl text-white mb-2">{f.success}</p>
             </motion.div>
           ) : (
             <form
@@ -283,11 +283,11 @@ export default function Contact() {
                   onFocus={(e) => (e.target.style.borderColor = 'rgba(197,168,130,0.6)')}
                   onBlur={(e) => (e.target.style.borderColor = 'rgba(255,255,255,0.12)')}
                 >
-                  <option value="" disabled style={{ color: '#1A1A18' }}>
+                  <option value="" disabled style={{ color: '#1F2937' }}>
                     {f.project_placeholder}
                   </option>
                   {f.project_options.map((opt) => (
-                    <option key={opt} value={opt} style={{ color: '#1A1A18' }}>
+                    <option key={opt} value={opt} style={{ color: '#1F2937' }}>
                       {opt}
                     </option>
                   ))}
@@ -331,7 +331,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={state === 'sending'}
-                  className="label-sm px-8 py-4 rounded transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="label-sm px-7 py-3.5 rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   style={{
                     backgroundColor: '#C5A882',
                     color: '#0D0D0B',

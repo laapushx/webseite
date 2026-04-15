@@ -72,7 +72,7 @@ export default function Process() {
                   style={{ paddingLeft: i > 0 ? '1rem' : 0 }}
                 >
                   <span
-                    className="font-serif absolute top-0 left-0 leading-none select-none pointer-events-none transition-all duration-500 group-hover:opacity-100"
+                    className="font-sans absolute top-0 left-0 leading-none select-none pointer-events-none transition-all duration-500 group-hover:opacity-100"
                     style={{
                       fontSize: 'clamp(5rem, 10vw, 8rem)',
                       color: 'var(--color-border)',
@@ -99,7 +99,7 @@ export default function Process() {
                 {/* Content */}
                 <div style={{ paddingLeft: i > 0 ? '1rem' : 0 }}>
                   <h3
-                    className="font-serif text-xl md:text-2xl text-ink mb-3 transition-colors duration-300 group-hover:text-accent"
+                    className="font-sans text-xl md:text-2xl text-ink mb-3 transition-colors duration-300 group-hover:text-accent"
                     style={{ lineHeight: 1.2 }}
                   >
                     {step.title}

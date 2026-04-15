@@ -16,7 +16,7 @@ export default function WhySunxbu() {
     <section
       ref={ref}
       className="relative overflow-hidden py-24 md:py-40"
-      style={{ backgroundColor: '#1A1A18' }}
+      style={{ backgroundColor: '#1F2937' }}
     >
       {/* Grain */}
       <div
@@ -93,7 +93,7 @@ export default function WhySunxbu() {
               style={{ borderColor: 'rgba(197,168,130,0.35)' }}
             >
               <p
-                className="font-serif italic text-xl md:text-2xl leading-relaxed"
+                className="font-sans italic text-xl md:text-2xl leading-relaxed"
                 style={{ color: 'rgba(255,255,255,0.55)' }}
               >
                 &ldquo;Kein Template. Keine Kompromisse. Nur Ihre Marke.&rdquo;
@@ -124,7 +124,7 @@ export default function WhySunxbu() {
                   </span>
                   <div>
                     <h3
-                      className="font-serif text-xl md:text-2xl text-white mb-2.5 transition-colors duration-300"
+                      className="font-sans text-xl md:text-2xl text-white mb-2.5 transition-colors duration-300"
                       style={{ lineHeight: 1.25 }}
                     >
                       {item.title}

@@ -54,8 +54,8 @@ function ProjectPanel({
           className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           style={{
             background: isEven
-              ? 'linear-gradient(135deg, #1A1A18 0%, #252520 60%, #1A1A18 100%)'
-              : 'linear-gradient(135deg, #1E1E1C 0%, #2A2A24 60%, #1A1A18 100%)',
+              ? 'linear-gradient(135deg, #1F2937 0%, #252520 60%, #1F2937 100%)'
+              : 'linear-gradient(135deg, #1E1E1C 0%, #2A2A24 60%, #1F2937 100%)',
           }}
         />
 
@@ -65,7 +65,7 @@ function ProjectPanel({
           aria-hidden="true"
         >
           <span
-            className="font-serif leading-none"
+            className="font-sans leading-none"
             style={{
               fontSize: 'clamp(8rem, 18vw, 18rem)',
               color: 'rgba(255,255,255,0.028)',
@@ -172,7 +172,7 @@ function ProjectPanel({
         >
           <span>{view_case}</span>
           <span
-            className="w-7 h-7 border border-current rounded flex items-center justify-center transition-all duration-200 group-hover/btn:bg-accent group-hover/btn:border-accent group-hover/btn:text-ink"
+            className="w-7 h-7 border border-current rounded-full flex items-center justify-center transition-all duration-200 group-hover/btn:bg-accent group-hover/btn:border-accent group-hover/btn:text-ink"
             style={{ fontSize: '0.8rem' }}
           >
             ↗

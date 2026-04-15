@@ -103,7 +103,7 @@ function Card({ item, slot }: { item: TestimonialItem; slot: Slot }) {
         {/* Decorative quote glyph */}
         <div
           aria-hidden="true"
-          className="font-serif select-none leading-none mb-7"
+          className="font-sans select-none leading-none mb-7"
           style={{
             fontSize:  '5.5rem',
             lineHeight: 0.8,
@@ -117,11 +117,11 @@ function Card({ item, slot }: { item: TestimonialItem; slot: Slot }) {
 
         {/* Quote */}
         <blockquote
-          className="font-serif italic text-ink mb-9"
+          className="font-sans italic text-ink mb-9"
           style={{
             fontSize:   'clamp(1.1rem, 1.9vw, 1.4rem)',
             lineHeight: 1.7,
-            color:      '#1A1A18',
+            color:      '#1F2937',
           }}
         >
           {item.quote}
@@ -130,7 +130,7 @@ function Card({ item, slot }: { item: TestimonialItem; slot: Slot }) {
         {/* Rule */}
         <div
           className="mb-7"
-          style={{ height: '1px', backgroundColor: 'rgba(26,26,24,0.1)' }}
+          style={{ height: '1px', backgroundColor: 'rgba(31,41,55,0.1)' }}
         />
 
         {/* Attribution */}
@@ -141,11 +141,11 @@ function Card({ item, slot }: { item: TestimonialItem; slot: Slot }) {
             style={{
               width:           '34px',
               height:          '34px',
-              backgroundColor: '#1A1A18',
+              backgroundColor: '#1F2937',
             }}
           >
             <span
-              className="font-serif italic text-white"
+              className="font-sans italic text-white"
               style={{ fontSize: '1rem', lineHeight: 1 }}
             >
               {item.initial}
@@ -155,7 +155,7 @@ function Card({ item, slot }: { item: TestimonialItem; slot: Slot }) {
           {/* Name / role */}
           <div>
             <p
-              className="font-serif text-ink leading-tight"
+              className="font-sans text-ink leading-tight"
               style={{ fontSize: '0.92rem', fontWeight: 500 }}
             >
               {item.name}
@@ -197,7 +197,7 @@ function GhostCard({ items }: { items: TestimonialItem[] }) {
         <div style={{ height: '4.4rem', marginBottom: '1.75rem' }} />
         {/* Quote — longest to set max height */}
         <p
-          className="font-serif italic"
+          className="font-sans italic"
           style={{ fontSize: 'clamp(1.1rem, 1.9vw, 1.4rem)', lineHeight: 1.7, marginBottom: '2.25rem' }}
         >
           {longest.quote}
@@ -242,7 +242,7 @@ export default function Testimonials() {
     <section
       ref={sectionRef}
       className="relative overflow-hidden py-24 md:py-40"
-      style={{ backgroundColor: '#1A1A18' }}
+      style={{ backgroundColor: '#1F2937' }}
     >
 
       {/* ── Grain ── */}

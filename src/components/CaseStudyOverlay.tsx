@@ -138,7 +138,7 @@ export default function CaseStudyOverlay({
                 <a
                   href="#kontakt"
                   onClick={onClose}
-                  className="label-sm inline-flex items-center gap-2 bg-ink text-surface px-7 py-3.5 rounded hover:bg-accent hover:text-ink transition-all duration-200"
+                  className="label-sm inline-flex items-center gap-2 bg-ink text-surface px-7 py-3.5 rounded-full hover:bg-accent hover:text-ink transition-all duration-200"
                 >
                   Ähnliches Projekt anfragen ↗
                 </a>

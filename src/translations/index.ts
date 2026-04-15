@@ -2,19 +2,20 @@ export const t = {
   de: {
     nav: {
       links: [
-        { label: 'Leistungen', href: '#leistungen' },
+        { label: 'Über uns', href: '#about' },
         { label: 'Projekte', href: '#projekte' },
-        { label: 'Team', href: '#about' },
+        { label: 'Leistungen', href: '#leistungen' },
         { label: 'Prozess', href: '#prozess' },
+        { label: 'FAQ', href: '#faq' },
         { label: 'Kontakt', href: '#kontakt' },
       ],
       cta: 'Termin buchen',
     },
     hero: {
-      eyebrow: 'Webdesign. Stuttgart × Dubai.',
-      headline: 'Webdesign ist kein Kunstprojekt.\nEs ist Ihr stärkster Vertriebskanal.',
+      eyebrow: 'Stuttgart × Dubai',
+      headline: 'Deine Marke verdient Sichtbarkeit,\ndie verkauft.',
       subline:
-        'Strategisch konzipiert. Messbar wirksam. Für Unternehmen, die Qualität nicht verhandeln.',
+        'Wir entwickeln Websites, die Vertrauen aufbauen, Anfragen generieren und messbar verkaufen.',
       cta_primary: 'Kostenloses Erstgespräch',
       cta_secondary: 'Leistungen ansehen',
     },
@@ -346,17 +347,18 @@ export const t = {
   en: {
     nav: {
       links: [
-        { label: 'Services', href: '#leistungen' },
+        { label: 'About', href: '#about' },
         { label: 'Work', href: '#projekte' },
-        { label: 'Team', href: '#about' },
+        { label: 'Services', href: '#leistungen' },
         { label: 'Process', href: '#prozess' },
+        { label: 'FAQ', href: '#faq' },
         { label: 'Contact', href: '#kontakt' },
       ],
       cta: 'Book a call',
     },
     hero: {
-      eyebrow: 'Web Design. Stuttgart × Dubai.',
-      headline: 'Web design is not an art project.\nIt is your strongest sales channel.',
+      eyebrow: 'Stuttgart × Dubai',
+      headline: 'Your brand deserves\nvisibility that sells.',
       subline:
         'Strategically designed. Measurably effective. For businesses that don\'t negotiate quality.',
       cta_primary: 'Free consultation',

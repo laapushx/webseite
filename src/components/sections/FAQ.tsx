@@ -32,14 +32,14 @@ function FAQItem({
         aria-expanded={open}
       >
         <span
-          className="font-serif text-lg md:text-xl text-ink leading-snug transition-colors duration-250 group-hover:text-accent"
+          className="font-sans text-lg md:text-xl text-ink leading-snug transition-colors duration-250 group-hover:text-accent"
           style={{ lineHeight: 1.3 }}
         >
           {question}
         </span>
 
         <span
-          className="mt-1 shrink-0 w-6 h-6 border border-border rounded flex items-center justify-center transition-all duration-220 group-hover:border-accent"
+          className="mt-1 shrink-0 w-6 h-6 border border-border rounded-full flex items-center justify-center transition-all duration-220 group-hover:border-accent"
           style={{ fontSize: '1rem', lineHeight: 1 }}
         >
           <motion.span

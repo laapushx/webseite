@@ -13,7 +13,7 @@ export default function Footer() {
         <div className="py-14 md:py-16 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 border-b border-surface/10">
           {/* Brand */}
           <div>
-            <a href="#" className="font-serif text-2xl tracking-widest text-surface hover:text-accent transition-colors">
+            <a href="#" className="font-sans text-2xl tracking-widest text-surface hover:text-accent transition-colors">
               SUNXBÜ
             </a>
             <p className="mt-3 text-sm text-surface/50 leading-relaxed">{f.tagline}</p>
@@ -42,7 +42,7 @@ export default function Footer() {
             <p className="label-sm text-surface/40 mb-4">Kontakt</p>
             <a
               href="#kontakt"
-              className="label-sm inline-flex items-center gap-2 border border-surface/20 text-surface/80 px-5 py-2.5 rounded hover:border-accent hover:text-accent transition-all duration-200"
+              className="label-sm inline-flex items-center gap-2 border border-surface/20 text-surface/80 px-7 py-3.5 rounded-full hover:border-accent hover:text-accent transition-all duration-200"
             >
               Projekt anfragen ↗
             </a>

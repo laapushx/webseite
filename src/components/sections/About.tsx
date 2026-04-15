@@ -33,7 +33,7 @@ function Portrait({
         aspectRatio: '3 / 4',
         borderRadius: RADIUS,
         // Shadow lives here so it rotates naturally with the frame
-        boxShadow: '0 24px 64px rgba(26,26,24,0.16), 0 6px 20px rgba(26,26,24,0.08)',
+        boxShadow: '0 24px 64px rgba(31,41,55,0.16), 0 6px 20px rgba(31,41,55,0.08)',
       }}
     >
       {/* ── Background gradient ── */}
@@ -62,7 +62,7 @@ function Portrait({
         className="absolute inset-0 flex items-center justify-center select-none pointer-events-none"
       >
         <span
-          className="font-serif italic"
+          className="font-sans italic"
           style={{
             fontSize:   'clamp(7rem, 18vw, 14rem)',
             color:      'rgba(197,168,130,0.07)',
@@ -97,7 +97,7 @@ function Portrait({
         {/* Text */}
         <div className="relative px-5 pb-5 pt-0">
           <p
-            className="font-serif text-white"
+            className="font-sans text-white"
             style={{ fontSize: '1.05rem', lineHeight: 1.2, opacity: 0.92 }}
           >
             {name}
@@ -214,7 +214,7 @@ export default function About() {
                       style={{ width: '16px', height: '1px', backgroundColor: '#C5A882', marginBottom: '2px' }}
                     />
                     <p
-                      className="font-serif text-ink"
+                      className="font-sans text-ink"
                       style={{ fontSize: 'clamp(1.1rem, 1.6vw, 1.3rem)', lineHeight: 1.2 }}
                     >
                       {f.name}
@@ -253,7 +253,7 @@ export default function About() {
               initial={{ opacity: 0, y: 12 }}
               animate={leftView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.72, duration: 0.8, ease }}
-              className="font-serif italic text-ink"
+              className="font-sans italic text-ink"
               style={{ fontSize: 'clamp(1.2rem, 2vw, 1.5rem)', lineHeight: 1.45 }}
             >
               &ldquo;{a.closing}&rdquo;

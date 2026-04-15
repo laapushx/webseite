@@ -34,7 +34,7 @@ export default function Nav() {
             {/* Logo */}
             <a
               href="#"
-              className="font-serif text-xl md:text-2xl tracking-widest text-ink hover:text-accent transition-colors duration-200"
+              className="font-sans text-xl md:text-2xl tracking-widest text-ink hover:text-accent transition-colors duration-200"
               onClick={closeMenu}
             >
               SUNXBÜ
@@ -46,7 +46,8 @@ export default function Nav() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="label-sm text-muted hover:text-ink transition-colors duration-200"
+                    className="label-sm hover:text-ink transition-colors duration-200"
+                    style={{ color: '#334155', fontWeight: 500 }}
                   >
                     {link.label}
                   </a>
@@ -61,6 +62,7 @@ export default function Nav() {
                 onClick={() => setLang(lang === 'de' ? 'en' : 'de')}
                 className="flex items-center gap-1.5 label-sm"
                 aria-label="Toggle language"
+                style={{ fontWeight: 500 }}
               >
                 <span className={lang === 'de' ? 'text-ink' : 'text-muted hover:text-ink transition-colors'}>
                   DE
@@ -72,7 +74,7 @@ export default function Nav() {
               </button>
               <a
                 href="#kontakt"
-                className="label-sm bg-ink text-surface px-5 py-2.5 rounded hover:bg-accent hover:text-ink transition-all duration-200"
+                className="label-sm bg-ink text-surface px-7 py-3.5 rounded-full hover:bg-accent hover:text-ink transition-all duration-200"
               >
                 {tr.nav.cta}
               </a>
@@ -135,7 +137,8 @@ export default function Nav() {
                   <a
                     href={link.href}
                     onClick={closeMenu}
-                    className="block font-serif text-4xl text-ink py-3 border-b border-border hover:text-accent transition-colors"
+                    className="block font-sans text-4xl py-3 border-b border-border hover:text-accent transition-colors"
+                    style={{ color: '#334155' }}
                   >
                     {link.label}
                   </a>
@@ -150,7 +153,7 @@ export default function Nav() {
               <a
                 href="#kontakt"
                 onClick={closeMenu}
-                className="label-sm flex w-full items-center justify-center bg-ink text-surface px-6 py-4 rounded hover:bg-accent hover:text-ink transition-all"
+                className="label-sm flex w-full items-center justify-center bg-ink text-surface px-7 py-3.5 rounded-full hover:bg-accent hover:text-ink transition-all"
               >
                 {tr.nav.cta}
               </a>

@@ -1,20 +1,6 @@
 import type { Metadata } from 'next'
-import { Cormorant_Garamond, Inter } from 'next/font/google'
 import { LanguageProvider } from '@/context/LanguageContext'
 import './globals.css'
-
-const cormorant = Cormorant_Garamond({
-  variable: '--font-cormorant',
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  display: 'swap',
-})
-
-const inter = Inter({
-  variable: '--font-inter',
-  subsets: ['latin'],
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
   title: 'SUNXBÜ — Premium Webdesign. Stuttgart × Dubai.',
@@ -72,7 +58,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="de" className={`${cormorant.variable} ${inter.variable}`}>
+    <html lang="de">
+      <head>
+        <link
+          href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="antialiased">
         <LanguageProvider>{children}</LanguageProvider>
       </body>

@@ -5,15 +5,14 @@
   --color-bg: #F8F7F4;
   --color-surface: #FFFFFF;
   --color-surface-2: #F2F0EB;
-  --color-ink: #1A1A18;
+  --color-ink: #1F2937;
   --color-muted: #8A8A7A;
   --color-accent: #C5A882;
   --color-accent-dark: #A68C68;
   --color-border: #E8E5DF;
 
-  /* Typography */
-  --font-serif: var(--font-cormorant), "Georgia", serif;
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  /* Typography — Satoshi only */
+  --font-sans: 'Satoshi', system-ui, sans-serif;
 
   /* Easing */
   --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
@@ -37,6 +36,7 @@ body {
   background-color: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  font-weight: 400;
   line-height: 1.6;
 }
 
@@ -67,29 +67,31 @@ body {
   outline-offset: 3px;
 }
 
-/* Typography utilities */
+/* ── Typography utilities ── */
+
 .heading-display {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
 .heading-xl {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.015em;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
 .label-sm {
+  font-family: var(--font-sans);
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 300;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-/* Layout utility */
+/* ── Layout utility ── */
 .container-main {
   max-width: 80rem;
   margin-left: auto;
