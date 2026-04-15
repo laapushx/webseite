@@ -11,7 +11,17 @@ const hoverEase = [0.25, 0.46, 0.45, 0.94] as [number, number, number, number]
 
 const RADIUS = '1rem'
 
-// ─── Portrait placeholder ─────────────────────────────────────────────────────
+const C = {
+  ink:      '#1C1C1C',
+  muted:    '#6F6763',
+  faint:    'rgba(111,103,99,0.48)',
+  burgundy: '#7A2E3A',
+  burRule:  'rgba(122,46,58,0.30)',
+  blue:     '#1C2B42',
+  bg:       '#FAF9F7',
+}
+
+// ─── Portrait ─────────────────────────────────────────────────────────────────
 
 function Portrait({
   initial,
@@ -19,12 +29,14 @@ function Portrait({
   highlightOrigin,
   name,
   role,
+  photo,
 }: {
   initial:         string
   gradient:        string
   highlightOrigin: string
   name:            string
   role:            string
+  photo?:          string
 }) {
   return (
     <div
@@ -32,85 +44,65 @@ function Portrait({
       style={{
         aspectRatio: '3 / 4',
         borderRadius: RADIUS,
-        // Shadow lives here so it rotates naturally with the frame
-        boxShadow: '0 24px 64px rgba(31,41,55,0.16), 0 6px 20px rgba(31,41,55,0.08)',
+        boxShadow: '0 28px 60px rgba(20,6,13,0.26), 0 6px 20px rgba(20,6,13,0.14)',
       }}
     >
-      {/* ── Background gradient ── */}
-      <div className="absolute inset-0" style={{ background: gradient }} />
+      {photo ? (
+        <>
+          <img
+            src={photo}
+            alt={name}
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+          <div
+            className="absolute inset-0"
+            style={{ background: 'rgba(74,22,40,0.08)' }}
+          />
+        </>
+      ) : (
+        <>
+          <div className="absolute inset-0" style={{ background: gradient }} />
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `radial-gradient(ellipse at ${highlightOrigin}, rgba(220,160,110,0.06) 0%, transparent 58%)`,
+            }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+              opacity: 0.05,
+            }}
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 flex items-center justify-center select-none pointer-events-none"
+          >
+            <span
+              className="font-sans italic"
+              style={{ fontSize: 'clamp(7rem, 18vw, 14rem)', color: 'rgba(197,168,130,0.08)', lineHeight: 1 }}
+            >
+              {initial}
+            </span>
+          </div>
+        </>
+      )}
 
-      {/* ── Directional highlight ── */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: `radial-gradient(ellipse at ${highlightOrigin}, rgba(255,255,255,0.07) 0%, transparent 62%)`,
-        }}
-      />
-
-      {/* ── Grain ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-          opacity: 0.05,
-        }}
-      />
-
-      {/* ── Ghost initial — atmospheric only ── */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 flex items-center justify-center select-none pointer-events-none"
-      >
-        <span
-          className="font-sans italic"
-          style={{
-            fontSize:   'clamp(7rem, 18vw, 14rem)',
-            color:      'rgba(197,168,130,0.07)',
-            lineHeight: 1,
-          }}
-        >
-          {initial}
-        </span>
-      </div>
-
-      {/*
-        ── Real portrait ──
-        When photos are ready, uncomment and adjust the path:
-
-        <img
-          src={`/images/founders/${initial.toLowerCase()}.jpg`}
-          alt={name}
-          className="absolute inset-0 w-full h-full object-cover object-top"
-        />
-      */}
-
-      {/* ── Name overlay — bottom of frame ── */}
+      {/* Name overlay */}
       <div className="absolute inset-x-0 bottom-0 pointer-events-none">
-        {/* Fade-to-dark veil */}
         <div
           className="absolute inset-x-0 bottom-0"
           style={{
-            height:     '45%',
-            background: 'linear-gradient(to top, rgba(14,14,12,0.72) 0%, transparent 100%)',
+            height: '50%',
+            background: 'linear-gradient(to top, rgba(12,5,8,0.88) 0%, rgba(12,5,8,0.3) 60%, transparent 100%)',
           }}
         />
-        {/* Text */}
-        <div className="relative px-5 pb-5 pt-0">
-          <p
-            className="font-sans text-white"
-            style={{ fontSize: '1.05rem', lineHeight: 1.2, opacity: 0.92 }}
-          >
+        <div className="relative px-5 pb-5">
+          <p className="text-base font-medium" style={{ color: '#FFF6F2', opacity: 0.96 }}>
             {name}
           </p>
-          <p
-            className="label-sm"
-            style={{
-              fontSize:      '0.62rem',
-              letterSpacing: '0.14em',
-              color:         'rgba(255,255,255,0.42)',
-              marginTop:     '4px',
-            }}
-          >
+          <p className="text-sm font-normal mt-0.5" style={{ color: 'rgba(255,246,242,0.45)' }}>
             {role}
           </p>
         </div>
@@ -136,169 +128,121 @@ export default function About() {
   return (
     <section
       id="about"
-      className="py-28 md:py-44 overflow-hidden"
-      style={{ backgroundColor: 'var(--color-surface)' }}
+      className="py-12 md:py-16 overflow-hidden"
+      style={{ backgroundColor: C.bg }}
     >
       <div className="container-main">
         <div className="flex flex-col lg:flex-row lg:items-start gap-16 lg:gap-20 xl:gap-28">
 
-          {/* ══════════════════════════════════════════════════════════════════
-              LEFT — editorial text (unchanged)
-          ══════════════════════════════════════════════════════════════════ */}
-          <div
-            ref={leftRef}
-            className="lg:w-[44%] xl:w-[42%] shrink-0 lg:sticky lg:top-28"
-          >
+          {/* ── LEFT ── */}
+          <div ref={leftRef} className="lg:w-[58%] xl:w-[55%] shrink-0 lg:sticky lg:top-28">
+
             {/* Eyebrow */}
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               animate={leftView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, ease }}
-              className="label-sm text-muted mb-8 md:mb-10"
-              style={{ letterSpacing: '0.2em' }}
+              className="text-sm font-medium mb-3"
+              style={{ letterSpacing: '0.18em', textTransform: 'uppercase', color: C.burgundy }}
             >
               {a.eyebrow}
             </motion.p>
 
             {/* Headline */}
-            <div className="overflow-hidden mb-8 md:mb-10">
+            <div className="mb-8 md:mb-10">
               <motion.h2
                 initial={{ opacity: 0, y: 30 }}
                 animate={leftView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.08, duration: 0.9, ease }}
-                className="heading-display text-ink"
-                style={{ fontSize: 'clamp(2.4rem, 4.5vw, 4rem)', lineHeight: 1.05 }}
+                className="text-3xl md:text-4xl font-semibold leading-[1.05] tracking-[-0.01em]"
               >
                 {a.headline.split('\n').map((line, i) => (
-                  <span key={i} className="block">
-                    {i === 1
-                      ? <em className="not-italic" style={{ color: 'var(--color-muted)' }}>{line}</em>
-                      : line}
+                  <span
+                    key={i}
+                    className={`block whitespace-nowrap${i === 1 ? ' mt-2' : ''}`}
+                    style={{ color: i === 0 ? C.ink : '#6f6763' }}
+                  >
+                    {line}
                   </span>
                 ))}
               </motion.h2>
             </div>
 
-            {/* Subline */}
+            {/* Story paragraph */}
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={leftView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.18, duration: 0.75, ease }}
-              className="text-muted leading-relaxed mb-12 md:mb-14"
-              style={{ fontSize: 'clamp(1rem, 1.4vw, 1.15rem)' }}
+              className="text-lg font-normal leading-relaxed mb-6"
+              style={{ color: C.muted }}
             >
-              {a.subline}
+              {a.story}
             </motion.p>
 
-            {/* Rule */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={leftView ? { scaleX: 1 } : {}}
-              transition={{ delay: 0.28, duration: 0.8, ease }}
-              className="origin-left mb-10 md:mb-12"
-              style={{ height: '1px', backgroundColor: 'var(--color-border)' }}
-            />
+            {/* Positioning paragraph */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={leftView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.28, duration: 0.75, ease }}
+              className="text-lg font-normal leading-relaxed mb-12 md:mb-16"
+              style={{ color: C.muted }}
+            >
+              {a.positioning}
+            </motion.p>
 
-            {/* Founder lines */}
-            <div className="flex flex-col gap-8 mb-12 md:mb-14">
+            {/* Names — minimal */}
+            <div className="flex flex-col gap-4">
               {[busra, aysun].map((f, i) => (
                 <motion.div
                   key={f.name}
-                  initial={{ opacity: 0, x: -14 }}
-                  animate={leftView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.35 + i * 0.12, duration: 0.7, ease }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={leftView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.38 + i * 0.1, duration: 0.6, ease }}
                 >
-                  <div className="flex items-baseline gap-3 mb-1.5">
-                    <span
-                      className="shrink-0 block"
-                      style={{ width: '16px', height: '1px', backgroundColor: '#C5A882', marginBottom: '2px' }}
-                    />
-                    <p
-                      className="font-sans text-ink"
-                      style={{ fontSize: 'clamp(1.1rem, 1.6vw, 1.3rem)', lineHeight: 1.2 }}
-                    >
-                      {f.name}
-                    </p>
-                  </div>
                   <p
-                    className="text-muted leading-relaxed"
-                    style={{ fontSize: '0.875rem', paddingLeft: '28px' }}
+                    className="text-base font-medium transition-colors duration-200 mb-1.5"
+                    style={{ color: C.ink }}
+                    onMouseEnter={e => (e.currentTarget.style.color = C.blue)}
+                    onMouseLeave={e => (e.currentTarget.style.color = C.ink)}
                   >
-                    {f.line}
+                    {f.name}
                   </p>
-                  <p
-                    className="label-sm"
-                    style={{
-                      fontSize: '0.65rem', letterSpacing: '0.16em',
-                      color: 'rgba(138,138,122,0.6)', paddingLeft: '28px', marginTop: '6px',
-                    }}
-                  >
+                  <p className="text-sm font-normal" style={{ color: C.faint, letterSpacing: '0.01em' }}>
                     {f.role}
                   </p>
                 </motion.div>
               ))}
             </div>
 
-            {/* Rule */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={leftView ? { scaleX: 1 } : {}}
-              transition={{ delay: 0.62, duration: 0.8, ease }}
-              className="origin-left mb-8 md:mb-9"
-              style={{ height: '1px', backgroundColor: 'var(--color-border)' }}
-            />
-
-            {/* Closing */}
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={leftView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.72, duration: 0.8, ease }}
-              className="font-sans italic text-ink"
-              style={{ fontSize: 'clamp(1.2rem, 2vw, 1.5rem)', lineHeight: 1.45 }}
-            >
-              &ldquo;{a.closing}&rdquo;
-            </motion.p>
           </div>
 
-          {/* ══════════════════════════════════════════════════════════════════
-              RIGHT — rotated + offset portrait composition
-          ══════════════════════════════════════════════════════════════════ */}
+          {/* ── RIGHT — portrait composition ── */}
           <div ref={rightRef} className="lg:flex-1">
 
-            {/* ── MOBILE — stacked with slight overlap + rotation ── */}
+            {/* Mobile */}
             <div className="lg:hidden relative">
-              {/* Büsra */}
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 animate={rightView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.9, delay: 0.1, ease }}
-                whileHover={{
-                  scale: 1.03,
-                  rotate: -0.6,
-                  transition: { duration: 0.45, ease: hoverEase },
-                }}
+                whileHover={{ scale: 1.03, rotate: -0.6, transition: { duration: 0.45, ease: hoverEase } }}
                 style={{ rotate: -2, originX: '50%', originY: '50%', zIndex: 10, position: 'relative' }}
                 className="w-[76%]"
               >
                 <Portrait
                   initial={busra.initial}
-                  gradient="linear-gradient(158deg, #181816 0%, #252521 52%, #1a1a18 100%)"
+                  gradient="linear-gradient(155deg, #120A0D 0%, #1E0E15 50%, #150B10 100%)"
                   highlightOrigin="28% 22%"
                   name={busra.name}
                   role={busra.role}
                 />
               </motion.div>
 
-              {/* Aysun — offset right + overlapping */}
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 animate={rightView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.9, delay: 0.28, ease }}
-                whileHover={{
-                  scale: 1.03,
-                  rotate: 0.6,
-                  transition: { duration: 0.45, ease: hoverEase },
-                }}
+                whileHover={{ scale: 1.03, rotate: 0.6, transition: { duration: 0.45, ease: hoverEase } }}
                 style={{
                   rotate: 2, originX: '50%', originY: '50%',
                   zIndex: 20, position: 'relative',
@@ -308,85 +252,68 @@ export default function About() {
               >
                 <Portrait
                   initial={aysun.initial}
-                  gradient="linear-gradient(158deg, #1c1c1a 0%, #2a2a26 52%, #1a1a18 100%)"
+                  gradient="linear-gradient(155deg, #160C10 0%, #221018 50%, #180D12 100%)"
                   highlightOrigin="72% 28%"
                   name={aysun.name}
                   role={aysun.role}
+                  photo="/images/aysun.jpg"
                 />
               </motion.div>
             </div>
 
-            {/* ── DESKTOP — absolute offset + rotated composition ──
-                Geometry (right col ≈ 520–600px wide):
-                  Both images: 57% wide → ~300–340px
-                  Aspect 3:4  → ~400–453px tall
-                  Büsra: top 0, left 0
-                  Aysun: bottom 0, right 0 (container padded to show full image)
-                  Horizontal overlap ≈ 14% of col width → intentional layering
-                  Container min-height: 620px
-            ─────────────────────────────────────────────────────────────── */}
-            <div
-              className="hidden lg:block relative"
-              style={{ minHeight: '620px' }}
-            >
+            {/* Desktop — layered editorial stack */}
+            <div className="hidden lg:block relative" style={{ minHeight: '540px' }}>
 
-              {/* Büsra — top-left, rotated -2° */}
+              {/* Büsra — back card, top-left */}
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
-                animate={rightView ? { opacity: 1, y: 0, rotate: -2 } : { opacity: 0, y: 40, rotate: -2 }}
+                animate={rightView ? { opacity: 1, y: 0, rotate: -1.5 } : { opacity: 0, y: 40, rotate: -1.5 }}
                 transition={{ duration: 1.0, delay: 0.1, ease }}
-                whileHover={{
-                  scale: 1.03,
-                  rotate: -0.6,
-                  transition: { duration: 0.5, ease: hoverEase },
-                }}
+                whileHover={{ scale: 1.02, rotate: -0.5, transition: { duration: 0.5, ease: hoverEase } }}
                 style={{
-                  position:       'absolute',
-                  top:            0,
-                  left:           0,
-                  width:          '57%',
-                  zIndex:         10,
-                  originX:        '50%',
-                  originY:        '50%',
-                  cursor:         'default',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '60%',
+                  zIndex: 10,
+                  originX: '50%',
+                  originY: '50%',
+                  cursor: 'default',
                 }}
               >
                 <Portrait
                   initial={busra.initial}
-                  gradient="linear-gradient(158deg, #181816 0%, #252521 52%, #1a1a18 100%)"
+                  gradient="linear-gradient(155deg, #120A0D 0%, #1E0E15 50%, #150B10 100%)"
                   highlightOrigin="28% 22%"
                   name={busra.name}
                   role={busra.role}
                 />
               </motion.div>
 
-              {/* Aysun — bottom-right, rotated +2°, in front */}
+              {/* Aysun — front card, overlapping bottom-right */}
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
-                animate={rightView ? { opacity: 1, y: 0, rotate: 2 } : { opacity: 0, y: 40, rotate: 2 }}
+                animate={rightView ? { opacity: 1, y: 0, rotate: 1.5 } : { opacity: 0, y: 40, rotate: 1.5 }}
                 transition={{ duration: 1.0, delay: 0.3, ease }}
-                whileHover={{
-                  scale: 1.03,
-                  rotate: 0.6,
-                  transition: { duration: 0.5, ease: hoverEase },
-                }}
+                whileHover={{ scale: 1.02, rotate: 0.5, transition: { duration: 0.5, ease: hoverEase } }}
                 style={{
-                  position:       'absolute',
-                  bottom:         0,
-                  right:          0,
-                  width:          '57%',
-                  zIndex:         20,
-                  originX:        '50%',
-                  originY:        '50%',
-                  cursor:         'default',
+                  position: 'absolute',
+                  top: '155px',
+                  left: '155px',
+                  width: '60%',
+                  zIndex: 20,
+                  originX: '50%',
+                  originY: '50%',
+                  cursor: 'default',
                 }}
               >
                 <Portrait
                   initial={aysun.initial}
-                  gradient="linear-gradient(158deg, #1c1c1a 0%, #2a2a26 52%, #1a1a18 100%)"
+                  gradient="linear-gradient(155deg, #160C10 0%, #221018 50%, #180D12 100%)"
                   highlightOrigin="72% 28%"
                   name={aysun.name}
                   role={aysun.role}
+                  photo="/images/aysun.jpg"
                 />
               </motion.div>
 

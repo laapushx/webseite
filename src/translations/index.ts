@@ -168,21 +168,19 @@ export const t = {
       ],
     },
     about: {
-      eyebrow: 'Die Gründerinnen',
-      headline: 'Zwei Perspektiven.\nEin Anspruch.',
-      subline: 'Kein Agentur-Apparat. Zwei Personen. Volle Verantwortung.',
-      closing: 'Wir gestalten für Ergebnisse, nicht für Applaus.',
+      eyebrow: 'Über uns',
+      headline: 'Wir haben zusammen studiert.\nHeute bauen wir Marken im Web.',
+      story: 'Wir haben früh gemerkt, dass für uns mehr vorgesehen ist. Dass wir nicht einfach nur Websites machen wollen, sondern Dinge schaffen, die wirklich durchdacht sind und Substanz haben. Nach Jahren haben wir wieder zusammengefunden und SUNXBÜ gegründet — mit dem Anspruch, etwas Eigenes aufzubauen. Etwas, das nicht austauschbar ist.',
+      positioning: 'Wir entwickeln keine Templates oder schnellen Lösungen. Sondern individuelle Websites, die den Charakter eines Businesses sichtbar machen — und genau das ausstrahlen, wofür es steht. Mit einem klaren Blick für Ästhetik und einem hohen Anspruch an Qualität entstehen so Auftritte, die nicht nur gut aussehen, sondern auch Ergebnisse liefern.',
       founders: [
         {
           name: 'Büsra Alili',
           role: 'Creative Direction · Stuttgart',
-          line: 'Strategie, Struktur und Umsetzung — mit Fokus auf messbare Ergebnisse.',
           initial: 'B',
         },
         {
           name: 'Aysun Caliskan',
           role: 'Brand & Communication · Dubai',
-          line: 'Marke, Ästhetik und Kommunikation — die nachhaltige Wirkung erzeugen.',
           initial: 'A',
         },
       ],
@@ -513,21 +511,19 @@ export const t = {
       ],
     },
     about: {
-      eyebrow: 'The Founders',
-      headline: 'Two Perspectives.\nOne Standard.',
-      subline: 'No agency apparatus. Two people. Full accountability.',
-      closing: 'We design for results, not for applause.',
+      eyebrow: 'About us',
+      headline: 'We studied together.\nToday we build brands on the web.',
+      story: 'We realised early on that we were meant for more than just building websites. We wanted to create things that are truly considered and have real substance. After years apart, we found each other again and founded SUNXBÜ — with the intention of building something of our own. Something that cannot be replaced.',
+      positioning: 'We don\'t build templates or quick solutions. We build individual websites that make the character of a business visible — and radiate exactly what it stands for. With a clear eye for aesthetics and a high standard for quality, the result is a presence that not only looks good, but delivers results.',
       founders: [
         {
           name: 'Büsra Alili',
           role: 'Creative Direction · Stuttgart',
-          line: 'Strategy, structure, and execution with focus on results.',
           initial: 'B',
         },
         {
           name: 'Aysun Caliskan',
           role: 'Brand & Communication · Dubai',
-          line: 'Brand, aesthetics, and communication that creates impact.',
           initial: 'A',
         },
       ],

@@ -1,6 +1,8 @@
 import Nav from '@/components/Nav'
+import ScrollToTop from '@/components/ScrollToTop'
 import Hero from '@/components/sections/Hero'
-import SocialProof from '@/components/sections/SocialProof'
+import TrustedBy from '@/components/sections/TrustedBy'
+import Statement from '@/components/sections/Statement'
 import Work from '@/components/sections/Work'
 import WhySunxbu from '@/components/sections/WhySunxbu'
 import About from '@/components/sections/About'
@@ -17,8 +19,9 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
+        <TrustedBy />
         <About />
-        <SocialProof />
+        <Statement />
         <Work />
         <WhySunxbu />
         <Process />
@@ -28,6 +31,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <ScrollToTop />
     </>
   )
 }

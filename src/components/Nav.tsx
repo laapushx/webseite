@@ -4,6 +4,33 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLanguage } from '@/context/LanguageContext'
 
+// Colors when nav is transparent (over hero)
+const light = {
+  logo:      '#FFF6F2',
+  link:      'rgba(255,246,242,0.88)',
+  linkHover: '#FFFFFF',
+  langActive:'#FFFFFF',
+  langInactive: 'rgba(255,246,242,0.55)',
+  sep:       'rgba(255,246,242,0.35)',
+}
+
+// Colors when nav is scrolled (over light bg)
+const dark = {
+  logo:      '#1C2B42',
+  link:      'rgba(28,43,66,0.80)',
+  linkHover: '#1C2B42',
+  langActive:'#1C2B42',
+  langInactive: 'rgba(28,43,66,0.45)',
+  sep:       'rgba(28,43,66,0.28)',
+}
+
+const N = {
+  ctaBg:    '#1C2B42',
+  ctaText:  '#FFF6F2',
+  ctaHover: '#243652',
+  ctaShadow:'0 10px 30px rgba(0,0,0,0.25)',
+}
+
 export default function Nav() {
   const { lang, setLang, tr } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
@@ -21,6 +48,7 @@ export default function Nav() {
   }, [menuOpen])
 
   const closeMenu = () => setMenuOpen(false)
+  const C = scrolled ? dark : light
 
   return (
     <>
@@ -34,7 +62,10 @@ export default function Nav() {
             {/* Logo */}
             <a
               href="#"
-              className="font-sans text-xl md:text-2xl tracking-widest text-ink hover:text-accent transition-colors duration-200"
+              className="font-sans text-xl md:text-2xl tracking-widest transition-colors duration-300"
+              style={{ color: C.logo }}
+              onMouseEnter={(e) => e.currentTarget.style.color = C.linkHover}
+              onMouseLeave={(e) => e.currentTarget.style.color = C.logo}
               onClick={closeMenu}
             >
               SUNXBÜ
@@ -46,8 +77,10 @@ export default function Nav() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="label-sm hover:text-ink transition-colors duration-200"
-                    style={{ color: '#334155', fontWeight: 500 }}
+                    className="transition-colors duration-200"
+                    style={{ color: C.link, fontWeight: 500, fontSize: '13px', letterSpacing: '0.06em' }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = C.linkHover}
+                    onMouseLeave={(e) => e.currentTarget.style.color = C.link}
                   >
                     {link.label}
                   </a>
@@ -58,23 +91,45 @@ export default function Nav() {
             {/* Desktop right */}
             <div className="hidden md:flex items-center gap-5">
               {/* DE | EN toggle */}
-              <button
-                onClick={() => setLang(lang === 'de' ? 'en' : 'de')}
-                className="flex items-center gap-1.5 label-sm"
-                aria-label="Toggle language"
-                style={{ fontWeight: 500 }}
-              >
-                <span className={lang === 'de' ? 'text-ink' : 'text-muted hover:text-ink transition-colors'}>
+              <div className="flex items-center gap-0.5" style={{ fontSize: '13px', fontWeight: 500 }}>
+                <button
+                  onClick={() => setLang('de')}
+                  aria-label="Deutsch"
+                  className="transition-all duration-200 px-2 py-1 rounded"
+                  style={{
+                    color: lang === 'de' ? C.langActive : C.langInactive,
+                    cursor: 'pointer',
+                    fontWeight: lang === 'de' ? 600 : 500,
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = C.linkHover}
+                  onMouseLeave={(e) => e.currentTarget.style.color = lang === 'de' ? C.langActive : C.langInactive}
+                >
                   DE
-                </span>
-                <span className="text-border select-none">|</span>
-                <span className={lang === 'en' ? 'text-ink' : 'text-muted hover:text-ink transition-colors'}>
+                </button>
+                <span style={{ color: C.sep }} className="select-none">·</span>
+                <button
+                  onClick={() => setLang('en')}
+                  aria-label="English"
+                  className="transition-all duration-200 px-2 py-1 rounded"
+                  style={{
+                    color: lang === 'en' ? C.langActive : C.langInactive,
+                    cursor: 'pointer',
+                    fontWeight: lang === 'en' ? 600 : 500,
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = C.linkHover}
+                  onMouseLeave={(e) => e.currentTarget.style.color = lang === 'en' ? C.langActive : C.langInactive}
+                >
                   EN
-                </span>
-              </button>
+                </button>
+              </div>
+
+              {/* CTA */}
               <a
                 href="#kontakt"
-                className="label-sm bg-ink text-surface px-7 py-3.5 rounded-full hover:bg-accent hover:text-ink transition-all duration-200"
+                className="label-sm px-7 py-3.5 rounded-full transition-all duration-200"
+                style={{ backgroundColor: N.ctaBg, color: N.ctaText, boxShadow: N.ctaShadow }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = N.ctaHover}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = N.ctaBg}
               >
                 {tr.nav.cta}
               </a>
@@ -86,29 +141,34 @@ export default function Nav() {
                 onClick={() => setLang(lang === 'de' ? 'en' : 'de')}
                 className="flex items-center gap-1 label-sm"
               >
-                <span className={lang === 'de' ? 'text-ink' : 'text-muted'}>DE</span>
-                <span className="text-border select-none">|</span>
-                <span className={lang === 'en' ? 'text-ink' : 'text-muted'}>EN</span>
+                <span style={{ color: lang === 'de' ? C.langActive : C.link }}>DE</span>
+                <span style={{ color: C.sep }} className="select-none">|</span>
+                <span style={{ color: lang === 'en' ? C.langActive : C.link }}>EN</span>
               </button>
+
+              {/* Hamburger */}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="w-8 h-8 flex flex-col items-center justify-center gap-1.5 text-ink"
+                className="w-8 h-8 flex flex-col items-center justify-center gap-1.5"
                 aria-label="Menu"
               >
                 <motion.span
                   animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
                   transition={{ duration: 0.25 }}
-                  className="block w-6 h-px bg-ink origin-center"
+                  className="block w-6 h-px origin-center"
+                  style={{ backgroundColor: C.logo }}
                 />
                 <motion.span
                   animate={menuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
                   transition={{ duration: 0.2 }}
-                  className="block w-6 h-px bg-ink"
+                  className="block w-6 h-px"
+                  style={{ backgroundColor: C.logo }}
                 />
                 <motion.span
                   animate={menuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
                   transition={{ duration: 0.25 }}
-                  className="block w-6 h-px bg-ink origin-center"
+                  className="block w-6 h-px origin-center"
+                  style={{ backgroundColor: C.logo }}
                 />
               </button>
             </div>
@@ -138,7 +198,7 @@ export default function Nav() {
                     href={link.href}
                     onClick={closeMenu}
                     className="block font-sans text-4xl py-3 border-b border-border hover:text-accent transition-colors"
-                    style={{ color: '#334155' }}
+                    style={{ color: '#1C2B42' }}
                   >
                     {link.label}
                   </a>
@@ -153,7 +213,8 @@ export default function Nav() {
               <a
                 href="#kontakt"
                 onClick={closeMenu}
-                className="label-sm flex w-full items-center justify-center bg-ink text-surface px-7 py-3.5 rounded-full hover:bg-accent hover:text-ink transition-all"
+                className="label-sm flex w-full items-center justify-center px-7 py-3.5 rounded-full transition-all"
+                style={{ backgroundColor: N.ctaBg, color: N.ctaText }}
               >
                 {tr.nav.cta}
               </a>

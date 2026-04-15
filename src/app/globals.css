@@ -11,8 +11,9 @@
   --color-accent-dark: #A68C68;
   --color-border: #E8E5DF;
 
-  /* Typography — Satoshi only */
+  /* Typography — Satoshi */
   --font-sans: 'Satoshi', system-ui, sans-serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
 
   /* Easing */
   --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
@@ -72,15 +73,15 @@ body {
 .heading-display {
   font-family: var(--font-sans);
   font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
 
 .heading-xl {
   font-family: var(--font-sans);
   font-weight: 500;
   line-height: 1.15;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
 }
 
 .label-sm {
