@@ -99,10 +99,12 @@ export default function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9, ease }}
-          className="text-base md:text-lg leading-relaxed mx-auto mb-12"
-          style={{ color: 'rgba(31,41,55,0.52)', maxWidth: '26rem' }}
+          className="text-lg md:text-xl mx-auto mb-12"
+          style={{ color: 'rgba(31,41,55,0.52)', maxWidth: '52rem', lineHeight: 1.5 }}
         >
-          {h.subline}
+          {h.subline.split('\n').map((line, i) => (
+            <span key={i} className="block">{line}</span>
+          ))}
         </motion.p>
 
         {/* CTAs */}

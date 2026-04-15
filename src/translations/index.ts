@@ -15,7 +15,7 @@ export const t = {
       eyebrow: 'Stuttgart × Dubai',
       headline: 'Deine Marke verdient Sichtbarkeit,\ndie verkauft.',
       subline:
-        'Wir entwickeln Websites, die Vertrauen aufbauen, Anfragen generieren und messbar verkaufen.',
+        'Wir entwickeln Websites, die Vertrauen aufbauen, Anfragen generieren\nund messbar verkaufen.',
       cta_primary: 'Kostenloses Erstgespräch',
       cta_secondary: 'Leistungen ansehen',
     },
