@@ -93,7 +93,7 @@ export default function CaseStudyOverlay({
               </p>
 
               {/* Image placeholder */}
-              <div className="w-full aspect-video bg-surface-2 border border-border rounded-sm mb-10 flex items-center justify-center">
+              <div className="w-full aspect-video bg-surface-2 border border-border rounded-2xl mb-10 flex items-center justify-center">
                 <div className="text-center">
                   <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center mx-auto mb-3">
                     <span className="text-muted text-xl">◻</span>
@@ -105,7 +105,7 @@ export default function CaseStudyOverlay({
               {/* Second image placeholder */}
               <div className="grid grid-cols-2 gap-4 mb-10">
                 {[0, 1].map((i) => (
-                  <div key={i} className="aspect-square bg-surface-2 border border-border rounded-sm flex items-center justify-center">
+                  <div key={i} className="aspect-square bg-surface-2 border border-border rounded-2xl flex items-center justify-center">
                     <span className="label-sm text-muted">Bild {i + 1}</span>
                   </div>
                 ))}
@@ -114,7 +114,7 @@ export default function CaseStudyOverlay({
               {/* Tags */}
               <div className="flex flex-wrap gap-2 mb-10">
                 {project.tags.map((tag) => (
-                  <span key={tag} className="label-sm text-ink border border-border px-3 py-1.5 rounded-full">
+                  <span key={tag} className="label-sm text-ink border border-border px-3 py-1.5 rounded">
                     {tag}
                   </span>
                 ))}
@@ -138,7 +138,7 @@ export default function CaseStudyOverlay({
                 <a
                   href="#kontakt"
                   onClick={onClose}
-                  className="label-sm inline-flex items-center gap-2 bg-ink text-surface px-7 py-3.5 rounded-full hover:bg-accent hover:text-ink transition-all duration-200"
+                  className="label-sm inline-flex items-center gap-2 bg-ink text-surface px-7 py-3.5 rounded hover:bg-accent hover:text-ink transition-all duration-200"
                 >
                   Ähnliches Projekt anfragen ↗
                 </a>

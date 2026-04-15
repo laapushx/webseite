@@ -110,3 +110,30 @@ body {
   border: none;
   border-top: 1px solid var(--color-border);
 }
+
+/* Film grain animation */
+@keyframes grain {
+  0%,
+  100% { transform: translate(0, 0) }
+  10%  { transform: translate(-2%, -4%) }
+  20%  { transform: translate(-6%,  2%) }
+  30%  { transform: translate( 3%, -5%) }
+  40%  { transform: translate(-2%,  5%) }
+  50%  { transform: translate(-5%,  3%) }
+  60%  { transform: translate( 5%, -1%) }
+  70%  { transform: translate( 1%,  5%) }
+  80%  { transform: translate(-3%, -2%) }
+  90%  { transform: translate(-2%,  4%) }
+}
+
+/* Text clip reveal */
+.clip-reveal {
+  overflow: hidden;
+  display: block;
+}
+
+/* Dark section base */
+.section-dark {
+  background-color: var(--color-ink);
+  color: var(--color-surface);
+}

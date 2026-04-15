@@ -72,7 +72,7 @@ export default function Nav() {
               </button>
               <a
                 href="#kontakt"
-                className="label-sm bg-ink text-surface px-5 py-2.5 rounded-full hover:bg-accent hover:text-ink transition-all duration-200"
+                className="label-sm bg-ink text-surface px-5 py-2.5 rounded hover:bg-accent hover:text-ink transition-all duration-200"
               >
                 {tr.nav.cta}
               </a>
@@ -150,7 +150,7 @@ export default function Nav() {
               <a
                 href="#kontakt"
                 onClick={closeMenu}
-                className="label-sm flex w-full items-center justify-center bg-ink text-surface px-6 py-4 rounded-full hover:bg-accent hover:text-ink transition-all"
+                className="label-sm flex w-full items-center justify-center bg-ink text-surface px-6 py-4 rounded hover:bg-accent hover:text-ink transition-all"
               >
                 {tr.nav.cta}
               </a>

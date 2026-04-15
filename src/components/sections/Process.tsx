@@ -4,6 +4,8 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { useLanguage } from '@/context/LanguageContext'
 
+const ease = [0.16, 1, 0.3, 1] as [number, number, number, number]
+
 export default function Process() {
   const { tr } = useLanguage()
   const ref = useRef(null)
@@ -11,71 +13,123 @@ export default function Process() {
   const p = tr.process
 
   return (
-    <section id="prozess" className="py-24 md:py-36 bg-bg">
+    <section id="prozess" className="py-24 md:py-40 bg-bg overflow-hidden">
       <div className="container-main">
         {/* Header */}
-        <div ref={ref} className="mb-16 md:mb-24">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="label-sm text-muted mb-4"
+        <div ref={ref} className="mb-20 md:mb-28 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5 }}
+              className="label-sm text-muted mb-4"
+            >
+              {p.eyebrow}
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 22 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.1, duration: 0.8, ease }}
+              className="heading-xl text-ink"
+              style={{ fontSize: 'clamp(2rem, 4.5vw, 3.75rem)' }}
+            >
+              {p.headline.split('\n').map((line, i) => (
+                <span key={i} className="block">
+                  {i === 1 ? <span className="italic text-muted">{line}</span> : line}
+                </span>
+              ))}
+            </motion.h2>
+          </div>
+
+          {/* Desktop: step count */}
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="label-sm text-muted hidden md:block"
           >
-            {p.eyebrow}
-          </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-            className="heading-xl text-ink"
-            style={{ fontSize: 'clamp(2rem, 4.5vw, 3.75rem)' }}
-          >
-            {p.headline.split('\n').map((line, i) => (
-              <span key={i} className="block">
-                {i === 1 ? <span className="italic text-muted">{line}</span> : line}
-              </span>
-            ))}
-          </motion.h2>
+            {p.steps.length} Schritte
+          </motion.span>
         </div>
 
         {/* Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-border">
           {p.steps.map((step, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.15 * i + 0.2, duration: 0.7, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-              className="relative"
+              transition={{ delay: 0.14 * i + 0.2, duration: 0.8, ease }}
+              className="relative group border-b md:border-b-0 border-border"
+              style={{
+                borderRight: i < p.steps.length - 1 ? '1px solid var(--color-border)' : undefined,
+              }}
             >
-              {/* Connector line — desktop */}
-              {i < p.steps.length - 1 && (
-                <motion.div
-                  initial={{ scaleX: 0 }}
-                  animate={inView ? { scaleX: 1 } : {}}
-                  transition={{ delay: 0.3 + 0.15 * i, duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-                  className="hidden md:block absolute top-5 left-full w-full h-px bg-accent/30 origin-left z-0"
-                  style={{ width: 'calc(100% - 2rem)' }}
-                />
-              )}
-
-              <div className="md:pr-12 pb-10 md:pb-0 border-b md:border-b-0 border-border last:border-0">
-                {/* Number with dot */}
-                <div className="flex items-center gap-3 mb-5">
-                  <span className="w-10 h-10 rounded-full border border-accent flex items-center justify-center font-serif text-sm text-accent">
+              <div className="pt-10 pb-12 md:pr-10 md:pl-0 px-0 overflow-hidden">
+                {/* Large background number */}
+                <div
+                  className="relative mb-8 h-24 md:h-28 flex items-center"
+                  style={{ paddingLeft: i > 0 ? '1rem' : 0 }}
+                >
+                  <span
+                    className="font-serif absolute top-0 left-0 leading-none select-none pointer-events-none transition-all duration-500 group-hover:opacity-100"
+                    style={{
+                      fontSize: 'clamp(5rem, 10vw, 8rem)',
+                      color: 'var(--color-border)',
+                      letterSpacing: '-0.04em',
+                      lineHeight: 1,
+                    }}
+                    aria-hidden="true"
+                  >
                     {step.number}
                   </span>
+
+                  {/* Connector line — desktop only, between steps */}
                   {i < p.steps.length - 1 && (
-                    <div className="md:hidden flex-1 h-px bg-border" />
+                    <motion.div
+                      initial={{ scaleX: 0 }}
+                      animate={inView ? { scaleX: 1 } : {}}
+                      transition={{ delay: 0.3 + 0.14 * i, duration: 1, ease }}
+                      className="hidden md:block absolute right-0 top-10 w-[120%] h-px origin-left"
+                      style={{ backgroundColor: 'rgba(197,168,130,0.18)', zIndex: 0 }}
+                    />
                   )}
                 </div>
 
-                <h3 className="font-serif text-xl md:text-2xl text-ink mb-3">{step.title}</h3>
-                <p className="text-muted text-sm md:text-base leading-relaxed">{step.description}</p>
+                {/* Content */}
+                <div style={{ paddingLeft: i > 0 ? '1rem' : 0 }}>
+                  <h3
+                    className="font-serif text-xl md:text-2xl text-ink mb-3 transition-colors duration-300 group-hover:text-accent"
+                    style={{ lineHeight: 1.2 }}
+                  >
+                    {step.title}
+                  </h3>
+                  <p className="text-muted text-sm md:text-base leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.7, duration: 0.6 }}
+          className="mt-16 md:mt-20 flex flex-col sm:flex-row items-start sm:items-center gap-4"
+        >
+          <a
+            href="#kontakt"
+            className="label-sm inline-flex items-center gap-3 bg-ink text-surface px-7 py-4 hover:bg-accent hover:text-ink transition-all duration-300"
+          >
+            Jetzt Projekt starten ↗
+          </a>
+          <span className="text-sm text-muted">
+            Kostenloses Erstgespräch · Kein Verkaufsdruck
+          </span>
+        </motion.div>
       </div>
     </section>
   )

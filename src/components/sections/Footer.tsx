@@ -42,7 +42,7 @@ export default function Footer() {
             <p className="label-sm text-surface/40 mb-4">Kontakt</p>
             <a
               href="#kontakt"
-              className="label-sm inline-flex items-center gap-2 border border-surface/20 text-surface/80 px-5 py-2.5 rounded-full hover:border-accent hover:text-accent transition-all duration-200"
+              className="label-sm inline-flex items-center gap-2 border border-surface/20 text-surface/80 px-5 py-2.5 rounded hover:border-accent hover:text-accent transition-all duration-200"
             >
               Projekt anfragen ↗
             </a>

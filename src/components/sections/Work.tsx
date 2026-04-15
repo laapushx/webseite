@@ -17,145 +17,199 @@ interface Project {
   featured?: boolean
 }
 
-function FeaturedCard({
+const ease = [0.16, 1, 0.3, 1] as [number, number, number, number]
+
+function ProjectPanel({
   project,
   view_case,
   onOpen,
-  inView,
+  index,
 }: {
   project: Project
   view_case: string
   onOpen: (p: Project) => void
-  inView: boolean
+  index: number
 }) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
+  const isEven = index % 2 === 0
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
+    <motion.article
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-      className="group relative bg-surface-2 border border-border rounded-sm overflow-hidden cursor-pointer mb-5"
+      transition={{ duration: 0.9, delay: 0.1, ease }}
+      className="group relative grid grid-cols-1 md:grid-cols-2 border-b border-border cursor-pointer overflow-hidden"
+      style={{ minHeight: '480px' }}
       onClick={() => onOpen(project)}
     >
-      {/* Image placeholder */}
-      <div className="w-full aspect-[16/7] bg-surface-2 flex items-center justify-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent" />
-        <div className="text-center z-10">
-          <div className="w-16 h-16 rounded-full border border-border flex items-center justify-center mx-auto mb-3">
-            <span className="text-muted text-2xl">◻</span>
-          </div>
-          <p className="label-sm text-muted">
-            {project.title}
-          </p>
+      {/* Image panel */}
+      <div
+        className={`relative overflow-hidden ${isEven ? 'md:order-2' : 'md:order-1'}`}
+        style={{ minHeight: '340px' }}
+      >
+        {/* Placeholder visual */}
+        <div
+          className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          style={{
+            background: isEven
+              ? 'linear-gradient(135deg, #1A1A18 0%, #252520 60%, #1A1A18 100%)'
+              : 'linear-gradient(135deg, #1E1E1C 0%, #2A2A24 60%, #1A1A18 100%)',
+          }}
+        />
+
+        {/* Large project number as background element */}
+        <div
+          className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
+          aria-hidden="true"
+        >
+          <span
+            className="font-serif leading-none"
+            style={{
+              fontSize: 'clamp(8rem, 18vw, 18rem)',
+              color: 'rgba(255,255,255,0.028)',
+              letterSpacing: '-0.04em',
+            }}
+          >
+            {project.number}
+          </span>
+        </div>
+
+        {/* Accent line */}
+        <motion.div
+          initial={{ scaleY: 0 }}
+          animate={inView ? { scaleY: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.4, ease }}
+          className={`absolute top-0 bottom-0 w-px origin-top ${isEven ? 'left-0' : 'right-0'}`}
+          style={{ backgroundColor: 'rgba(197,168,130,0.25)' }}
+        />
+
+        {/* Category + year label */}
+        <div className="absolute bottom-7 left-7 right-7 flex items-end justify-between">
+          <span
+            className="label-sm"
+            style={{ color: 'rgba(255,255,255,0.22)', letterSpacing: '0.14em' }}
+          >
+            {project.category}
+          </span>
+          <span
+            className="label-sm"
+            style={{ color: 'rgba(255,255,255,0.18)', letterSpacing: '0.12em' }}
+          >
+            {project.year}
+          </span>
         </div>
 
         {/* Hover overlay */}
-        <div className="absolute inset-0 bg-ink/0 group-hover:bg-ink/10 transition-colors duration-300" />
+        <div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          style={{ backgroundColor: 'rgba(197,168,130,0.04)' }}
+        />
       </div>
 
-      {/* Info bar */}
-      <div className="flex items-center justify-between p-6 md:p-8">
-        <div className="flex items-center gap-4 md:gap-6">
-          <span className="label-sm text-muted">{project.number}</span>
-          <span className="font-serif text-xl md:text-2xl text-ink">{project.title}</span>
-          <span className="hidden sm:block label-sm text-muted">{project.category}</span>
-        </div>
-        <button className="label-sm text-muted hover:text-ink transition-colors flex items-center gap-1.5">
-          {view_case} ↗
-        </button>
-      </div>
-    </motion.div>
-  )
-}
+      {/* Content panel */}
+      <div
+        className={`relative flex flex-col justify-between p-9 md:p-12 lg:p-16 bg-surface ${
+          isEven ? 'md:order-1' : 'md:order-2'
+        }`}
+      >
+        {/* Top: number + title */}
+        <div>
+          <motion.span
+            initial={{ opacity: 0, x: isEven ? -16 : 16 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.25, ease }}
+            className="label-sm text-accent block mb-5"
+          >
+            {project.number}
+          </motion.span>
 
-function SmallCard({
-  project,
-  view_case,
-  onOpen,
-  inView,
-  delay,
-}: {
-  project: Project
-  view_case: string
-  onOpen: (p: Project) => void
-  inView: boolean
-  delay: number
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-      className="group bg-surface-2 border border-border rounded-sm overflow-hidden cursor-pointer hover:border-accent/40 transition-colors duration-300"
-      onClick={() => onOpen(project)}
-    >
-      {/* Image placeholder */}
-      <div className="w-full aspect-[4/3] bg-surface-2 flex items-center justify-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent" />
-        <div className="text-center z-10">
-          <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center mx-auto mb-2">
-            <span className="text-muted">◻</span>
-          </div>
-          <p className="label-sm text-muted text-xs">{project.category}</p>
-        </div>
-        <div className="absolute inset-0 bg-ink/0 group-hover:bg-ink/5 transition-colors duration-300" />
-      </div>
+          <motion.h3
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.3, ease }}
+            className="heading-xl text-ink mb-4"
+            style={{ fontSize: 'clamp(1.6rem, 3vw, 2.6rem)' }}
+          >
+            {project.title}
+          </motion.h3>
 
-      {/* Info */}
-      <div className="p-5 md:p-6">
-        <div className="flex items-start justify-between gap-2">
-          <div>
-            <span className="label-sm text-accent block mb-1.5">{project.number}</span>
-            <h3 className="font-serif text-lg md:text-xl text-ink group-hover:text-accent transition-colors duration-200">
-              {project.title}
-            </h3>
-          </div>
-          <span className="text-muted group-hover:text-ink transition-colors text-xl shrink-0 mt-1">↗</span>
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.38, ease }}
+            className="text-muted text-sm md:text-base leading-relaxed mb-8 max-w-sm"
+          >
+            {project.description}
+          </motion.p>
+
+          {/* Tags */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.48, ease }}
+            className="flex flex-wrap gap-2 mb-8"
+          >
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="label-sm border rounded px-3 py-1.5 text-muted border-border"
+                style={{ fontSize: '0.65rem' }}
+              >
+                {tag}
+              </span>
+            ))}
+          </motion.div>
         </div>
-        <p className="text-muted text-xs md:text-sm leading-relaxed mt-2 line-clamp-2">
-          {project.description}
-        </p>
-        <div className="flex flex-wrap gap-1.5 mt-3">
-          {project.tags.slice(0, 2).map((tag) => (
-            <span key={tag} className="text-xs label-sm text-muted border border-border px-2 py-1 rounded-full">
-              {tag}
-            </span>
-          ))}
-        </div>
+
+        {/* CTA */}
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.55, ease }}
+          className="group/btn self-start flex items-center gap-3 label-sm text-ink transition-colors duration-200 hover:text-accent"
+        >
+          <span>{view_case}</span>
+          <span
+            className="w-7 h-7 border border-current rounded flex items-center justify-center transition-all duration-200 group-hover/btn:bg-accent group-hover/btn:border-accent group-hover/btn:text-ink"
+            style={{ fontSize: '0.8rem' }}
+          >
+            ↗
+          </span>
+        </motion.button>
       </div>
-    </motion.div>
+    </motion.article>
   )
 }
 
 export default function Work() {
   const { tr } = useLanguage()
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
+  const headerRef = useRef(null)
+  const headerInView = useInView(headerRef, { once: true, margin: '-60px' })
   const w = tr.work
 
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
-  const featured = w.projects.find((p) => p.featured)
-  const rest = w.projects.filter((p) => !p.featured)
-
   return (
     <>
-      <section id="projekte" className="py-24 md:py-36 bg-surface">
-        <div className="container-main">
-          {/* Header */}
-          <div ref={ref} className="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <section id="projekte" className="bg-surface">
+        {/* Section header */}
+        <div ref={headerRef} className="container-main pt-24 md:pt-36 pb-14 md:pb-16">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div>
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
+                animate={headerInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5 }}
                 className="label-sm text-muted mb-4 italic"
               >
                 {w.eyebrow}
               </motion.p>
               <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
+                initial={{ opacity: 0, y: 22 }}
+                animate={headerInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.1, duration: 0.8, ease }}
                 className="heading-xl text-ink"
                 style={{ fontSize: 'clamp(2rem, 4.5vw, 3.75rem)' }}
               >
@@ -166,37 +220,32 @@ export default function Work() {
                 ))}
               </motion.h2>
             </div>
-          </div>
 
-          {/* Featured project */}
-          {featured && (
-            <FeaturedCard
-              project={featured}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={headerInView ? { opacity: 1 } : {}}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="label-sm text-muted max-w-xs text-right hidden md:block"
+            >
+              {w.projects.length} Projekte
+            </motion.p>
+          </div>
+        </div>
+
+        {/* Border above projects */}
+        <div className="border-t border-border">
+          {w.projects.map((project, i) => (
+            <ProjectPanel
+              key={project.id}
+              project={project}
               view_case={w.view_case}
               onOpen={setSelectedProject}
-              inView={inView}
+              index={i}
             />
-          )}
-
-          {/* Smaller cards */}
-          {rest.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {rest.map((project, i) => (
-                <SmallCard
-                  key={project.id}
-                  project={project}
-                  view_case={w.view_case}
-                  onOpen={setSelectedProject}
-                  inView={inView}
-                  delay={0.15 * (i + 1) + 0.2}
-                />
-              ))}
-            </div>
-          )}
+          ))}
         </div>
       </section>
 
-      {/* Case Study Overlay */}
       <CaseStudyOverlay
         project={selectedProject}
         onClose={() => setSelectedProject(null)}

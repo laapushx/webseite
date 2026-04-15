@@ -4,6 +4,7 @@ export const t = {
       links: [
         { label: 'Leistungen', href: '#leistungen' },
         { label: 'Projekte', href: '#projekte' },
+        { label: 'Team', href: '#about' },
         { label: 'Prozess', href: '#prozess' },
         { label: 'Kontakt', href: '#kontakt' },
       ],
@@ -23,6 +24,12 @@ export const t = {
         'Kunden in 6 Branchen',
         'Stuttgart × Dubai',
         'Ø 4,9 Sterne Bewertung',
+      ],
+      metrics: [
+        { value: '30+', label: 'Abgeschlossene\nProjekte' },
+        { value: '6',   label: 'Bediente\nBranchen' },
+        { value: 'STR × DXB', label: 'Unsere\nStandorte' },
+        { value: '4,9★', label: 'Sterne\nBewertung' },
       ],
     },
     services: {
@@ -159,6 +166,26 @@ export const t = {
         },
       ],
     },
+    about: {
+      eyebrow: 'Die Gründerinnen',
+      headline: 'Zwei Perspektiven.\nEin Anspruch.',
+      subline: 'Kein Agentur-Apparat. Zwei Personen. Volle Verantwortung.',
+      closing: 'Wir gestalten für Ergebnisse, nicht für Applaus.',
+      founders: [
+        {
+          name: 'Büsra Alili',
+          role: 'Creative Direction · Stuttgart',
+          line: 'Strategie, Struktur und Umsetzung — mit Fokus auf messbare Ergebnisse.',
+          initial: 'B',
+        },
+        {
+          name: 'Aysun Caliskan',
+          role: 'Brand & Communication · Dubai',
+          line: 'Marke, Ästhetik und Kommunikation — die nachhaltige Wirkung erzeugen.',
+          initial: 'A',
+        },
+      ],
+    },
     work: {
       eyebrow: 'Selected Work',
       headline: 'Projekte, die\nwir stolz zeigen.',
@@ -201,6 +228,41 @@ export const t = {
           tags: ['Onepager', 'Terminbuchung', 'Branding'],
           deliverables: ['Custom Design', 'Terminbuchung', 'Mobile-Optimierung', 'Branding'],
           featured: false,
+        },
+      ],
+    },
+    testimonials: {
+      eyebrow: 'Kundenstimmen',
+      headline: 'Ergebnisse,\ndie überzeugen.',
+      subline: 'Nicht unsere Worte — die unserer Kunden.',
+      items: [
+        {
+          quote:
+            'Unsere Anfragen haben sich in den ersten vier Wochen nach dem Launch verdoppelt. Das war keine schöne Website — das war ein funktionierendes Vertriebssystem.',
+          name: 'Thomas M.',
+          role: 'Architekturbüro · Stuttgart',
+          initial: 'T',
+        },
+        {
+          quote:
+            'Endlich eine Agentur, die versteht, dass Design ein Geschäftsmittel ist — kein Selbstzweck. Klar, schnell, und das Ergebnis spricht für sich.',
+          name: 'Sarah K.',
+          role: 'Unternehmerin · Dubai',
+          initial: 'S',
+        },
+        {
+          quote:
+            'Der Prozess war so angenehm wie das Ergebnis. Unsere Kanzlei wirkt jetzt genau so, wie wir uns fühlen: erstklassig und vertrauenswürdig.',
+          name: 'Michael R.',
+          role: 'Rechtsanwalt · Stuttgart',
+          initial: 'M',
+        },
+        {
+          quote:
+            'Ich habe drei Angebote eingeholt. SUNXBÜ war nicht das günstigste — aber mit Abstand das beste Ergebnis. Das zahlt sich jeden Tag aus.',
+          name: 'Lena B.',
+          role: 'Beauty Studio · München',
+          initial: 'L',
         },
       ],
     },
@@ -286,6 +348,7 @@ export const t = {
       links: [
         { label: 'Services', href: '#leistungen' },
         { label: 'Work', href: '#projekte' },
+        { label: 'Team', href: '#about' },
         { label: 'Process', href: '#prozess' },
         { label: 'Contact', href: '#kontakt' },
       ],
@@ -305,6 +368,12 @@ export const t = {
         'Clients in 6 industries',
         'Stuttgart × Dubai',
         'Avg. 4.9 star rating',
+      ],
+      metrics: [
+        { value: '30+', label: 'Completed\nProjects' },
+        { value: '6',   label: 'Industries\nServed' },
+        { value: 'STR × DXB', label: 'Our\nLocations' },
+        { value: '4.9★', label: 'Star\nRating' },
       ],
     },
     services: {
@@ -441,6 +510,26 @@ export const t = {
         },
       ],
     },
+    about: {
+      eyebrow: 'The Founders',
+      headline: 'Two Perspectives.\nOne Standard.',
+      subline: 'No agency apparatus. Two people. Full accountability.',
+      closing: 'We design for results, not for applause.',
+      founders: [
+        {
+          name: 'Büsra Alili',
+          role: 'Creative Direction · Stuttgart',
+          line: 'Strategy, structure, and execution with focus on results.',
+          initial: 'B',
+        },
+        {
+          name: 'Aysun Caliskan',
+          role: 'Brand & Communication · Dubai',
+          line: 'Brand, aesthetics, and communication that creates impact.',
+          initial: 'A',
+        },
+      ],
+    },
     work: {
       eyebrow: 'Selected Work',
       headline: 'Projects we are\nproud to show.',
@@ -483,6 +572,41 @@ export const t = {
           tags: ['One-Pager', 'Booking', 'Branding'],
           deliverables: ['Custom Design', 'Booking Integration', 'Mobile Optimisation', 'Branding'],
           featured: false,
+        },
+      ],
+    },
+    testimonials: {
+      eyebrow: 'Client Stories',
+      headline: 'Results that\nconvince.',
+      subline: 'Not our words — our clients\'.',
+      items: [
+        {
+          quote:
+            'Our enquiries doubled within the first four weeks of launch. This wasn\'t just a beautiful website — it was a functioning sales system.',
+          name: 'Thomas M.',
+          role: 'Architecture Studio · Stuttgart',
+          initial: 'T',
+        },
+        {
+          quote:
+            'Finally an agency that understands design is a business tool — not an end in itself. Clear, fast, and the result speaks for itself.',
+          name: 'Sarah K.',
+          role: 'Entrepreneur · Dubai',
+          initial: 'S',
+        },
+        {
+          quote:
+            'The process was as pleasant as the outcome. Our firm now looks exactly how we feel: first class and trustworthy.',
+          name: 'Michael R.',
+          role: 'Attorney · Stuttgart',
+          initial: 'M',
+        },
+        {
+          quote:
+            'I got three quotes. SUNXBÜ wasn\'t the cheapest — but by far the best result. It pays off every single day.',
+          name: 'Lena B.',
+          role: 'Beauty Studio · Munich',
+          initial: 'L',
         },
       ],
     },

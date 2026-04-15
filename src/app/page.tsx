@@ -1,10 +1,12 @@
 import Nav from '@/components/Nav'
 import Hero from '@/components/sections/Hero'
 import SocialProof from '@/components/sections/SocialProof'
-import Services from '@/components/sections/Services'
-import WhySunxbu from '@/components/sections/WhySunxbu'
-import Process from '@/components/sections/Process'
 import Work from '@/components/sections/Work'
+import WhySunxbu from '@/components/sections/WhySunxbu'
+import About from '@/components/sections/About'
+import Process from '@/components/sections/Process'
+import Services from '@/components/sections/Services'
+import Testimonials from '@/components/sections/Testimonials'
 import FAQ from '@/components/sections/FAQ'
 import Contact from '@/components/sections/Contact'
 import Footer from '@/components/sections/Footer'
@@ -15,11 +17,13 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
+        <About />
         <SocialProof />
-        <Services />
+        <Work />
         <WhySunxbu />
         <Process />
-        <Work />
+        <Services />
+        <Testimonials />
         <FAQ />
         <Contact />
       </main>
