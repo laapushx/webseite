@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { useLanguage } from '@/context/LanguageContext'
 import CaseStudyOverlay from '@/components/CaseStudyOverlay'
 
@@ -18,6 +18,123 @@ interface Project {
 }
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number]
+
+const GRADIENTS = [
+  'linear-gradient(135deg, #1F2937 0%, #252520 60%, #1F2937 100%)',
+  'linear-gradient(135deg, #1E1E1C 0%, #2A2A24 60%, #1F2937 100%)',
+  'linear-gradient(135deg, #252520 0%, #1F2937 50%, #1E2030 100%)',
+  'linear-gradient(135deg, #1A1F2E 0%, #252520 60%, #1F2937 100%)',
+]
+
+// 280vh container → unstick at 180/280 = 0.643 → all animations end at 0.55 ✓
+function ZoomIntro({ projects, eyebrow, headline }: {
+  projects: Project[]
+  eyebrow: string
+  headline: string
+}) {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: scrollRef,
+    offset: ['start start', 'end start'],
+  })
+
+  const headlineScale   = useTransform(scrollYProgress, [0, 0.48], [1, 0.15])
+  const headlineOpacity = useTransform(scrollYProgress, [0, 0.07, 0.30, 0.45], [0, 1, 1, 0])
+  const mosaicOpacity   = useTransform(scrollYProgress, [0.35, 0.50], [0, 1])
+  const mosaicScale     = useTransform(scrollYProgress, [0.35, 0.55], [1.22, 1])
+  const scrollHint      = useTransform(scrollYProgress, [0, 0.10], [1, 0])
+
+  const lines = headline.split('\n')
+
+  return (
+    <div ref={scrollRef} style={{ height: '280vh', position: 'relative' }}>
+      <div
+        style={{
+          position: 'sticky',
+          top: 0,
+          height: '100vh',
+          overflow: 'hidden',
+          backgroundColor: 'var(--color-surface)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {/* Headline */}
+        <motion.div
+          style={{ scale: headlineScale, opacity: headlineOpacity, textAlign: 'center', position: 'relative', zIndex: 1 }}
+        >
+          <p className="label-sm text-accent mb-5" style={{ letterSpacing: '0.18em' }}>
+            {eyebrow}
+          </p>
+          <h2
+            className="text-ink"
+            style={{ fontSize: 'clamp(3.5rem, 10vw, 8rem)', fontWeight: 600, lineHeight: 1.0, letterSpacing: '-0.03em' }}
+          >
+            {lines.map((line, i) => (
+              <span key={i} className="block">
+                {i === 1
+                  ? <span className="italic" style={{ color: 'var(--color-muted)' }}>{line}</span>
+                  : line}
+              </span>
+            ))}
+          </h2>
+        </motion.div>
+
+        {/* Project mosaic */}
+        <motion.div
+          style={{
+            opacity: mosaicOpacity,
+            scale: mosaicScale,
+            position: 'absolute',
+            inset: 0,
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '6px',
+            padding: '6px',
+            pointerEvents: 'none',
+          }}
+        >
+          {projects.slice(0, 4).map((project, i) => (
+            <div
+              key={project.id}
+              style={{ position: 'relative', overflow: 'hidden', borderRadius: '8px', background: GRADIENTS[i % GRADIENTS.length] }}
+            >
+              <div
+                style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', userSelect: 'none' }}
+              >
+                <span style={{ fontSize: 'clamp(6rem, 14vw, 14rem)', color: 'rgba(255,255,255,0.04)', letterSpacing: '-0.04em', lineHeight: 1, fontWeight: 700 }}>
+                  {project.number}
+                </span>
+              </div>
+              <div
+                style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '20px 24px', background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%)' }}
+              >
+                <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: 'clamp(0.75rem, 1.5vw, 1rem)', fontWeight: 600, letterSpacing: '-0.01em', marginBottom: '2px' }}>
+                  {project.title}
+                </p>
+                <p style={{ color: 'rgba(255,255,255,0.38)', fontSize: 'clamp(0.6rem, 1vw, 0.75rem)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                  {project.category}
+                </p>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Scroll hint */}
+        <motion.div
+          style={{ opacity: scrollHint, position: 'absolute', bottom: 36, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}
+        >
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+            style={{ width: 1, height: 32, backgroundColor: 'rgba(0,0,0,0.18)', borderRadius: 1 }}
+          />
+        </motion.div>
+      </div>
+    </div>
+  )
+}
 
 
 function ProjectPanel({
@@ -177,6 +294,13 @@ export default function Work() {
   return (
     <>
       <section id="projekte" className="bg-surface">
+
+        {/* ── Scroll-driven zoom intro ── */}
+        <ZoomIntro
+          projects={w.projects}
+          eyebrow={w.eyebrow}
+          headline={w.headline}
+        />
 
         {/* ── Project panels ── */}
         <div className="border-t border-border">
