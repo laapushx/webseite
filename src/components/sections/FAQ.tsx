@@ -25,6 +25,7 @@ function FAQItem({
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: 0.07 * index, duration: 0.6, ease }}
       className="border-b border-border"
+      style={{ backgroundColor: open ? 'rgba(122,46,58,0.03)' : 'transparent', transition: 'background-color 0.3s ease' }}
     >
       <button
         onClick={() => setOpen(!open)}
@@ -87,7 +88,7 @@ export default function FAQ() {
               initial={{ opacity: 0, y: 10 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5 }}
-              className="label-sm text-muted mb-4"
+              className="label-sm text-accent mb-4"
             >
               {f.eyebrow}
             </motion.p>
@@ -97,7 +98,6 @@ export default function FAQ() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.1, duration: 0.8, ease }}
               className="heading-xl text-ink mb-8"
-              style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
             >
               {f.headline}
             </motion.h2>

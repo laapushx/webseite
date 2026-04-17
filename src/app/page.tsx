@@ -22,8 +22,8 @@ export default function Home() {
         <TrustedBy />
         <About />
         <Statement />
-        <Work />
         <WhySunxbu />
+        <Work />
         <Process />
         <Services />
         <Testimonials />

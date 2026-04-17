@@ -34,6 +34,7 @@ function PackageRow({
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: 0.09 * index, duration: 0.7, ease }}
       className="border-b border-border group"
+      style={{ backgroundColor: open ? 'rgba(122,46,58,0.03)' : 'transparent', transition: 'background-color 0.35s ease' }}
     >
       {/* Row header */}
       <div
@@ -49,8 +50,7 @@ function PackageRow({
         <div className="flex-1 min-w-0">
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-2">
             <h3
-              className="font-sans text-2xl md:text-3xl text-ink transition-colors duration-300 group-hover:text-accent"
-              style={{ lineHeight: 1.15 }}
+              className="h3 text-ink transition-colors duration-300 group-hover:text-accent"
             >
               {pkg.name}
             </h3>
@@ -58,8 +58,8 @@ function PackageRow({
               <span
                 className="label-sm border rounded px-2.5 py-1 w-fit"
                 style={{
-                  color: '#C5A882',
-                  borderColor: 'rgba(197,168,130,0.4)',
+                  color: 'var(--color-accent)',
+                  borderColor: 'rgba(122,46,58,0.4)',
                   fontSize: '0.6rem',
                   letterSpacing: '0.18em',
                 }}
@@ -77,7 +77,7 @@ function PackageRow({
         <div className="flex items-center gap-5 md:gap-8 shrink-0">
           <span
             className="font-sans text-xl md:text-2xl"
-            style={{ color: '#C5A882', letterSpacing: '-0.01em' }}
+            style={{ color: 'var(--color-accent)', letterSpacing: '-0.01em' }}
           >
             {pkg.priceRange}
           </span>
@@ -121,7 +121,7 @@ function PackageRow({
                   <li key={i} className="flex items-start gap-3 text-sm text-muted">
                     <span
                       className="mt-[0.35rem] w-1 h-1 rounded-full shrink-0"
-                      style={{ backgroundColor: '#C5A882' }}
+                      style={{ backgroundColor: 'var(--color-accent)' }}
                     />
                     {f}
                   </li>
@@ -159,7 +159,7 @@ export default function Services() {
             initial={{ opacity: 0, y: 10 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="label-sm text-muted mb-4"
+            className="label-sm text-accent mb-4"
           >
             {s.eyebrow}
           </motion.p>
@@ -168,7 +168,6 @@ export default function Services() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.1, duration: 0.8, ease }}
             className="heading-xl text-ink"
-            style={{ fontSize: 'clamp(2rem, 4.5vw, 3.75rem)' }}
           >
             {s.headline.split('\n').map((line, i) => (
               <span key={i} className="block">

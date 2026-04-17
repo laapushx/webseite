@@ -65,7 +65,7 @@ function Portrait({
           <div
             className="absolute inset-0"
             style={{
-              background: `radial-gradient(ellipse at ${highlightOrigin}, rgba(220,160,110,0.06) 0%, transparent 58%)`,
+              background: `radial-gradient(ellipse at ${highlightOrigin}, rgba(122,46,58,0.06) 0%, transparent 58%)`,
             }}
           />
           <div
@@ -81,7 +81,7 @@ function Portrait({
           >
             <span
               className="font-sans italic"
-              style={{ fontSize: 'clamp(7rem, 18vw, 14rem)', color: 'rgba(197,168,130,0.08)', lineHeight: 1 }}
+              style={{ fontSize: 'clamp(7rem, 18vw, 14rem)', color: 'rgba(122,46,58,0.08)', lineHeight: 1 }}
             >
               {initial}
             </span>
@@ -142,8 +142,7 @@ export default function About() {
               initial={{ opacity: 0, y: 12 }}
               animate={leftView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, ease }}
-              className="text-sm font-medium mb-3"
-              style={{ letterSpacing: '0.18em', textTransform: 'uppercase', color: C.burgundy }}
+              className="label-sm text-accent mb-3"
             >
               {a.eyebrow}
             </motion.p>
@@ -160,7 +159,7 @@ export default function About() {
                   <span
                     key={i}
                     className={`block whitespace-nowrap${i === 1 ? ' mt-2' : ''}`}
-                    style={{ color: i === 0 ? C.ink : '#6f6763' }}
+                    style={{ color: 'var(--color-ink)' }}
                   >
                     {line}
                   </span>
@@ -173,8 +172,7 @@ export default function About() {
               initial={{ opacity: 0, y: 16 }}
               animate={leftView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.18, duration: 0.75, ease }}
-              className="text-lg font-normal leading-relaxed mb-6"
-              style={{ color: C.muted }}
+              className="text-lg leading-relaxed mb-6 text-muted"
             >
               {a.story}
             </motion.p>
@@ -184,8 +182,7 @@ export default function About() {
               initial={{ opacity: 0, y: 16 }}
               animate={leftView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.28, duration: 0.75, ease }}
-              className="text-lg font-normal leading-relaxed mb-12 md:mb-16"
-              style={{ color: C.muted }}
+              className="text-lg leading-relaxed mb-12 md:mb-16 text-muted"
             >
               {a.positioning}
             </motion.p>
@@ -229,13 +226,18 @@ export default function About() {
                 style={{ rotate: -2, originX: '50%', originY: '50%', zIndex: 10, position: 'relative' }}
                 className="w-[76%]"
               >
-                <Portrait
-                  initial={busra.initial}
-                  gradient="linear-gradient(155deg, #120A0D 0%, #1E0E15 50%, #150B10 100%)"
-                  highlightOrigin="28% 22%"
-                  name={busra.name}
-                  role={busra.role}
-                />
+                <motion.div
+                  animate={{ y: [0, -7, 0] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  <Portrait
+                    initial={busra.initial}
+                    gradient="linear-gradient(155deg, #120A0D 0%, #1E0E15 50%, #150B10 100%)"
+                    highlightOrigin="28% 22%"
+                    name={busra.name}
+                    role={busra.role}
+                  />
+                </motion.div>
               </motion.div>
 
               <motion.div
@@ -250,14 +252,19 @@ export default function About() {
                 }}
                 className="w-[76%]"
               >
-                <Portrait
-                  initial={aysun.initial}
-                  gradient="linear-gradient(155deg, #160C10 0%, #221018 50%, #180D12 100%)"
-                  highlightOrigin="72% 28%"
-                  name={aysun.name}
-                  role={aysun.role}
-                  photo="/images/aysun.jpg"
-                />
+                <motion.div
+                  animate={{ y: [0, -7, 0] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1.8 }}
+                >
+                  <Portrait
+                    initial={aysun.initial}
+                    gradient="linear-gradient(155deg, #160C10 0%, #221018 50%, #180D12 100%)"
+                    highlightOrigin="72% 28%"
+                    name={aysun.name}
+                    role={aysun.role}
+                    photo="/images/aysun.jpg"
+                  />
+                </motion.div>
               </motion.div>
             </div>
 
@@ -281,13 +288,18 @@ export default function About() {
                   cursor: 'default',
                 }}
               >
-                <Portrait
-                  initial={busra.initial}
-                  gradient="linear-gradient(155deg, #120A0D 0%, #1E0E15 50%, #150B10 100%)"
-                  highlightOrigin="28% 22%"
-                  name={busra.name}
-                  role={busra.role}
-                />
+                <motion.div
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  <Portrait
+                    initial={busra.initial}
+                    gradient="linear-gradient(155deg, #120A0D 0%, #1E0E15 50%, #150B10 100%)"
+                    highlightOrigin="28% 22%"
+                    name={busra.name}
+                    role={busra.role}
+                  />
+                </motion.div>
               </motion.div>
 
               {/* Aysun — front card, overlapping bottom-right */}
@@ -307,14 +319,19 @@ export default function About() {
                   cursor: 'default',
                 }}
               >
-                <Portrait
-                  initial={aysun.initial}
-                  gradient="linear-gradient(155deg, #160C10 0%, #221018 50%, #180D12 100%)"
-                  highlightOrigin="72% 28%"
-                  name={aysun.name}
-                  role={aysun.role}
-                  photo="/images/aysun.jpg"
-                />
+                <motion.div
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1.8 }}
+                >
+                  <Portrait
+                    initial={aysun.initial}
+                    gradient="linear-gradient(155deg, #160C10 0%, #221018 50%, #180D12 100%)"
+                    highlightOrigin="72% 28%"
+                    name={aysun.name}
+                    role={aysun.role}
+                    photo="/images/aysun.jpg"
+                  />
+                </motion.div>
               </motion.div>
 
             </div>

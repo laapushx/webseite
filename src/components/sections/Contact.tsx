@@ -8,24 +8,30 @@ type FormState = 'idle' | 'sending' | 'success' | 'error'
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number]
 
+const TRUST = {
+  de: [
+    'Kostenlos & unverbindlich',
+    'Antwort innerhalb von 24 Stunden',
+    'Direkt mit uns — kein Sales-Team',
+  ],
+  en: [
+    'Free & no obligation',
+    'Response within 24 hours',
+    'Directly with us — no sales team',
+  ],
+}
+
 export default function Contact() {
-  const { tr } = useLanguage()
-  const ref = useRef(null)
+  const { tr, lang } = useLanguage()
+  const ref = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
   const c = tr.contact
   const f = c.form
 
   const [state, setState] = useState<FormState>('idle')
-  const [values, setValues] = useState({
-    name: '',
-    email: '',
-    company: '',
-    projectType: '',
-    message: '',
-  })
-
+  const [values, setValues] = useState({ name: '', email: '', company: '', message: '' })
   const update = (field: keyof typeof values, value: string) =>
-    setValues((v) => ({ ...v, [field]: value }))
+    setValues(v => ({ ...v, [field]: value }))
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -38,331 +44,570 @@ export default function Contact() {
       })
       if (!res.ok) throw new Error()
       setState('success')
-      setValues({ name: '', email: '', company: '', projectType: '', message: '' })
+      setValues({ name: '', email: '', company: '', message: '' })
     } catch {
       setState('error')
     }
   }
 
-  const inputClass =
-    'w-full bg-transparent border-b text-white placeholder-text-white py-3.5 focus:outline-none transition-colors duration-200'
+  const trust = TRUST[lang]
+  const isDE = lang === 'de'
+
+  const focusField = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    e.target.style.borderColor = 'var(--color-ink)'
+  }
+  const blurField = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    e.target.style.borderColor = 'var(--color-border)'
+  }
 
   return (
     <section
       id="kontakt"
+      ref={ref}
       className="relative overflow-hidden"
-      style={{ backgroundColor: '#0D0D0B' }}
+      style={{
+        background: [
+          'radial-gradient(ellipse 85% 65% at 55% 35%, #4A1628 0%, transparent 62%)',
+          'radial-gradient(ellipse 65% 55% at 18% 75%, #2A0D18 0%, transparent 58%)',
+          'radial-gradient(ellipse 55% 50% at 82% 78%, #3A1020 0%, transparent 52%)',
+          '#14060D',
+        ].join(', '),
+      }}
     >
-      {/* Grain */}
+      {/* ── Top fade — blends from previous light section ── */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 pointer-events-none"
+        className="absolute top-0 left-0 right-0 h-24 pointer-events-none z-10"
+        style={{ background: 'linear-gradient(to bottom, rgba(250,249,247,0.06) 0%, transparent 100%)' }}
+      />
+
+      {/* ── Grain texture ── */}
+      <svg
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full pointer-events-none z-0"
+        style={{ opacity: 0.032 }}
+      >
+        <filter id="contact-grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.68" numOctaves="4" stitchTiles="stitch" />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#contact-grain)" />
+      </svg>
+
+      {/* ── Vignette — mirrors Hero ── */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none z-0"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-          opacity: 0.035,
-          animation: 'grain 10s steps(10) infinite',
+          background: 'radial-gradient(ellipse 78% 88% at 50% 44%, transparent 22%, rgba(8,2,5,0.65) 100%)',
         }}
       />
 
-      {/* Atmospheric orb */}
+      {/* ── Radial glow — warm bloom like Hero ── */}
       <div
         aria-hidden="true"
-        className="absolute bottom-0 right-0 w-[60vw] h-[60vw] pointer-events-none"
+        className="absolute inset-0 pointer-events-none z-0"
         style={{
-          background: 'radial-gradient(circle at 70% 80%, rgba(197,168,130,0.07) 0%, transparent 65%)',
+          background: 'radial-gradient(ellipse 52% 50% at 50% 30%, rgba(110,31,53,0.18) 0%, transparent 68%)',
         }}
       />
 
-      {/* ── Top edge ── */}
-      <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}
-      />
+      <div className="container-main relative z-20">
 
-      <div ref={ref} className="container-main relative z-10">
-        {/* ── Final CTA hero block ── */}
-        <div className="pt-24 md:pt-40 pb-16 md:pb-20 border-b" style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-end">
-            {/* Left: headline */}
-            <div>
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5 }}
-                className="label-sm mb-5"
-                style={{ color: 'rgba(197,168,130,0.65)', letterSpacing: '0.18em' }}
-              >
-                {c.eyebrow}
-              </motion.p>
+        {/* ══════════════════════════════════════
+            INTRO BLOCK — full width
+        ══════════════════════════════════════ */}
+        <div className="pt-12 md:pt-20 pb-10 md:pb-14 text-center">
 
-              <motion.h2
-                initial={{ opacity: 0, y: 28 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.12, duration: 0.9, ease }}
-                className="heading-xl text-white mb-6"
-                style={{ fontSize: 'clamp(2.4rem, 5.5vw, 5.5rem)', lineHeight: 1.06 }}
-              >
-                {c.headline.split('\n').map((line, i) => (
-                  <span key={i} className="block">
-                    {i === 1 ? (
-                      <span className="italic" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                        {line}
-                      </span>
-                    ) : (
-                      line
-                    )}
-                  </span>
-                ))}
-              </motion.h2>
-            </div>
+          {/* Eyebrow */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.1, ease }}
+            className="flex items-center justify-center gap-4 mb-6"
+          >
+            <span className="block w-6 h-px shrink-0" style={{ backgroundColor: 'rgba(255,246,242,0.14)' }} />
+            <span style={{ color: 'rgba(255,246,242,0.55)', fontSize: '11px', fontWeight: 500, letterSpacing: '0.22em', textTransform: 'uppercase' }}>
+              {c.eyebrow}
+            </span>
+            <span className="block w-6 h-px shrink-0" style={{ backgroundColor: 'rgba(255,246,242,0.14)' }} />
+          </motion.div>
 
-            {/* Right: subline + booking */}
-            <div>
-              <motion.p
-                initial={{ opacity: 0, y: 14 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.25, duration: 0.7 }}
-                className="text-base md:text-lg leading-relaxed mb-8 max-w-md"
-                style={{ color: 'rgba(255,255,255,0.38)' }}
-              >
-                {c.subline}
-              </motion.p>
-
-              {/* Booking card */}
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.38, duration: 0.7 }}
-                className="p-6 border rounded-2xl"
-                style={{ borderColor: 'rgba(255,255,255,0.1)' }}
-              >
-                <p
-                  className="label-sm mb-3"
-                  style={{ color: 'rgba(255,255,255,0.3)', letterSpacing: '0.14em' }}
+          {/* Main headline */}
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.18, duration: 0.95, ease }}
+            className="mx-auto"
+            style={{
+              fontSize: 'clamp(1.75rem, 3.5vw, 3rem)',
+              fontWeight: 600,
+              lineHeight: 1.06,
+              letterSpacing: '-0.02em',
+              color: '#FFF6F2',
+            }}
+          >
+            {isDE ? (
+              <>
+                <span className="block">Dein Projekt.</span>
+                <span
+                  className="block italic"
+                  style={{ color: 'rgba(255,246,242,0.42)', fontWeight: 400, fontSize: '0.88em' }}
                 >
-                  {c.booking.label}
-                </p>
-                <a
-                  href="https://cal.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="label-sm inline-flex items-center gap-2 text-white transition-colors duration-200 hover:text-accent"
-                  style={{ letterSpacing: '0.14em' }}
+                  Unser Anspruch.
+                </span>
+              </>
+            ) : (
+              <>
+                <span className="block">Your project.</span>
+                <span
+                  className="block italic"
+                  style={{ color: 'rgba(255,246,242,0.42)', fontWeight: 400, fontSize: '0.88em' }}
                 >
-                  {c.booking.cta} ↗
-                </a>
-                <p
-                  className="mt-3 text-xs"
-                  style={{ color: 'rgba(255,255,255,0.22)' }}
-                >
-                  {c.booking.note}
-                </p>
-              </motion.div>
-            </div>
-          </div>
+                  Our commitment.
+                </span>
+              </>
+            )}
+          </motion.h2>
+
+          {/* Subline */}
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.32, duration: 0.8, ease }}
+            className="mx-auto mt-5"
+            style={{
+              color: 'rgba(255,246,242,0.52)',
+              fontSize: 'clamp(0.875rem, 1.2vw, 1rem)',
+              lineHeight: 1.65,
+              maxWidth: '46ch',
+            }}
+          >
+            {isDE
+              ? 'Jedes gute Projekt beginnt mit einem Gespräch. Erzähl uns von deiner Idee — wir freuen uns wirklich darauf.'
+              : 'Every great project starts with a conversation. Tell us about your idea — we genuinely look forward to it.'}
+          </motion.p>
         </div>
 
-        {/* ── Contact form ── */}
+        {/* Horizontal rule */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.4, duration: 0.8, ease }}
-          className="py-16 md:py-20"
-        >
-          {state === 'success' ? (
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex flex-col items-start py-8"
+          initial={{ scaleX: 0 }}
+          animate={inView ? { scaleX: 1 } : {}}
+          transition={{ delay: 0.5, duration: 1.2, ease }}
+          className="origin-left mb-10 md:mb-12"
+          style={{ height: '1px', backgroundColor: 'rgba(255,246,242,0.10)' }}
+        />
+
+        {/* ══════════════════════════════════════
+            2-COL GRID
+        ══════════════════════════════════════ */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 pb-14 md:pb-20 items-start">
+
+          {/* ── LEFT: Brand / CTA ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3, duration: 0.9, ease }}
+            className="relative"
+          >
+            {/* Decorative large "30'" behind content */}
+            <div
+              aria-hidden="true"
+              className="absolute -top-6 -left-3 select-none pointer-events-none"
+              style={{
+                fontSize: 'clamp(5rem, 10vw, 9rem)',
+                fontWeight: 700,
+                lineHeight: 1,
+                color: 'rgba(255,255,255,0.022)',
+                letterSpacing: '-0.04em',
+                fontStyle: 'italic',
+              }}
             >
+              30&prime;
+            </div>
+
+            <div className="relative z-10 pt-2">
+
+              {/* Badge with pulsing dot */}
               <div
-                className="w-12 h-12 border rounded flex items-center justify-center mb-6"
-                style={{ borderColor: '#C5A882' }}
+                className="inline-flex items-center gap-2.5 mb-9"
+                style={{
+                  border: '1px solid rgba(122,46,58,0.38)',
+                  borderRadius: '999px',
+                  padding: '5px 14px 5px 10px',
+                }}
               >
-                <span style={{ color: '#C5A882', fontSize: '1.2rem' }}>✓</span>
-              </div>
-              <p className="font-sans text-2xl md:text-3xl text-white mb-2">{f.success}</p>
-            </motion.div>
-          ) : (
-            <form
-              onSubmit={handleSubmit}
-              className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10"
-            >
-              {/* Name */}
-              <div>
-                <label
-                  className="label-sm block mb-3"
-                  style={{ color: 'rgba(255,255,255,0.3)', letterSpacing: '0.14em' }}
-                >
-                  {f.name}
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={values.name}
-                  onChange={(e) => update('name', e.target.value)}
-                  placeholder="Vorname Nachname"
-                  className={inputClass}
-                  style={{
-                    borderColor: 'rgba(255,255,255,0.12)',
-                    color: 'rgba(255,255,255,0.85)',
-                    fontSize: '0.95rem',
-                  }}
-                  onFocus={(e) => (e.target.style.borderColor = 'rgba(197,168,130,0.6)')}
-                  onBlur={(e) => (e.target.style.borderColor = 'rgba(255,255,255,0.12)')}
-                />
-              </div>
-
-              {/* Email */}
-              <div>
-                <label
-                  className="label-sm block mb-3"
-                  style={{ color: 'rgba(255,255,255,0.3)', letterSpacing: '0.14em' }}
-                >
-                  {f.email}
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={values.email}
-                  onChange={(e) => update('email', e.target.value)}
-                  placeholder="name@unternehmen.de"
-                  className={inputClass}
-                  style={{
-                    borderColor: 'rgba(255,255,255,0.12)',
-                    color: 'rgba(255,255,255,0.85)',
-                    fontSize: '0.95rem',
-                  }}
-                  onFocus={(e) => (e.target.style.borderColor = 'rgba(197,168,130,0.6)')}
-                  onBlur={(e) => (e.target.style.borderColor = 'rgba(255,255,255,0.12)')}
-                />
-              </div>
-
-              {/* Company */}
-              <div>
-                <label
-                  className="label-sm block mb-3"
-                  style={{ color: 'rgba(255,255,255,0.3)', letterSpacing: '0.14em' }}
-                >
-                  {f.company}
-                </label>
-                <input
-                  type="text"
-                  value={values.company}
-                  onChange={(e) => update('company', e.target.value)}
-                  placeholder="Ihr Unternehmen"
-                  className={inputClass}
-                  style={{
-                    borderColor: 'rgba(255,255,255,0.12)',
-                    color: 'rgba(255,255,255,0.85)',
-                    fontSize: '0.95rem',
-                  }}
-                  onFocus={(e) => (e.target.style.borderColor = 'rgba(197,168,130,0.6)')}
-                  onBlur={(e) => (e.target.style.borderColor = 'rgba(255,255,255,0.12)')}
-                />
-              </div>
-
-              {/* Project type */}
-              <div>
-                <label
-                  className="label-sm block mb-3"
-                  style={{ color: 'rgba(255,255,255,0.3)', letterSpacing: '0.14em' }}
-                >
-                  {f.project_type}
-                </label>
-                <select
-                  required
-                  value={values.projectType}
-                  onChange={(e) => update('projectType', e.target.value)}
-                  className={`${inputClass} appearance-none cursor-pointer`}
-                  style={{
-                    borderColor: 'rgba(255,255,255,0.12)',
-                    color: values.projectType ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.3)',
-                    fontSize: '0.95rem',
-                  }}
-                  onFocus={(e) => (e.target.style.borderColor = 'rgba(197,168,130,0.6)')}
-                  onBlur={(e) => (e.target.style.borderColor = 'rgba(255,255,255,0.12)')}
-                >
-                  <option value="" disabled style={{ color: '#1F2937' }}>
-                    {f.project_placeholder}
-                  </option>
-                  {f.project_options.map((opt) => (
-                    <option key={opt} value={opt} style={{ color: '#1F2937' }}>
-                      {opt}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Message — full width */}
-              <div className="md:col-span-2">
-                <label
-                  className="label-sm block mb-3"
-                  style={{ color: 'rgba(255,255,255,0.3)', letterSpacing: '0.14em' }}
-                >
-                  {f.message}
-                </label>
-                <textarea
-                  required
-                  rows={3}
-                  value={values.message}
-                  onChange={(e) => update('message', e.target.value)}
-                  placeholder="z. B. Ich brauche eine neue Website für mein Beratungsunternehmen…"
-                  className={`${inputClass} resize-none`}
-                  style={{
-                    borderColor: 'rgba(255,255,255,0.12)',
-                    color: 'rgba(255,255,255,0.85)',
-                    fontSize: '0.95rem',
-                  }}
-                  onFocus={(e) => (e.target.style.borderColor = 'rgba(197,168,130,0.6)')}
-                  onBlur={(e) => (e.target.style.borderColor = 'rgba(255,255,255,0.12)')}
-                />
-              </div>
-
-              {/* Error */}
-              {state === 'error' && (
-                <p className="md:col-span-2 text-sm" style={{ color: '#e87070' }}>
-                  {f.error}
-                </p>
-              )}
-
-              {/* Submit */}
-              <div className="md:col-span-2 flex flex-col sm:flex-row items-start sm:items-center gap-5">
-                <button
-                  type="submit"
-                  disabled={state === 'sending'}
-                  className="label-sm px-7 py-3.5 rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                  style={{
-                    backgroundColor: '#C5A882',
-                    color: '#0D0D0B',
-                    letterSpacing: '0.14em',
-                  }}
-                  onMouseEnter={(e) => {
-                    if (state !== 'sending') e.currentTarget.style.backgroundColor = '#FFFFFF'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#C5A882'
-                  }}
-                >
-                  {state === 'sending' ? f.sending : f.submit}
-                </button>
                 <span
-                  className="text-xs"
-                  style={{ color: 'rgba(255,255,255,0.2)' }}
-                >
-                  Antwort innerhalb von 24 Stunden
+                  className="shrink-0"
+                  style={{
+                    width: 7,
+                    height: 7,
+                    borderRadius: '50%',
+                    backgroundColor: 'var(--color-accent)',
+                    display: 'block',
+                    boxShadow: '0 0 10px rgba(122,46,58,0.9)',
+                  }}
+                />
+                <span style={{
+                  fontSize: '0.6rem',
+                  letterSpacing: '0.18em',
+                  color: 'rgba(122,46,58,0.9)',
+                  textTransform: 'uppercase',
+                  fontWeight: 500,
+                }}>
+                  {isDE ? 'Kostenloses Erstgespräch' : 'Free Initial Consultation'}
                 </span>
               </div>
-            </form>
-          )}
-        </motion.div>
-      </div>
 
-      {/* Bottom spacer / footer merge */}
-      <div
-        className="h-px"
-        style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}
-      />
+              {/* Sub-headline */}
+              <div className="mb-7">
+                <h3
+                  style={{
+                    color: '#FFF6F2',
+                    fontSize: 'clamp(1.5rem, 2.6vw, 2.1rem)',
+                    fontWeight: 600,
+                    lineHeight: 1.15,
+                    letterSpacing: '-0.02em',
+                  }}
+                >
+                  <span className="block">
+                    {isDE ? '30 Minuten.' : '30 minutes.'}
+                  </span>
+                  <span
+                    className="block italic"
+                    style={{ color: 'rgba(255,246,242,0.4)', fontWeight: 400 }}
+                  >
+                    {isDE ? 'Ein ehrliches Gespräch.' : 'An honest conversation.'}
+                  </span>
+                </h3>
+              </div>
+
+              {/* Body */}
+              <p
+                className="mb-10 leading-relaxed"
+                style={{
+                  color: 'rgba(255,246,242,0.4)',
+                  fontSize: '0.9375rem',
+                  maxWidth: '36ch',
+                }}
+              >
+                {isDE
+                  ? 'Wir schauen gemeinsam, wo dein Business steht und was eine gute Website für dich leisten kann. Kein Pitch — danach weißt du genau, was der nächste Schritt ist.'
+                  : 'We look together at where your business stands and what a great website can do for you. No pitch — afterwards you\'ll know exactly what the next step is.'}
+              </p>
+
+              {/* CTA button */}
+              <motion.a
+                href="https://cal.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 rounded-full mb-14"
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  color: '#0D0D0B',
+                  padding: '14px 28px',
+                  fontSize: '0.7rem',
+                  fontWeight: 600,
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  transition: 'background-color 300ms, color 300ms, transform 200ms',
+                }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onMouseEnter={e => {
+                  const el = e.currentTarget as HTMLElement
+                  el.style.backgroundColor = 'var(--color-accent)'
+                  el.style.color = '#FFFFFF'
+                }}
+                onMouseLeave={e => {
+                  const el = e.currentTarget as HTMLElement
+                  el.style.backgroundColor = '#FFFFFF'
+                  el.style.color = '#0D0D0B'
+                }}
+              >
+                {c.booking.cta}
+                <span style={{ opacity: 0.55, fontSize: '0.9em' }}>↗</span>
+              </motion.a>
+
+              {/* Divider */}
+              <div style={{
+                height: '1px',
+                backgroundColor: 'rgba(255,246,242,0.10)',
+                marginBottom: '1.75rem',
+              }} />
+
+              {/* Trust signals */}
+              <ul className="flex flex-col gap-4">
+                {trust.map((text, i) => (
+                  <motion.li
+                    key={i}
+                    initial={{ opacity: 0, x: -14 }}
+                    animate={inView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ delay: 0.55 + i * 0.1, duration: 0.55, ease }}
+                    className="flex items-center gap-3.5"
+                  >
+                    <span
+                      className="shrink-0 flex items-center justify-center"
+                      style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: '50%',
+                        border: '1px solid rgba(122,46,58,0.4)',
+                        fontSize: '0.55rem',
+                        color: 'var(--color-accent)',
+                        fontWeight: 700,
+                      }}
+                    >
+                      ✓
+                    </span>
+                    <span style={{ color: 'rgba(255,246,242,0.52)', fontSize: '0.875rem' }}>
+                      {text}
+                    </span>
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+
+          {/* ── RIGHT: Form card ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.45, duration: 0.9, ease }}
+          >
+            <div
+              className="rounded-2xl overflow-hidden"
+              style={{
+                backgroundColor: '#FFFFFF',
+                boxShadow: '0 24px 80px rgba(0,0,0,0.35), 0 4px 16px rgba(0,0,0,0.15)',
+              }}
+            >
+              {state === 'success' ? (
+                <div className="flex flex-col items-center justify-center py-20 px-10 text-center gap-5">
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: 'rgba(122,46,58,0.08)' }}
+                  >
+                    <span style={{ color: 'var(--color-accent)', fontSize: '1.4rem' }}>✓</span>
+                  </div>
+                  <p
+                    className="text-ink font-medium"
+                    style={{ fontSize: '1rem', maxWidth: '28ch', lineHeight: 1.6 }}
+                  >
+                    {f.success}
+                  </p>
+                </div>
+              ) : (
+                <>
+                  {/* Form header strip */}
+                  <div
+                    className="px-8 md:px-10 pt-8 pb-7"
+                    style={{ borderBottom: '1px solid var(--color-border)' }}
+                  >
+                    <p
+                      className="text-ink"
+                      style={{ fontSize: '0.9375rem', fontWeight: 600, letterSpacing: '-0.01em', marginBottom: 3 }}
+                    >
+                      {isDE ? 'Oder schreib uns direkt' : 'Or write to us directly'}
+                    </p>
+                    <p style={{ color: 'var(--color-muted)', fontSize: '0.8125rem', lineHeight: 1.5 }}>
+                      {isDE
+                        ? 'Kurz beschreiben reicht — wir antworten persönlich.'
+                        : 'A brief description is enough — we\'ll reply personally.'}
+                    </p>
+                  </div>
+
+                  {/* Form body */}
+                  <form
+                    onSubmit={handleSubmit}
+                    className="px-8 md:px-10 py-8 flex flex-col gap-5"
+                  >
+
+                    {/* Name + Email */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          className="block mb-2"
+                          style={{
+                            fontSize: '0.68rem',
+                            fontWeight: 500,
+                            color: 'var(--color-ink)',
+                            letterSpacing: '0.08em',
+                            textTransform: 'uppercase',
+                          }}
+                        >
+                          {isDE ? 'Dein Name' : 'Your name'}
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={values.name}
+                          onChange={e => update('name', e.target.value)}
+                          placeholder={isDE ? 'Vorname Nachname' : 'First Last'}
+                          className="w-full rounded-lg focus:outline-none transition-colors duration-200"
+                          style={{
+                            padding: '11px 14px',
+                            backgroundColor: 'var(--color-bg)',
+                            border: '1.5px solid var(--color-border)',
+                            color: 'var(--color-ink)',
+                            fontSize: '0.875rem',
+                            fontFamily: 'inherit',
+                          }}
+                          onFocus={focusField}
+                          onBlur={blurField}
+                        />
+                      </div>
+                      <div>
+                        <label
+                          className="block mb-2"
+                          style={{
+                            fontSize: '0.68rem',
+                            fontWeight: 500,
+                            color: 'var(--color-ink)',
+                            letterSpacing: '0.08em',
+                            textTransform: 'uppercase',
+                          }}
+                        >
+                          {isDE ? 'Deine E-Mail' : 'Your email'}
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={values.email}
+                          onChange={e => update('email', e.target.value)}
+                          placeholder={isDE ? 'hallo@unternehmen.de' : 'hello@company.com'}
+                          className="w-full rounded-lg focus:outline-none transition-colors duration-200"
+                          style={{
+                            padding: '11px 14px',
+                            backgroundColor: 'var(--color-bg)',
+                            border: '1.5px solid var(--color-border)',
+                            color: 'var(--color-ink)',
+                            fontSize: '0.875rem',
+                            fontFamily: 'inherit',
+                          }}
+                          onFocus={focusField}
+                          onBlur={blurField}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Company */}
+                    <div>
+                      <label
+                        className="block mb-2"
+                        style={{
+                          fontSize: '0.68rem',
+                          fontWeight: 500,
+                          color: 'var(--color-ink)',
+                          letterSpacing: '0.08em',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        {isDE ? 'Unternehmen' : 'Company'}{' '}
+                        <span style={{ textTransform: 'none', fontWeight: 400, color: 'var(--color-muted)' }}>
+                          ({isDE ? 'optional' : 'optional'})
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        value={values.company}
+                        onChange={e => update('company', e.target.value)}
+                        placeholder={isDE ? 'Dein Unternehmen' : 'Your company'}
+                        className="w-full rounded-lg focus:outline-none transition-colors duration-200"
+                        style={{
+                          padding: '11px 14px',
+                          backgroundColor: 'var(--color-bg)',
+                          border: '1.5px solid var(--color-border)',
+                          color: 'var(--color-ink)',
+                          fontSize: '0.875rem',
+                          fontFamily: 'inherit',
+                        }}
+                        onFocus={focusField}
+                        onBlur={blurField}
+                      />
+                    </div>
+
+                    {/* Message */}
+                    <div>
+                      <label
+                        className="block mb-2"
+                        style={{
+                          fontSize: '0.68rem',
+                          fontWeight: 500,
+                          color: 'var(--color-ink)',
+                          letterSpacing: '0.08em',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        {isDE ? 'Worum geht es?' : 'What can we help with?'}
+                      </label>
+                      <textarea
+                        required
+                        rows={4}
+                        value={values.message}
+                        onChange={e => update('message', e.target.value)}
+                        placeholder={isDE
+                          ? 'Was planst du, was brauchst du, wo stehst du gerade?'
+                          : 'What are you planning, what do you need, where are you at?'}
+                        className="w-full rounded-lg focus:outline-none resize-none transition-colors duration-200"
+                        style={{
+                          padding: '11px 14px',
+                          backgroundColor: 'var(--color-bg)',
+                          border: '1.5px solid var(--color-border)',
+                          color: 'var(--color-ink)',
+                          fontSize: '0.875rem',
+                          fontFamily: 'inherit',
+                          lineHeight: 1.6,
+                        }}
+                        onFocus={focusField}
+                        onBlur={blurField}
+                      />
+                    </div>
+
+                    {state === 'error' && (
+                      <p style={{ color: '#e87070', fontSize: '0.8125rem' }}>{f.error}</p>
+                    )}
+
+                    {/* Submit row */}
+                    <div className="flex items-center justify-between gap-4 pt-1">
+                      <button
+                        type="submit"
+                        disabled={state === 'sending'}
+                        className="rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+                        style={{
+                          backgroundColor: '#1C2B42',
+                          color: '#FFFFFF',
+                          padding: '13px 26px',
+                          fontSize: '0.68rem',
+                          fontWeight: 600,
+                          letterSpacing: '0.12em',
+                          textTransform: 'uppercase',
+                          fontFamily: 'inherit',
+                          transition: 'background-color 300ms',
+                        }}
+                        onMouseEnter={e => {
+                          if (state !== 'sending')
+                            e.currentTarget.style.backgroundColor = 'var(--color-accent)'
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.backgroundColor = '#1C2B42'
+                        }}
+                      >
+                        {state === 'sending' ? f.sending : f.submit}
+                      </button>
+                      <span style={{ color: 'var(--color-muted)', fontSize: '0.75rem' }}>
+                        {isDE ? '↩ Antwort in 24 Std.' : '↩ Reply within 24h'}
+                      </span>
+                    </div>
+
+                  </form>
+                </>
+              )}
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
     </section>
   )
 }

@@ -36,7 +36,7 @@ export default function SocialProof() {
                 className="heading-display block mb-2"
                 style={{
                   fontSize: 'clamp(2rem, 4vw, 3.5rem)',
-                  color: '#C5A882',
+                  color: 'var(--color-accent)',
                   lineHeight: 1,
                   letterSpacing: '-0.02em',
                 }}

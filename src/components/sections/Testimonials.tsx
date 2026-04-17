@@ -107,7 +107,7 @@ function Card({ item, slot }: { item: TestimonialItem; slot: Slot }) {
           style={{
             fontSize:  '5.5rem',
             lineHeight: 0.8,
-            color:     'rgba(197,168,130,0.18)',
+            color:     'rgba(122,46,58,0.18)',
             fontStyle: 'italic',
             marginLeft: '-4px',
           }}
@@ -267,7 +267,7 @@ export default function Testimonials() {
           height:     '70vw',
           maxWidth:   '800px',
           maxHeight:  '800px',
-          background: 'radial-gradient(circle, rgba(197,168,130,0.07) 0%, transparent 65%)',
+          background: 'radial-gradient(circle, rgba(122,46,58,0.07) 0%, transparent 65%)',
         }}
       />
 
@@ -283,7 +283,7 @@ export default function Testimonials() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, ease }}
               className="label-sm mb-7"
-              style={{ color: 'rgba(197,168,130,0.65)', letterSpacing: '0.2em' }}
+              style={{ color: 'rgba(122,46,58,0.65)', letterSpacing: '0.2em' }}
             >
               {t.eyebrow}
             </motion.p>
@@ -294,7 +294,6 @@ export default function Testimonials() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.08, duration: 0.85, ease }}
               className="heading-display text-white mb-7"
-              style={{ fontSize: 'clamp(2.2rem, 4vw, 3.6rem)', lineHeight: 1.06 }}
             >
               {t.headline.split('\n').map((line, i) => (
                 <span key={i} className="block">
@@ -337,7 +336,7 @@ export default function Testimonials() {
               <motion.div
                 key={active}
                 className="absolute inset-y-0 left-0 origin-left"
-                style={{ right: 0, backgroundColor: '#C5A882' }}
+                style={{ right: 0, backgroundColor: 'var(--color-accent)' }}
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: isPaused ? 0 : 1 }}
                 transition={{ duration: ROTATE_MS / 1000, ease: 'linear' }}
@@ -367,17 +366,17 @@ export default function Testimonials() {
                 style={{
                   fontSize:      '0.62rem',
                   letterSpacing: '0.16em',
-                  color:         'rgba(197,168,130,0.45)',
-                  borderBottom:  '1px solid rgba(197,168,130,0.2)',
+                  color:         'rgba(122,46,58,0.45)',
+                  borderBottom:  '1px solid rgba(122,46,58,0.2)',
                   paddingBottom: '1px',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = 'rgba(197,168,130,0.85)'
-                  e.currentTarget.style.borderBottomColor = 'rgba(197,168,130,0.5)'
+                  e.currentTarget.style.color = 'rgba(122,46,58,0.85)'
+                  e.currentTarget.style.borderBottomColor = 'rgba(122,46,58,0.5)'
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'rgba(197,168,130,0.45)'
-                  e.currentTarget.style.borderBottomColor = 'rgba(197,168,130,0.2)'
+                  e.currentTarget.style.color = 'rgba(122,46,58,0.45)'
+                  e.currentTarget.style.borderBottomColor = 'rgba(122,46,58,0.2)'
                 }}
               >
                 PROJEKT ANFRAGEN →

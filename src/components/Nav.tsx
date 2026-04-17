@@ -54,7 +54,7 @@ export default function Nav() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? 'bg-surface/95 backdrop-blur-md shadow-[0_1px_0_0_var(--color-border)]' : 'bg-transparent'
+          scrolled ? 'bg-surface/75 backdrop-blur-xl backdrop-saturate-150 shadow-[0_1px_0_0_var(--color-border)]' : 'bg-transparent'
         }`}
       >
         <div className="container-main">

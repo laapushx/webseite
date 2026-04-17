@@ -82,7 +82,7 @@ function ProjectPanel({
           animate={inView ? { scaleY: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.4, ease }}
           className={`absolute top-0 bottom-0 w-px origin-top ${isEven ? 'left-0' : 'right-0'}`}
-          style={{ backgroundColor: 'rgba(197,168,130,0.25)' }}
+          style={{ backgroundColor: 'rgba(122,46,58,0.25)' }}
         />
 
         {/* Category + year label */}
@@ -104,7 +104,7 @@ function ProjectPanel({
         {/* Hover overlay */}
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{ backgroundColor: 'rgba(197,168,130,0.04)' }}
+          style={{ backgroundColor: 'rgba(122,46,58,0.04)' }}
         />
       </div>
 
@@ -129,8 +129,7 @@ function ProjectPanel({
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3, ease }}
-            className="heading-xl text-ink mb-4"
-            style={{ fontSize: 'clamp(1.6rem, 3vw, 2.6rem)' }}
+            className="h3 text-ink mb-4 transition-colors duration-300 group-hover:text-accent"
           >
             {project.title}
           </motion.h3>
@@ -202,7 +201,7 @@ export default function Work() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={headerInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5 }}
-                className="label-sm text-muted mb-4 italic"
+                className="label-sm text-accent mb-4"
               >
                 {w.eyebrow}
               </motion.p>
@@ -211,7 +210,6 @@ export default function Work() {
                 animate={headerInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.1, duration: 0.8, ease }}
                 className="heading-xl text-ink"
-                style={{ fontSize: 'clamp(2rem, 4.5vw, 3.75rem)' }}
               >
                 {w.headline.split('\n').map((line, i) => (
                   <span key={i} className="block">

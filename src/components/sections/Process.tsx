@@ -22,7 +22,7 @@ export default function Process() {
               initial={{ opacity: 0, y: 10 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5 }}
-              className="label-sm text-muted mb-4"
+              className="label-sm text-accent mb-4"
             >
               {p.eyebrow}
             </motion.p>
@@ -31,7 +31,6 @@ export default function Process() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.1, duration: 0.8, ease }}
               className="heading-xl text-ink"
-              style={{ fontSize: 'clamp(2rem, 4.5vw, 3.75rem)' }}
             >
               {p.headline.split('\n').map((line, i) => (
                 <span key={i} className="block">
@@ -72,10 +71,10 @@ export default function Process() {
                   style={{ paddingLeft: i > 0 ? '1rem' : 0 }}
                 >
                   <span
-                    className="font-sans absolute top-0 left-0 leading-none select-none pointer-events-none transition-all duration-500 group-hover:opacity-100"
+                    className="font-sans absolute top-0 left-0 leading-none select-none pointer-events-none transition-all duration-500 opacity-20 group-hover:opacity-60 group-hover:-translate-y-1"
                     style={{
                       fontSize: 'clamp(5rem, 10vw, 8rem)',
-                      color: 'var(--color-border)',
+                      color: 'var(--color-ink)',
                       letterSpacing: '-0.04em',
                       lineHeight: 1,
                     }}
@@ -91,7 +90,7 @@ export default function Process() {
                       animate={inView ? { scaleX: 1 } : {}}
                       transition={{ delay: 0.3 + 0.14 * i, duration: 1, ease }}
                       className="hidden md:block absolute right-0 top-10 w-[120%] h-px origin-left"
-                      style={{ backgroundColor: 'rgba(197,168,130,0.18)', zIndex: 0 }}
+                      style={{ backgroundColor: 'rgba(122,46,58,0.18)', zIndex: 0 }}
                     />
                   )}
                 </div>
@@ -99,8 +98,7 @@ export default function Process() {
                 {/* Content */}
                 <div style={{ paddingLeft: i > 0 ? '1rem' : 0 }}>
                   <h3
-                    className="font-sans text-xl md:text-2xl text-ink mb-3 transition-colors duration-300 group-hover:text-accent"
-                    style={{ lineHeight: 1.2 }}
+                    className="h3 text-ink mb-3 transition-colors duration-300 group-hover:text-accent"
                   >
                     {step.title}
                   </h3>

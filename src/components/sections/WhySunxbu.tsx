@@ -15,7 +15,7 @@ export default function WhySunxbu() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden py-24 md:py-40"
+      className="relative overflow-hidden py-14 md:py-24"
       style={{ backgroundColor: '#1F2937' }}
     >
       {/* Grain */}
@@ -30,13 +30,14 @@ export default function WhySunxbu() {
       />
 
       {/* Subtle accent orb */}
-      <div
+      <motion.div
         aria-hidden="true"
         className="absolute top-0 right-[-10%] w-[50vw] h-[50vw] pointer-events-none"
         style={{
-          background:
-            'radial-gradient(circle, rgba(197,168,130,0.06) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(122,46,58,0.06) 0%, transparent 70%)',
         }}
+        animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
+        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
       />
 
       <div className="container-main relative z-10">
@@ -49,7 +50,7 @@ export default function WhySunxbu() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6 }}
               className="label-sm mb-6"
-              style={{ color: 'rgba(197,168,130,0.7)', letterSpacing: '0.18em' }}
+              style={{ color: 'rgba(122,46,58,0.7)', letterSpacing: '0.18em' }}
             >
               {w.eyebrow}
             </motion.p>
@@ -59,7 +60,6 @@ export default function WhySunxbu() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.12, duration: 0.9, ease }}
               className="heading-xl text-white mb-8"
-              style={{ fontSize: 'clamp(2.4rem, 5vw, 4.5rem)', lineHeight: 1.07 }}
             >
               {w.headline.split('\n').map((line, i) => (
                 <span key={i} className="block">
@@ -90,7 +90,7 @@ export default function WhySunxbu() {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ delay: 0.4, duration: 0.8 }}
               className="border-l-2 pl-5 py-1"
-              style={{ borderColor: 'rgba(197,168,130,0.35)' }}
+              style={{ borderColor: 'rgba(122,46,58,0.35)' }}
             >
               <p
                 className="font-sans italic text-xl md:text-2xl leading-relaxed"
@@ -118,14 +118,13 @@ export default function WhySunxbu() {
                 <div className="flex items-start gap-6">
                   <span
                     className="label-sm mt-1 shrink-0 font-[600]"
-                    style={{ color: '#C5A882', letterSpacing: '0.1em' }}
+                    style={{ color: 'var(--color-accent)', letterSpacing: '0.1em' }}
                   >
                     {item.number}
                   </span>
                   <div>
                     <h3
-                      className="font-sans text-xl md:text-2xl text-white mb-2.5 transition-colors duration-300"
-                      style={{ lineHeight: 1.25 }}
+                      className="h3 text-white mb-2.5 transition-colors duration-300"
                     >
                       {item.title}
                     </h3>
