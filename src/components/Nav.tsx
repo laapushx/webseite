@@ -126,10 +126,28 @@ export default function Nav() {
               {/* CTA */}
               <a
                 href="#kontakt"
-                className="label-sm px-7 py-3.5 rounded-full transition-all duration-200"
-                style={{ backgroundColor: N.ctaBg, color: N.ctaText, boxShadow: N.ctaShadow }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = N.ctaHover}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = N.ctaBg}
+                className="inline-flex items-center rounded-full"
+                style={{
+                  backgroundColor: '#16243A',
+                  color: '#FFF6F2',
+                  padding: '16px 32px',
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  boxShadow: '0 8px 32px rgba(10,4,8,0.45)',
+                  transition: 'all 300ms',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.backgroundColor = '#1E2F4A'
+                  e.currentTarget.style.transform = 'scale(1.03)'
+                  e.currentTarget.style.boxShadow = '0 12px 40px rgba(10,4,8,0.55)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.backgroundColor = '#16243A'
+                  e.currentTarget.style.transform = 'scale(1)'
+                  e.currentTarget.style.boxShadow = '0 8px 32px rgba(10,4,8,0.45)'
+                }}
               >
                 {tr.nav.cta}
               </a>
@@ -213,8 +231,18 @@ export default function Nav() {
               <a
                 href="#kontakt"
                 onClick={closeMenu}
-                className="label-sm flex w-full items-center justify-center px-7 py-3.5 rounded-full transition-all"
-                style={{ backgroundColor: N.ctaBg, color: N.ctaText }}
+                className="inline-flex w-full items-center justify-center rounded-full"
+                style={{
+                  backgroundColor: '#16243A',
+                  color: '#FFF6F2',
+                  padding: '16px 32px',
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  boxShadow: '0 8px 32px rgba(10,4,8,0.45)',
+                  transition: 'all 300ms',
+                }}
               >
                 {tr.nav.cta}
               </a>

@@ -24,6 +24,19 @@ const TRUST = {
   ],
 }
 
+const inputBase: React.CSSProperties = {
+  padding: '11px 14px',
+  backgroundColor: '#F8F8F6',
+  border: '1.5px solid rgba(0,0,0,0.09)',
+  color: 'var(--color-ink)',
+  fontSize: '0.875rem',
+  fontFamily: 'inherit',
+  transition: 'border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease',
+  borderRadius: 10,
+  width: '100%',
+  outline: 'none',
+}
+
 export default function Contact() {
   const { tr, lang } = useLanguage()
   const ref = useRef<HTMLElement>(null)
@@ -57,10 +70,24 @@ export default function Contact() {
   const isDE = lang === 'de'
 
   const focusField = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    e.target.style.borderColor = 'var(--color-ink)'
+    e.target.style.borderColor = '#1C2B42'
+    e.target.style.boxShadow = '0 0 0 3px rgba(28,43,66,0.09)'
+    e.target.style.transform = 'scale(1.01)'
   }
   const blurField = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    e.target.style.borderColor = 'var(--color-border)'
+    e.target.style.borderColor = 'rgba(0,0,0,0.09)'
+    e.target.style.boxShadow = 'none'
+    e.target.style.transform = 'scale(1)'
+  }
+
+  const labelStyle: React.CSSProperties = {
+    fontSize: '0.68rem',
+    fontWeight: 500,
+    color: 'var(--color-ink)',
+    letterSpacing: '0.08em',
+    textTransform: 'uppercase',
+    display: 'block',
+    marginBottom: 8,
   }
 
   return (
@@ -177,7 +204,7 @@ export default function Contact() {
             transition={{ delay: 0.32, duration: 0.8, ease }}
             className="mx-auto mt-5"
             style={{
-              color: 'rgba(255,246,242,0.52)',
+              color: 'rgba(255,246,242,0.82)',
               fontSize: 'clamp(0.875rem, 1.2vw, 1rem)',
               lineHeight: 1.65,
               maxWidth: '46ch',
@@ -201,29 +228,13 @@ export default function Contact() {
             transition={{ delay: 0.3, duration: 0.9, ease }}
             className="relative"
           >
-            {/* Decorative large "30'" behind content */}
-            <div
-              aria-hidden="true"
-              className="absolute -top-6 -left-3 select-none pointer-events-none"
-              style={{
-                fontSize: 'clamp(5rem, 10vw, 9rem)',
-                fontWeight: 700,
-                lineHeight: 1,
-                color: 'rgba(255,255,255,0.022)',
-                letterSpacing: '-0.04em',
-                fontStyle: 'italic',
-              }}
-            >
-              30&prime;
-            </div>
-
             <div className="relative z-10 pt-2">
 
               {/* Badge with pulsing dot */}
               <div
                 className="inline-flex items-center gap-2.5 mb-9"
                 style={{
-                  border: '1px solid rgba(122,46,58,0.38)',
+                  border: '1px solid rgba(255,246,242,0.22)',
                   borderRadius: '999px',
                   padding: '5px 14px 5px 10px',
                 }}
@@ -234,15 +245,15 @@ export default function Contact() {
                     width: 7,
                     height: 7,
                     borderRadius: '50%',
-                    backgroundColor: 'var(--color-accent)',
+                    backgroundColor: 'rgba(255,246,242,0.82)',
                     display: 'block',
-                    boxShadow: '0 0 10px rgba(122,46,58,0.9)',
+                    boxShadow: '0 0 8px rgba(255,246,242,0.25)',
                   }}
                 />
                 <span style={{
                   fontSize: '0.6rem',
                   letterSpacing: '0.18em',
-                  color: 'rgba(122,46,58,0.9)',
+                  color: 'rgba(255,246,242,0.72)',
                   textTransform: 'uppercase',
                   fontWeight: 500,
                 }}>
@@ -277,7 +288,7 @@ export default function Contact() {
               <p
                 className="mb-10 leading-relaxed"
                 style={{
-                  color: 'rgba(255,246,242,0.4)',
+                  color: 'rgba(255,246,242,0.82)',
                   fontSize: '0.9375rem',
                   maxWidth: '36ch',
                 }}
@@ -294,26 +305,27 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 rounded-full mb-14"
                 style={{
-                  backgroundColor: '#FFFFFF',
-                  color: '#0D0D0B',
-                  padding: '14px 28px',
-                  fontSize: '0.7rem',
-                  fontWeight: 600,
-                  letterSpacing: '0.12em',
+                  backgroundColor: '#16243A',
+                  color: '#FFF6F2',
+                  padding: '16px 32px',
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  letterSpacing: '0.1em',
                   textTransform: 'uppercase',
-                  transition: 'background-color 300ms, color 300ms, transform 200ms',
+                  boxShadow: '0 8px 32px rgba(10,4,8,0.45)',
+                  transition: 'all 300ms',
                 }}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onMouseEnter={e => {
                   const el = e.currentTarget as HTMLElement
-                  el.style.backgroundColor = 'var(--color-accent)'
-                  el.style.color = '#FFFFFF'
+                  el.style.backgroundColor = '#1E2F4A'
+                  el.style.boxShadow = '0 12px 40px rgba(10,4,8,0.55)'
                 }}
                 onMouseLeave={e => {
                   const el = e.currentTarget as HTMLElement
-                  el.style.backgroundColor = '#FFFFFF'
-                  el.style.color = '#0D0D0B'
+                  el.style.backgroundColor = '#16243A'
+                  el.style.boxShadow = '0 8px 32px rgba(10,4,8,0.45)'
                 }}
               >
                 {c.booking.cta}
@@ -336,15 +348,15 @@ export default function Contact() {
                         width: 20,
                         height: 20,
                         borderRadius: '50%',
-                        border: '1px solid rgba(122,46,58,0.4)',
+                        border: '1px solid rgba(255,246,242,0.22)',
                         fontSize: '0.55rem',
-                        color: 'var(--color-accent)',
+                        color: 'rgba(255,246,242,0.82)',
                         fontWeight: 700,
                       }}
                     >
                       ✓
                     </span>
-                    <span style={{ color: 'rgba(255,246,242,0.52)', fontSize: '0.875rem' }}>
+                    <span style={{ color: 'rgba(255,246,242,0.72)', fontSize: '0.875rem' }}>
                       {text}
                     </span>
                   </motion.li>
@@ -355,15 +367,29 @@ export default function Contact() {
 
           {/* ── RIGHT: Form card ── */}
           <motion.div
-            initial={{ opacity: 0, y: 28 }}
+            initial={{ opacity: 0, y: 36 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.45, duration: 0.9, ease }}
+            transition={{ delay: 0.45, duration: 1.0, ease }}
+            className="relative"
           >
+            {/* Glow behind card */}
             <div
-              className="rounded-2xl overflow-hidden"
+              aria-hidden="true"
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                borderRadius: 20,
+                background: 'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,248,245,0.12) 0%, transparent 70%)',
+                transform: 'translateY(8px) scale(0.96)',
+                filter: 'blur(24px)',
+              }}
+            />
+
+            <div
+              className="rounded-2xl overflow-hidden relative"
               style={{
                 backgroundColor: '#FFFFFF',
-                boxShadow: '0 24px 80px rgba(0,0,0,0.35), 0 4px 16px rgba(0,0,0,0.15)',
+                boxShadow: '0 2px 0 rgba(255,255,255,0.7) inset, 0 32px 96px rgba(0,0,0,0.26), 0 8px 24px rgba(0,0,0,0.10)',
+                border: '1px solid rgba(0,0,0,0.06)',
               }}
             >
               {state === 'success' ? (
@@ -386,18 +412,18 @@ export default function Contact() {
                   {/* Form header strip */}
                   <div
                     className="px-8 md:px-10 pt-8 pb-7"
-                    style={{ borderBottom: '1px solid var(--color-border)' }}
+                    style={{ borderBottom: '1px solid rgba(0,0,0,0.05)' }}
                   >
                     <p
                       className="text-ink"
-                      style={{ fontSize: '0.9375rem', fontWeight: 600, letterSpacing: '-0.01em', marginBottom: 3 }}
+                      style={{ fontSize: '0.9375rem', fontWeight: 600, letterSpacing: '-0.01em', marginBottom: 4 }}
                     >
-                      {isDE ? 'Oder schreib uns direkt' : 'Or write to us directly'}
+                      {isDE ? 'Oder schreib uns einfach' : 'Or just drop us a message'}
                     </p>
                     <p style={{ color: 'var(--color-muted)', fontSize: '0.8125rem', lineHeight: 1.5 }}>
                       {isDE
-                        ? 'Kurz beschreiben reicht — wir antworten persönlich.'
-                        : 'A brief description is enough — we\'ll reply personally.'}
+                        ? 'Wir antworten persönlich — kein Autoresponder, versprochen.'
+                        : 'We reply personally — no autoresponder, we promise.'}
                     </p>
                   </div>
 
@@ -408,18 +434,14 @@ export default function Contact() {
                   >
 
                     {/* Name + Email */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <motion.div
+                      className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={inView ? { opacity: 1, y: 0 } : {}}
+                      transition={{ delay: 0.6, duration: 0.6, ease }}
+                    >
                       <div>
-                        <label
-                          className="block mb-2"
-                          style={{
-                            fontSize: '0.68rem',
-                            fontWeight: 500,
-                            color: 'var(--color-ink)',
-                            letterSpacing: '0.08em',
-                            textTransform: 'uppercase',
-                          }}
-                        >
+                        <label style={labelStyle}>
                           {isDE ? 'Dein Name' : 'Your name'}
                         </label>
                         <input
@@ -428,30 +450,13 @@ export default function Contact() {
                           value={values.name}
                           onChange={e => update('name', e.target.value)}
                           placeholder={isDE ? 'Vorname Nachname' : 'First Last'}
-                          className="w-full rounded-lg focus:outline-none transition-colors duration-200"
-                          style={{
-                            padding: '11px 14px',
-                            backgroundColor: 'var(--color-bg)',
-                            border: '1.5px solid var(--color-border)',
-                            color: 'var(--color-ink)',
-                            fontSize: '0.875rem',
-                            fontFamily: 'inherit',
-                          }}
+                          style={inputBase}
                           onFocus={focusField}
                           onBlur={blurField}
                         />
                       </div>
                       <div>
-                        <label
-                          className="block mb-2"
-                          style={{
-                            fontSize: '0.68rem',
-                            fontWeight: 500,
-                            color: 'var(--color-ink)',
-                            letterSpacing: '0.08em',
-                            textTransform: 'uppercase',
-                          }}
-                        >
+                        <label style={labelStyle}>
                           {isDE ? 'Deine E-Mail' : 'Your email'}
                         </label>
                         <input
@@ -460,33 +465,20 @@ export default function Contact() {
                           value={values.email}
                           onChange={e => update('email', e.target.value)}
                           placeholder={isDE ? 'hallo@unternehmen.de' : 'hello@company.com'}
-                          className="w-full rounded-lg focus:outline-none transition-colors duration-200"
-                          style={{
-                            padding: '11px 14px',
-                            backgroundColor: 'var(--color-bg)',
-                            border: '1.5px solid var(--color-border)',
-                            color: 'var(--color-ink)',
-                            fontSize: '0.875rem',
-                            fontFamily: 'inherit',
-                          }}
+                          style={inputBase}
                           onFocus={focusField}
                           onBlur={blurField}
                         />
                       </div>
-                    </div>
+                    </motion.div>
 
                     {/* Company */}
-                    <div>
-                      <label
-                        className="block mb-2"
-                        style={{
-                          fontSize: '0.68rem',
-                          fontWeight: 500,
-                          color: 'var(--color-ink)',
-                          letterSpacing: '0.08em',
-                          textTransform: 'uppercase',
-                        }}
-                      >
+                    <motion.div
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={inView ? { opacity: 1, y: 0 } : {}}
+                      transition={{ delay: 0.68, duration: 0.6, ease }}
+                    >
+                      <label style={labelStyle}>
                         {isDE ? 'Unternehmen' : 'Company'}{' '}
                         <span style={{ textTransform: 'none', fontWeight: 400, color: 'var(--color-muted)' }}>
                           ({isDE ? 'optional' : 'optional'})
@@ -497,32 +489,19 @@ export default function Contact() {
                         value={values.company}
                         onChange={e => update('company', e.target.value)}
                         placeholder={isDE ? 'Dein Unternehmen' : 'Your company'}
-                        className="w-full rounded-lg focus:outline-none transition-colors duration-200"
-                        style={{
-                          padding: '11px 14px',
-                          backgroundColor: 'var(--color-bg)',
-                          border: '1.5px solid var(--color-border)',
-                          color: 'var(--color-ink)',
-                          fontSize: '0.875rem',
-                          fontFamily: 'inherit',
-                        }}
+                        style={inputBase}
                         onFocus={focusField}
                         onBlur={blurField}
                       />
-                    </div>
+                    </motion.div>
 
                     {/* Message */}
-                    <div>
-                      <label
-                        className="block mb-2"
-                        style={{
-                          fontSize: '0.68rem',
-                          fontWeight: 500,
-                          color: 'var(--color-ink)',
-                          letterSpacing: '0.08em',
-                          textTransform: 'uppercase',
-                        }}
-                      >
+                    <motion.div
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={inView ? { opacity: 1, y: 0 } : {}}
+                      transition={{ delay: 0.76, duration: 0.6, ease }}
+                    >
+                      <label style={labelStyle}>
                         {isDE ? 'Worum geht es?' : 'What can we help with?'}
                       </label>
                       <textarea
@@ -533,48 +512,50 @@ export default function Contact() {
                         placeholder={isDE
                           ? 'Was planst du, was brauchst du, wo stehst du gerade?'
                           : 'What are you planning, what do you need, where are you at?'}
-                        className="w-full rounded-lg focus:outline-none resize-none transition-colors duration-200"
-                        style={{
-                          padding: '11px 14px',
-                          backgroundColor: 'var(--color-bg)',
-                          border: '1.5px solid var(--color-border)',
-                          color: 'var(--color-ink)',
-                          fontSize: '0.875rem',
-                          fontFamily: 'inherit',
-                          lineHeight: 1.6,
-                        }}
+                        style={{ ...inputBase, lineHeight: 1.6, resize: 'none' }}
                         onFocus={focusField}
                         onBlur={blurField}
                       />
-                    </div>
+                    </motion.div>
 
                     {state === 'error' && (
                       <p style={{ color: '#e87070', fontSize: '0.8125rem' }}>{f.error}</p>
                     )}
 
                     {/* Submit row */}
-                    <div className="flex items-center justify-between gap-4 pt-1">
+                    <motion.div
+                      className="flex items-center justify-between gap-4 pt-1"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={inView ? { opacity: 1, y: 0 } : {}}
+                      transition={{ delay: 0.84, duration: 0.55, ease }}
+                    >
                       <button
                         type="submit"
                         disabled={state === 'sending'}
                         className="rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
                         style={{
-                          backgroundColor: '#1C2B42',
-                          color: '#FFFFFF',
-                          padding: '13px 26px',
-                          fontSize: '0.68rem',
-                          fontWeight: 600,
-                          letterSpacing: '0.12em',
+                          backgroundColor: '#16243A',
+                          color: '#FFF6F2',
+                          padding: '16px 32px',
+                          fontSize: '13px',
+                          fontWeight: 500,
+                          letterSpacing: '0.1em',
                           textTransform: 'uppercase',
                           fontFamily: 'inherit',
-                          transition: 'background-color 300ms',
+                          boxShadow: '0 8px 32px rgba(10,4,8,0.45)',
+                          transition: 'all 300ms',
                         }}
                         onMouseEnter={e => {
-                          if (state !== 'sending')
-                            e.currentTarget.style.backgroundColor = 'var(--color-accent)'
+                          if (state !== 'sending') {
+                            e.currentTarget.style.backgroundColor = '#1E2F4A'
+                            e.currentTarget.style.transform = 'scale(1.03)'
+                            e.currentTarget.style.boxShadow = '0 12px 40px rgba(10,4,8,0.55)'
+                          }
                         }}
                         onMouseLeave={e => {
-                          e.currentTarget.style.backgroundColor = '#1C2B42'
+                          e.currentTarget.style.backgroundColor = '#16243A'
+                          e.currentTarget.style.transform = 'scale(1)'
+                          e.currentTarget.style.boxShadow = '0 8px 32px rgba(10,4,8,0.45)'
                         }}
                       >
                         {state === 'sending' ? f.sending : f.submit}
@@ -582,7 +563,7 @@ export default function Contact() {
                       <span style={{ color: 'var(--color-muted)', fontSize: '0.75rem' }}>
                         {isDE ? '↩ Antwort in 24 Std.' : '↩ Reply within 24h'}
                       </span>
-                    </div>
+                    </motion.div>
 
                   </form>
                 </>

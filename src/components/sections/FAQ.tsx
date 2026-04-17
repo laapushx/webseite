@@ -118,10 +118,30 @@ export default function FAQ() {
             >
               <a
                 href="#kontakt"
-                className="label-sm inline-flex items-center gap-2 text-ink border-b border-ink pb-0.5 hover:text-accent hover:border-accent transition-colors duration-200"
-                style={{ fontSize: '0.7rem', letterSpacing: '0.14em' }}
+                className="inline-flex items-center rounded-full"
+                style={{
+                  backgroundColor: '#16243A',
+                  color: '#FFF6F2',
+                  padding: '16px 32px',
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  boxShadow: '0 8px 32px rgba(10,4,8,0.45)',
+                  transition: 'all 300ms',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.backgroundColor = '#1E2F4A'
+                  e.currentTarget.style.transform = 'scale(1.03)'
+                  e.currentTarget.style.boxShadow = '0 12px 40px rgba(10,4,8,0.55)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.backgroundColor = '#16243A'
+                  e.currentTarget.style.transform = 'scale(1)'
+                  e.currentTarget.style.boxShadow = '0 8px 32px rgba(10,4,8,0.45)'
+                }}
               >
-                KONTAKT AUFNEHMEN →
+                Kontakt aufnehmen ↗
               </a>
             </motion.div>
           </div>

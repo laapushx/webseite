@@ -5,8 +5,7 @@ import { ReactNode } from 'react'
 
 interface ButtonProps {
   children: ReactNode
-  variant?: 'primary' | 'secondary' | 'ghost'
-  size?: 'sm' | 'md' | 'lg'
+  variant?: 'primary' | 'outline'
   href?: string
   onClick?: () => void
   type?: 'button' | 'submit'
@@ -15,10 +14,34 @@ interface ButtonProps {
   external?: boolean
 }
 
+const PRIMARY: React.CSSProperties = {
+  backgroundColor: '#16243A',
+  color: '#FFF6F2',
+  padding: '16px 32px',
+  fontSize: '13px',
+  fontWeight: 500,
+  letterSpacing: '0.1em',
+  textTransform: 'uppercase',
+  borderRadius: '999px',
+  boxShadow: '0 8px 32px rgba(10,4,8,0.45)',
+  transition: 'all 300ms',
+}
+
+const OUTLINE: React.CSSProperties = {
+  border: '1px solid rgba(255,246,242,0.32)',
+  color: 'rgba(255,246,242,0.88)',
+  padding: '16px 32px',
+  fontSize: '13px',
+  fontWeight: 500,
+  letterSpacing: '0.1em',
+  textTransform: 'uppercase',
+  borderRadius: '999px',
+  transition: 'all 300ms',
+}
+
 export default function Button({
   children,
   variant = 'primary',
-  size = 'md',
   href,
   onClick,
   type = 'button',
@@ -26,50 +49,66 @@ export default function Button({
   className = '',
   external = false,
 }: ButtonProps) {
-  const base =
-    'inline-flex items-center justify-center font-sans font-medium tracking-wide transition-all duration-200 cursor-pointer select-none disabled:opacity-50 disabled:cursor-not-allowed'
+  const style = variant === 'primary' ? PRIMARY : OUTLINE
 
-  const variants = {
-    primary: 'bg-ink text-surface hover:bg-accent hover:text-ink',
-    secondary: 'border border-ink text-ink hover:bg-ink hover:text-surface',
-    ghost: 'text-ink hover:text-accent underline-offset-4 hover:underline',
+  const handleMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
+    const el = e.currentTarget as HTMLElement
+    if (variant === 'primary') {
+      el.style.backgroundColor = '#1E2F4A'
+      el.style.transform = 'scale(1.03)'
+      el.style.boxShadow = '0 12px 40px rgba(10,4,8,0.55)'
+    } else {
+      el.style.backgroundColor = 'rgba(255,246,242,0.08)'
+      el.style.borderColor = 'rgba(255,246,242,0.55)'
+      el.style.color = '#FFF6F2'
+    }
   }
 
-  const sizes = {
-    sm: 'px-5 py-2.5 text-sm rounded-full',
-    md: 'px-7 py-3.5 text-sm rounded-full',
-    lg: 'px-9 py-4 text-base rounded-full',
+  const handleMouseLeave = (e: React.MouseEvent<HTMLElement>) => {
+    const el = e.currentTarget as HTMLElement
+    if (variant === 'primary') {
+      el.style.backgroundColor = '#16243A'
+      el.style.transform = 'scale(1)'
+      el.style.boxShadow = '0 8px 32px rgba(10,4,8,0.45)'
+    } else {
+      el.style.backgroundColor = 'transparent'
+      el.style.borderColor = 'rgba(255,246,242,0.32)'
+      el.style.color = 'rgba(255,246,242,0.88)'
+    }
   }
 
-  const classes = `${base} ${variants[variant]} ${sizes[size]} ${className}`
-
-  const content = (
-    <motion.span
-      className={classes}
-      whileHover={{ scale: disabled ? 1 : 1.02 }}
-      whileTap={{ scale: disabled ? 1 : 0.98 }}
-      transition={{ duration: 0.15 }}
-    >
-      {children}
-    </motion.span>
-  )
+  const sharedProps = {
+    style,
+    onMouseEnter: handleMouseEnter,
+    onMouseLeave: handleMouseLeave,
+    className: `inline-flex items-center gap-2 ${disabled ? 'opacity-50 cursor-not-allowed' : ''} ${className}`,
+  }
 
   if (href) {
     return (
-      <a
+      <motion.a
         href={href}
         target={external ? '_blank' : undefined}
         rel={external ? 'noopener noreferrer' : undefined}
-        className="inline-block"
+        whileHover={{ scale: 1.03 }}
+        whileTap={{ scale: 0.97 }}
+        {...sharedProps}
       >
-        {content}
-      </a>
+        {children}
+      </motion.a>
     )
   }
 
   return (
-    <button type={type} onClick={onClick} disabled={disabled} className="inline-block">
-      {content}
-    </button>
+    <motion.button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      whileHover={disabled ? {} : { scale: 1.03 }}
+      whileTap={disabled ? {} : { scale: 0.97 }}
+      {...sharedProps}
+    >
+      {children}
+    </motion.button>
   )
 }

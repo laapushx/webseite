@@ -19,6 +19,7 @@ interface Project {
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number]
 
+
 function ProjectPanel({
   project,
   view_case,
@@ -49,7 +50,6 @@ function ProjectPanel({
         className={`relative overflow-hidden ${isEven ? 'md:order-2' : 'md:order-1'}`}
         style={{ minHeight: '340px' }}
       >
-        {/* Placeholder visual */}
         <div
           className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           style={{
@@ -59,7 +59,6 @@ function ProjectPanel({
           }}
         />
 
-        {/* Large project number as background element */}
         <div
           className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
           aria-hidden="true"
@@ -76,7 +75,6 @@ function ProjectPanel({
           </span>
         </div>
 
-        {/* Accent line */}
         <motion.div
           initial={{ scaleY: 0 }}
           animate={inView ? { scaleY: 1 } : {}}
@@ -85,23 +83,15 @@ function ProjectPanel({
           style={{ backgroundColor: 'rgba(122,46,58,0.25)' }}
         />
 
-        {/* Category + year label */}
         <div className="absolute bottom-7 left-7 right-7 flex items-end justify-between">
-          <span
-            className="label-sm"
-            style={{ color: 'rgba(255,255,255,0.22)', letterSpacing: '0.14em' }}
-          >
+          <span className="label-sm" style={{ color: 'rgba(255,255,255,0.22)', letterSpacing: '0.14em' }}>
             {project.category}
           </span>
-          <span
-            className="label-sm"
-            style={{ color: 'rgba(255,255,255,0.18)', letterSpacing: '0.12em' }}
-          >
+          <span className="label-sm" style={{ color: 'rgba(255,255,255,0.18)', letterSpacing: '0.12em' }}>
             {project.year}
           </span>
         </div>
 
-        {/* Hover overlay */}
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{ backgroundColor: 'rgba(122,46,58,0.04)' }}
@@ -114,7 +104,6 @@ function ProjectPanel({
           isEven ? 'md:order-1' : 'md:order-2'
         }`}
       >
-        {/* Top: number + title */}
         <div>
           <motion.span
             initial={{ opacity: 0, x: isEven ? -16 : 16 }}
@@ -143,7 +132,6 @@ function ProjectPanel({
             {project.description}
           </motion.p>
 
-          {/* Tags */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
@@ -162,7 +150,6 @@ function ProjectPanel({
           </motion.div>
         </div>
 
-        {/* CTA */}
         <motion.button
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
@@ -184,53 +171,14 @@ function ProjectPanel({
 
 export default function Work() {
   const { tr } = useLanguage()
-  const headerRef = useRef(null)
-  const headerInView = useInView(headerRef, { once: true, margin: '-60px' })
   const w = tr.work
-
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
   return (
     <>
       <section id="projekte" className="bg-surface">
-        {/* Section header */}
-        <div ref={headerRef} className="container-main pt-24 md:pt-36 pb-14 md:pb-16">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <div>
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={headerInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5 }}
-                className="label-sm text-accent mb-4"
-              >
-                {w.eyebrow}
-              </motion.p>
-              <motion.h2
-                initial={{ opacity: 0, y: 22 }}
-                animate={headerInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.1, duration: 0.8, ease }}
-                className="heading-xl text-ink"
-              >
-                {w.headline.split('\n').map((line, i) => (
-                  <span key={i} className="block">
-                    {i === 1 ? <span className="italic text-muted">{line}</span> : line}
-                  </span>
-                ))}
-              </motion.h2>
-            </div>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={headerInView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              className="label-sm text-muted max-w-xs text-right hidden md:block"
-            >
-              {w.projects.length} Projekte
-            </motion.p>
-          </div>
-        </div>
-
-        {/* Border above projects */}
+        {/* ── Project panels ── */}
         <div className="border-t border-border">
           {w.projects.map((project, i) => (
             <ProjectPanel
@@ -242,6 +190,7 @@ export default function Work() {
             />
           ))}
         </div>
+
       </section>
 
       <CaseStudyOverlay

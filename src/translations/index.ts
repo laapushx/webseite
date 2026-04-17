@@ -114,33 +114,20 @@ export const t = {
     why: {
       eyebrow: 'Warum SUNXBÜ',
       headline: 'Wir sind nicht\nfür jeden.',
-      subline:
-        'Wer ein Template will, findet es online für 49 €. Wer eine Website will, die Ergebnisse liefert — ist hier richtig.',
-      items: [
-        {
-          number: '01',
-          title: 'Kein Template. Nie.',
-          description:
-            'Jedes Projekt beginnt mit einem leeren Canvas. Kein Theme, kein Baukasten, kein Copy-Paste. Nur Ihr Unternehmen, Ihr Markt, Ihre Zielgruppe.',
-        },
-        {
-          number: '02',
-          title: 'Wir denken in Umsatz, nicht in Seiten.',
-          description:
-            'Design ist kein Selbstzweck. Jede Entscheidung — Farbe, Struktur, Text — wird daran gemessen, ob sie Ihr Geschäft weiterbringt.',
-        },
-        {
-          number: '03',
-          title: 'Stuttgart trifft Dubai. Beide Märkte kennen wir.',
-          description:
-            'Internationale Perspektive, lokales Verständnis. Wir gestalten Auftritte, die in beiden Welten funktionieren — und Vertrauen schaffen.',
-        },
-        {
-          number: '04',
-          title: 'Eine Ansprechperson. Vollständige Verantwortung.',
-          description:
-            'Kein Staffel-Wirrwarr. Sie arbeiten direkt mit der Person, die Ihr Projekt umsetzt — von der ersten Idee bis zum Launch.',
-        },
+      subline: 'Websites, die verkaufen. Nicht nur gut aussehen.',
+      pros_label: 'Was du bekommst',
+      cons_label: 'Was du nicht bekommst',
+      pros: [
+        'Individuelles Design — kein Template',
+        'Klarer Markenauftritt mit Strategie',
+        'Fokus auf Anfragen & Umsatz',
+        'Direkte Zusammenarbeit mit uns',
+      ],
+      cons: [
+        'Keine Baukasten-Lösung',
+        'Kein Design ohne Strategie',
+        'Keine Agentur-Standardlösung',
+        'Kein austauschbarer Auftritt',
       ],
     },
     process: {
@@ -457,33 +444,20 @@ export const t = {
     why: {
       eyebrow: 'Why SUNXBÜ',
       headline: "We're not\nfor everyone.",
-      subline:
-        'If you want a template, you can find one online for €49. If you want a website that delivers results — you are in the right place.',
-      items: [
-        {
-          number: '01',
-          title: 'No template. Ever.',
-          description:
-            'Every project starts with a blank canvas. No theme, no page builder, no copy-paste. Just your business, your market, your audience.',
-        },
-        {
-          number: '02',
-          title: 'We think in revenue, not pages.',
-          description:
-            'Design is not an end in itself. Every decision — colour, structure, copy — is measured by whether it advances your business.',
-        },
-        {
-          number: '03',
-          title: 'Stuttgart meets Dubai. We know both markets.',
-          description:
-            'International perspective, local understanding. We create presences that perform in both worlds — and build trust wherever they appear.',
-        },
-        {
-          number: '04',
-          title: 'One contact person. Full accountability.',
-          description:
-            'No delegation chaos. You work directly with the person executing your project — from the first idea through to launch.',
-        },
+      subline: 'Websites that sell. Not just look good.',
+      pros_label: 'What you get',
+      cons_label: "What you don't get",
+      pros: [
+        'Individual design — no template',
+        'Clear brand presence with strategy',
+        'Focus on leads & revenue',
+        'Direct collaboration with us',
+      ],
+      cons: [
+        'No page builder solution',
+        'No design without strategy',
+        'No agency standard solution',
+        'No interchangeable result',
       ],
     },
     process: {
