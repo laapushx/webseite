@@ -2,7 +2,10 @@
 
 import { useState, useRef, FormEvent } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { MeshGradient } from '@paper-design/shaders-react'
 import { useLanguage } from '@/context/LanguageContext'
+
+const HERO_COLORS = ['#14060D', '#2A0D18', '#4A1628', '#6E1F35', '#A3364A', '#D97A5F']
 
 type FormState = 'idle' | 'sending' | 'success' | 'error'
 
@@ -65,20 +68,17 @@ export default function Contact() {
       id="kontakt"
       ref={ref}
       className="relative overflow-hidden"
-      style={{
-        background: [
-          'radial-gradient(ellipse 85% 65% at 55% 35%, #4A1628 0%, transparent 62%)',
-          'radial-gradient(ellipse 65% 55% at 18% 75%, #2A0D18 0%, transparent 58%)',
-          'radial-gradient(ellipse 55% 50% at 82% 78%, #3A1020 0%, transparent 52%)',
-          '#14060D',
-        ].join(', '),
-      }}
     >
-      {/* ── Top fade — blends from previous light section ── */}
-      <div
-        aria-hidden="true"
-        className="absolute top-0 left-0 right-0 h-24 pointer-events-none z-10"
-        style={{ background: 'linear-gradient(to bottom, rgba(250,249,247,0.06) 0%, transparent 100%)' }}
+      {/* ── Mesh gradient — exact same as Hero ── */}
+      <MeshGradient
+        colors={HERO_COLORS}
+        speed={0.14}
+        distortion={0.48}
+        swirl={0.22}
+        offsetX={0.04}
+        grainMixer={0}
+        grainOverlay={0}
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
       />
 
       {/* ── Grain texture ── */}
@@ -94,21 +94,21 @@ export default function Contact() {
         <rect width="100%" height="100%" filter="url(#contact-grain)" />
       </svg>
 
-      {/* ── Vignette — mirrors Hero ── */}
+      {/* ── Vignette ── */}
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none z-0"
         style={{
-          background: 'radial-gradient(ellipse 78% 88% at 50% 44%, transparent 22%, rgba(8,2,5,0.65) 100%)',
+          background: 'radial-gradient(ellipse 78% 88% at 50% 44%, transparent 22%, rgba(8,2,5,0.72) 100%)',
         }}
       />
 
-      {/* ── Radial glow — warm bloom like Hero ── */}
+      {/* ── Radial glow ── */}
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none z-0"
         style={{
-          background: 'radial-gradient(ellipse 52% 50% at 50% 30%, rgba(110,31,53,0.18) 0%, transparent 68%)',
+          background: 'radial-gradient(ellipse 52% 50% at 50% 42%, rgba(110,31,53,0.22) 0%, transparent 68%)',
         }}
       />
 
@@ -188,15 +188,6 @@ export default function Contact() {
               : 'Every great project starts with a conversation. Tell us about your idea — we genuinely look forward to it.'}
           </motion.p>
         </div>
-
-        {/* Horizontal rule */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={inView ? { scaleX: 1 } : {}}
-          transition={{ delay: 0.5, duration: 1.2, ease }}
-          className="origin-left mb-10 md:mb-12"
-          style={{ height: '1px', backgroundColor: 'rgba(255,246,242,0.10)' }}
-        />
 
         {/* ══════════════════════════════════════
             2-COL GRID
@@ -328,13 +319,6 @@ export default function Contact() {
                 {c.booking.cta}
                 <span style={{ opacity: 0.55, fontSize: '0.9em' }}>↗</span>
               </motion.a>
-
-              {/* Divider */}
-              <div style={{
-                height: '1px',
-                backgroundColor: 'rgba(255,246,242,0.10)',
-                marginBottom: '1.75rem',
-              }} />
 
               {/* Trust signals */}
               <ul className="flex flex-col gap-4">
