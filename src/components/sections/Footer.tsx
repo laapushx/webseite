@@ -41,9 +41,6 @@ export default function Footer() {
             <span style={{ color: '#FFF6F2', fontSize: '1rem', fontWeight: 500, letterSpacing: '0.16em' }}>
               SUNXBÜ
             </span>
-            <span style={{ color: 'rgba(255,246,242,0.82)', fontSize: '0.8125rem', letterSpacing: '0.01em' }}>
-              {f.tagline}
-            </span>
             <span style={{ color: 'rgba(255,246,242,0.82)', fontSize: '0.75rem', letterSpacing: '0.05em' }}>
               {f.location}
             </span>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mariam.</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #FFFFFF;
+    --sage: #B8C9B0;
+    --sage-light: #E4EDE0;
+    --sage-dark: #6E8A65;
+    --dark: #1C1C1C;
+    --muted: #9A9A9A;
+    --border: #EBEBEB;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--dark); font-weight: 300; }
+
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 4px 64px; border-bottom: 1px solid var(--border);
+    overflow: visible; position: relative; z-index: 10;
+  }
+  .logo {
+    font-size: 1rem; font-weight: 300; letter-spacing: 0.32em;
+    text-transform: lowercase; color: var(--dark);
+  }
+  .logo-dot { color: var(--sage-dark); font-weight: 400; }
+
+  .nav-links {
+    display: flex; gap: 44px; font-size: 0.72rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--muted); font-weight: 300;
+  }
+  .nav-cta {
+    background: transparent; color: var(--dark); padding: 9px 22px;
+    font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+    border: 1px solid var(--border); cursor: pointer; border-radius: 100px;
+    font-family: 'Inter', sans-serif; font-weight: 300;
+    transition: all 0.2s;
+  }
+  .nav-cta:hover { border-color: var(--sage); background: var(--sage-light); }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; }
+
+  /* LEFT — text */
+  .hero-left {
+    padding: 80px 64px; display: flex; flex-direction: column;
+    justify-content: center; border-right: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--sage-dark); margin-bottom: 40px; display: flex; align-items: center; gap: 14px;
+  }
+  .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--sage); }
+
+  h1 {
+    font-size: clamp(3rem, 4.5vw, 4.8rem); font-weight: 200;
+    line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 32px; color: var(--dark);
+  }
+  h1 em { font-style: italic; color: var(--sage-dark); font-weight: 300; }
+
+  .sub {
+    font-size: 0.9rem; line-height: 1.85; color: var(--muted); max-width: 360px;
+    margin-bottom: 52px; font-weight: 300;
+  }
+
+  .cta-group { display: flex; gap: 14px; align-items: center; margin-bottom: 56px; }
+  .btn-primary {
+    background: var(--dark); color: white; padding: 13px 28px;
+    font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+    border: none; cursor: pointer; border-radius: 100px;
+    font-family: 'Inter', sans-serif; font-weight: 400;
+  }
+  .btn-ghost {
+    font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--muted); background: none; border: none; cursor: pointer;
+    font-family: 'Inter', sans-serif; font-weight: 300;
+    text-decoration: underline; text-underline-offset: 4px;
+  }
+
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    background: var(--sage-light); color: var(--sage-dark); padding: 6px 16px;
+    border-radius: 100px; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 400;
+  }
+
+  /* RIGHT — image */
+  .hero-right { position: relative; overflow: hidden; background: var(--sage-light); }
+  .hero-right img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;
+  }
+  .hero-badge {
+    position: absolute; bottom: 36px; left: 36px;
+    background: white; padding: 16px 22px; border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+  .hero-badge p { font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .hero-badge strong { font-size: 1.6rem; font-weight: 200; letter-spacing: -0.02em; }
+
+  /* M watermark behind text */
+  .watermark {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-size: 60vw; font-weight: 200; color: rgba(184,201,176,0.12);
+    line-height: 1; pointer-events: none; user-select: none; letter-spacing: -0.05em;
+  }
+</style>
+</head>
+<body>
+<nav>
+  <img src="mariam-logo.png" alt="mariam logo" style="height:140px; width:auto; opacity:0.85;" />
+  <div class="nav-links">
+    <span>Über mich</span>
+    <span>Leistungen</span>
+    <span>Erfolge</span>
+    <span>Kontakt</span>
+  </div>
+  <button class="nav-cta">Erstgespräch buchen</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="watermark">m</div>
+    <div class="eyebrow">Business Mentoring</div>
+    <h1>Dein Business.<br><em>Deine Regeln.</em><br>Dein Erfolg.</h1>
+    <p class="sub">Ich helfe Unternehmerinnen dabei, ein Business aufzubauen, das zu ihrem Leben passt — nicht umgekehrt. Ohne Burnout. Ohne Kompromisse.</p>
+    <div class="cta-group">
+      <button class="btn-primary">Jetzt starten →</button>
+      <button class="btn-ghost">Mehr erfahren</button>
+    </div>
+    <div class="tags">
+      <span class="tag">1:1 Mentoring</span>
+      <span class="tag">Online Kurse</span>
+      <span class="tag">Community</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <img src="mariam-portrait.png" alt="Mariam" />
+    <div class="hero-badge">
+      <p>Zufriedene Klientinnen</p>
+      <strong>200+</strong>
+    </div>
+  </div>
+</section>
+</body>
+</html>

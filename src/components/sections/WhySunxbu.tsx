@@ -126,7 +126,6 @@ export default function WhySunxbu() {
               transformOrigin: 'center',
             }}
           >
-            {/* Title */}
             <p
               style={{
                 fontSize: '1.25rem',
@@ -139,7 +138,6 @@ export default function WhySunxbu() {
               Was du <span style={{ color: ACCENT }}>bekommst</span>
             </p>
 
-            {/* Items */}
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {w.pros.map((item, i) => (
                 <motion.li
@@ -150,7 +148,6 @@ export default function WhySunxbu() {
                   animate={inView ? 'visible' : 'hidden'}
                   style={{ display: 'flex', alignItems: 'center', gap: '14px' }}
                 >
-                  {/* Small badge */}
                   <span
                     style={{
                       width: 26,
@@ -190,7 +187,6 @@ export default function WhySunxbu() {
               padding: '36px 40px 40px',
             }}
           >
-            {/* Title */}
             <p
               style={{
                 fontSize: '1.25rem',
@@ -203,7 +199,6 @@ export default function WhySunxbu() {
               Was du <span style={{ color: ACCENT }}>nicht</span> bekommst
             </p>
 
-            {/* Items */}
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {w.cons.map((item, i) => (
                 <motion.li
@@ -214,7 +209,6 @@ export default function WhySunxbu() {
                   animate={inView ? 'visible' : 'hidden'}
                   style={{ display: 'flex', alignItems: 'center', gap: '14px' }}
                 >
-                  {/* Small badge */}
                   <span
                     style={{
                       width: 26,

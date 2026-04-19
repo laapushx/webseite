@@ -26,6 +26,16 @@ const GRADIENTS = [
   'linear-gradient(135deg, #1A1F2E 0%, #252520 60%, #1F2937 100%)',
 ]
 
+const PROJECT_IMAGES: Record<string, string> = {
+  '01': '/images/project-sunxca.png',
+  '02': '/images/project-recruimaster.png',
+  '03': '/images/project-moku.png',
+  '04': '/images/project-scaling-collective.png',
+  '05': '/images/project-abgebaeudereinigung.png',
+  '06': '/images/project-codehermoney.png',
+  '07': '/images/project-mariam.png',
+}
+
 // 280vh container → unstick at 180/280 = 0.643 → all animations end at 0.55 ✓
 function ZoomIntro({ projects, eyebrow, headline }: {
   projects: Project[]
@@ -38,10 +48,10 @@ function ZoomIntro({ projects, eyebrow, headline }: {
     offset: ['start start', 'end start'],
   })
 
-  const headlineScale   = useTransform(scrollYProgress, [0, 0.48], [1, 0.15])
-  const headlineOpacity = useTransform(scrollYProgress, [0, 0.07, 0.30, 0.45], [0, 1, 1, 0])
-  const mosaicOpacity   = useTransform(scrollYProgress, [0.35, 0.50], [0, 1])
-  const mosaicScale     = useTransform(scrollYProgress, [0.35, 0.55], [1.22, 1])
+  const headlineScale   = useTransform(scrollYProgress, [0, 0.50], [1, 0.15])
+  const headlineOpacity = useTransform(scrollYProgress, [0, 0.28, 0.44], [1, 1, 0])
+  const mosaicOpacity   = useTransform(scrollYProgress, [0.42, 0.56], [0, 1])
+  const mosaicScale     = useTransform(scrollYProgress, [0.42, 0.60], [1.12, 1])
   const scrollHint      = useTransform(scrollYProgress, [0, 0.10], [1, 0])
 
   const lines = headline.split('\n')
@@ -88,37 +98,59 @@ function ZoomIntro({ projects, eyebrow, headline }: {
             scale: mosaicScale,
             position: 'absolute',
             inset: 0,
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '6px',
-            padding: '6px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
             pointerEvents: 'none',
           }}
         >
-          {projects.slice(0, 4).map((project, i) => (
-            <div
-              key={project.id}
-              style={{ position: 'relative', overflow: 'hidden', borderRadius: '8px', background: GRADIENTS[i % GRADIENTS.length] }}
-            >
+        <div style={{
+            width: '100%',
+            maxWidth: '100%',
+            aspectRatio: '16/9',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gridTemplateRows: 'repeat(2, 1fr)',
+            gap: '6px',
+            borderRadius: '16px',
+            overflow: 'hidden',
+        }}>
+          {projects.slice(0, 6).map((project, i) => {
+            const img = PROJECT_IMAGES[project.number]
+            return (
               <div
-                style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', userSelect: 'none' }}
+                key={project.id}
+                style={{ position: 'relative', overflow: 'hidden', borderRadius: '8px', background: '#F5F5F3' }}
               >
-                <span style={{ fontSize: 'clamp(6rem, 14vw, 14rem)', color: 'rgba(255,255,255,0.04)', letterSpacing: '-0.04em', lineHeight: 1, fontWeight: 700 }}>
-                  {project.number}
-                </span>
+                {img ? (
+                  <img
+                    src={img}
+                    alt={project.title}
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top', background: '#F5F5F3' }}
+                  />
+                ) : (
+                  <div
+                    style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', userSelect: 'none' }}
+                  >
+                    <span style={{ fontSize: 'clamp(6rem, 14vw, 14rem)', color: 'rgba(255,255,255,0.04)', letterSpacing: '-0.04em', lineHeight: 1, fontWeight: 700 }}>
+                      {project.number}
+                    </span>
+                  </div>
+                )}
+                <div
+                  style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '20px 24px', background: 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 100%)' }}
+                >
+                  <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: 'clamp(0.75rem, 1.5vw, 1rem)', fontWeight: 600, letterSpacing: '-0.01em', marginBottom: '2px' }}>
+                    {project.title}
+                  </p>
+                  <p style={{ color: 'rgba(255,255,255,0.38)', fontSize: 'clamp(0.6rem, 1vw, 0.75rem)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                    {project.category}
+                  </p>
+                </div>
               </div>
-              <div
-                style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '20px 24px', background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%)' }}
-              >
-                <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: 'clamp(0.75rem, 1.5vw, 1rem)', fontWeight: 600, letterSpacing: '-0.01em', marginBottom: '2px' }}>
-                  {project.title}
-                </p>
-                <p style={{ color: 'rgba(255,255,255,0.38)', fontSize: 'clamp(0.6rem, 1vw, 0.75rem)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                  {project.category}
-                </p>
-              </div>
-            </div>
-          ))}
+            )
+          })}
+        </div>
         </motion.div>
 
         {/* Scroll hint */}
@@ -303,7 +335,7 @@ export default function Work() {
         />
 
         {/* ── Project panels ── */}
-        <div className="border-t border-border">
+        {/* <div className="border-t border-border">
           {w.projects.map((project, i) => (
             <ProjectPanel
               key={project.id}
@@ -313,16 +345,16 @@ export default function Work() {
               index={i}
             />
           ))}
-        </div>
+        </div> */}
 
       </section>
 
-      <CaseStudyOverlay
+      {/* <CaseStudyOverlay
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
         closeLabel={w.close}
         deliverablesLabel={w.deliverables_label}
-      />
+      /> */}
     </>
   )
 }

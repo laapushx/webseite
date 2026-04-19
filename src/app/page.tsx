@@ -23,7 +23,7 @@ export default function Home() {
         <About />
         <Statement />
         <WhySunxbu />
-        <Work />
+        {/* <Work /> */}
         <Process />
         <Services />
         <Testimonials />

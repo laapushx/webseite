@@ -1,154 +1,162 @@
 'use client'
 
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 import { useLanguage } from '@/context/LanguageContext'
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number]
 
 export default function Process() {
   const { tr } = useLanguage()
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
   const p = tr.process
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [activeStep, setActiveStep] = useState(0)
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  })
+
+  const fillWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
+
+  useMotionValueEvent(scrollYProgress, 'change', (v) => {
+    if (v < 0.36) setActiveStep(0)
+    else if (v < 0.68) setActiveStep(1)
+    else setActiveStep(2)
+  })
+
+  const step = p.steps[activeStep]
 
   return (
-    <section id="prozess" className="py-24 md:py-40 bg-bg overflow-hidden">
-      <div className="container-main">
-        {/* Header */}
-        <div ref={ref} className="mb-20 md:mb-28 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <div>
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
-              className="label-sm text-accent mb-4"
-            >
-              {p.eyebrow}
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 22 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.1, duration: 0.8, ease }}
-              className="heading-xl text-ink"
-            >
+    <section id="prozess" ref={containerRef} style={{ height: '280vh', position: 'relative' }}>
+      <div style={{
+        position: 'sticky', top: 0, height: '100vh',
+        background: '#FFFFFF',
+        display: 'flex', flexDirection: 'column', justifyContent: 'center',
+        overflow: 'hidden',
+      }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 64px', width: '100%' }}>
+
+          {/* Header */}
+          <div style={{ marginBottom: '72px' }}>
+            <p className="label-sm text-accent" style={{ marginBottom: '14px' }}>{p.eyebrow}</p>
+            <h2 className="heading-xl text-ink">
               {p.headline.split('\n').map((line, i) => (
                 <span key={i} className="block">
                   {i === 1 ? <span className="italic text-muted">{line}</span> : line}
                 </span>
               ))}
-            </motion.h2>
+            </h2>
           </div>
 
-          {/* Desktop: step count */}
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="label-sm text-muted hidden md:block"
-          >
-            {p.steps.length} Schritte
-          </motion.span>
-        </div>
+          {/* Track */}
+          <div style={{ position: 'relative', marginBottom: '52px' }}>
 
-        {/* Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-border">
-          {p.steps.map((step, i) => (
+            {/* Numbers */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+              {p.steps.map((s, i) => (
+                <span key={i} style={{
+                  fontSize: '0.6rem', letterSpacing: '0.24em', textTransform: 'uppercase',
+                  color: activeStep === i ? 'var(--color-accent)' : 'var(--color-muted)',
+                  fontWeight: activeStep === i ? 500 : 300,
+                  transition: 'color 500ms ease',
+                  flex: 1,
+                  textAlign: i === 0 ? 'left' : i === 1 ? 'center' : 'right',
+                }}>
+                  {s.number}
+                </span>
+              ))}
+            </div>
+
+            {/* Line + fill + nodes */}
+            <div style={{ position: 'relative', height: '4px', background: 'var(--color-border)', borderRadius: '100px' }}>
+              <motion.div style={{
+                position: 'absolute', left: 0, top: 0, height: '100%',
+                width: fillWidth,
+                background: 'var(--color-accent)',
+                transformOrigin: 'left',
+                borderRadius: '100px',
+              }} />
+
+              {(['0%', '50%', '100%'] as const).map((pos, i) => (
+                <div key={i} style={{
+                  position: 'absolute', top: '50%',
+                  left: pos,
+                  transform: 'translate(-50%, -50%)',
+                  zIndex: 1,
+                }}>
+                  <div style={{
+                    width: activeStep === i ? 16 : 10,
+                    height: activeStep === i ? 16 : 10,
+                    borderRadius: '50%',
+                    background: activeStep >= i ? 'var(--color-accent)' : '#FFFFFF',
+                    border: `1px solid ${activeStep >= i ? 'var(--color-accent)' : 'var(--color-border)'}`,
+                    transition: 'all 500ms ease',
+                    boxShadow: activeStep === i ? '0 0 0 4px rgba(122,46,58,0.15)' : 'none',
+                  }} />
+                </div>
+              ))}
+            </div>
+
+            {/* Titles */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+              {p.steps.map((s, i) => (
+                <span key={i} style={{
+                  flex: 1,
+                  textAlign: i === 0 ? 'left' : i === 1 ? 'center' : 'right',
+                  fontSize: '0.85rem', letterSpacing: '-0.01em',
+                  color: activeStep === i ? 'var(--color-ink)' : 'var(--color-muted)',
+                  fontWeight: activeStep === i ? 500 : 300,
+                  transition: 'all 500ms ease',
+                }}>
+                  {s.title}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Active step content */}
+          <AnimatePresence mode="wait">
             <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.14 * i + 0.2, duration: 0.8, ease }}
-              className="relative group border-b md:border-b-0 border-border"
-              style={{
-                borderRight: i < p.steps.length - 1 ? '1px solid var(--color-border)' : undefined,
-              }}
+              key={activeStep}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.55, ease }}
+              style={{ maxWidth: '640px' }}
             >
-              <div className="pt-10 pb-12 md:pr-10 md:pl-0 px-0 overflow-hidden">
-                {/* Large background number */}
-                <div
-                  className="relative mb-8 h-24 md:h-28 flex items-center"
-                  style={{ paddingLeft: i > 0 ? '1rem' : 0 }}
-                >
-                  <span
-                    className="font-sans absolute top-0 left-0 leading-none select-none pointer-events-none transition-all duration-500 opacity-20 group-hover:opacity-60 group-hover:-translate-y-1"
+              <p style={{
+                fontSize: '0.95rem', lineHeight: 1.85,
+                color: 'var(--color-muted)', marginBottom: activeStep === 2 ? '36px' : '0',
+              }}>
+                {step.description}
+              </p>
+
+              <AnimatePresence>
+                {activeStep === 2 && (
+                  <motion.a
+                    href="#kontakt"
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.5, ease }}
                     style={{
-                      fontSize: 'clamp(5rem, 10vw, 8rem)',
-                      color: 'var(--color-ink)',
-                      letterSpacing: '-0.04em',
-                      lineHeight: 1,
+                      display: 'inline-flex', alignItems: 'center', gap: '10px',
+                      backgroundColor: '#16243A', color: '#FFF6F2',
+                      padding: '15px 32px', borderRadius: '100px',
+                      fontSize: '12px', fontWeight: 500,
+                      letterSpacing: '0.12em', textTransform: 'uppercase',
+                      boxShadow: '0 6px 24px rgba(10,4,8,0.28)',
                     }}
-                    aria-hidden="true"
                   >
-                    {step.number}
-                  </span>
-
-                  {/* Connector line — desktop only, between steps */}
-                  {i < p.steps.length - 1 && (
-                    <motion.div
-                      initial={{ scaleX: 0 }}
-                      animate={inView ? { scaleX: 1 } : {}}
-                      transition={{ delay: 0.3 + 0.14 * i, duration: 1, ease }}
-                      className="hidden md:block absolute right-0 top-10 w-[120%] h-px origin-left"
-                      style={{ backgroundColor: 'rgba(122,46,58,0.18)', zIndex: 0 }}
-                    />
-                  )}
-                </div>
-
-                {/* Content */}
-                <div style={{ paddingLeft: i > 0 ? '1rem' : 0 }}>
-                  <h3
-                    className="h3 text-ink mb-3 transition-colors duration-300 group-hover:text-accent"
-                  >
-                    {step.title}
-                  </h3>
-                  <p className="text-muted text-sm md:text-base leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              </div>
+                    Jetzt Projekt starten <span style={{ opacity: 0.55 }}>↗</span>
+                  </motion.a>
+                )}
+              </AnimatePresence>
             </motion.div>
-          ))}
-        </div>
+          </AnimatePresence>
 
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.7, duration: 0.6 }}
-          className="mt-16 md:mt-20 flex flex-col sm:flex-row items-start sm:items-center gap-4"
-        >
-          <a
-            href="#kontakt"
-            className="inline-flex items-center gap-3 rounded-full"
-            style={{
-              backgroundColor: '#16243A',
-              color: '#FFF6F2',
-              padding: '16px 32px',
-              fontSize: '13px',
-              fontWeight: 500,
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              boxShadow: '0 8px 32px rgba(10,4,8,0.45)',
-              transition: 'all 300ms',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.backgroundColor = '#1E2F4A'
-              e.currentTarget.style.transform = 'scale(1.03)'
-              e.currentTarget.style.boxShadow = '0 12px 40px rgba(10,4,8,0.55)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.backgroundColor = '#16243A'
-              e.currentTarget.style.transform = 'scale(1)'
-              e.currentTarget.style.boxShadow = '0 8px 32px rgba(10,4,8,0.45)'
-            }}
-          >
-            Jetzt Projekt starten ↗
-          </a>
-          <span className="text-sm text-muted">
-            Kostenloses Erstgespräch · Kein Verkaufsdruck
-          </span>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

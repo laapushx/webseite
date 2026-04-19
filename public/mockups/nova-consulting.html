@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --bg: #FAFAFA; --dark: #0E0E0E; --blue: #1844F0; --muted: #909090; --border: rgba(0,0,0,0.1); }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--dark); }
+
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 56px; border-bottom: 1px solid var(--border);
+  }
+  .logo { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em; }
+  .logo span { color: var(--blue); }
+  .nav-links { display: flex; gap: 36px; font-size: 0.82rem; color: var(--muted); }
+  .nav-cta {
+    background: var(--blue); color: white; padding: 10px 24px;
+    font-size: 0.78rem; font-weight: 500; border: none; cursor: pointer; border-radius: 100px;
+  }
+
+  .hero { padding: 80px 56px 0; }
+  .hero-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 60px; }
+  .hero-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+
+  h1 {
+    font-family: 'Syne', sans-serif; font-size: clamp(4rem, 8vw, 8.5rem);
+    font-weight: 800; line-height: 0.92; letter-spacing: -0.04em;
+    margin-bottom: 0;
+  }
+  h1 .outline {
+    -webkit-text-stroke: 2px var(--dark); color: transparent;
+  }
+  h1 .blue { color: var(--blue); }
+
+  .hero-bottom {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-top: 56px; padding-bottom: 60px; border-bottom: 1px solid var(--border);
+  }
+  .sub { font-size: 0.95rem; line-height: 1.7; color: var(--muted); max-width: 360px; }
+  .hero-right { display: flex; flex-direction: column; align-items: flex-end; gap: 24px; }
+  .btn-cta {
+    background: var(--dark); color: white; padding: 16px 36px;
+    font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 600;
+    letter-spacing: -0.01em; border: none; cursor: pointer; border-radius: 100px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .btn-arrow {
+    width: 32px; height: 32px; border-radius: 50%; background: var(--blue);
+    display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+  }
+
+  .clients {
+    display: flex; gap: 14px; align-items: center; flex-wrap: wrap; justify-content: flex-end;
+  }
+  .client-tag {
+    border: 1px solid var(--border); border-radius: 100px; padding: 6px 14px;
+    font-size: 0.68rem; color: var(--muted); letter-spacing: 0.04em;
+  }
+
+  .services {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--border);
+  }
+  .service {
+    padding: 36px 56px; border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .service:last-child { border-right: none; }
+  .service-num { font-size: 0.65rem; color: var(--blue); letter-spacing: 0.2em; font-weight: 500; }
+  .service-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; }
+  .service-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">NOVA<span>.</span></div>
+  <div class="nav-links">
+    <span>Leistungen</span>
+    <span>Referenzen</span>
+    <span>Team</span>
+    <span>Kontakt</span>
+  </div>
+  <button class="nav-cta">Beratung anfragen</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-top">
+    <div class="hero-label">Strategische Unternehmensberatung</div>
+    <div class="hero-label">Stuttgart · München · Dubai</div>
+  </div>
+
+  <h1>
+    WACHSTUM<br>
+    <span class="outline">IST KEIN</span><br>
+    <span class="blue">ZUFALL.</span>
+  </h1>
+
+  <div class="hero-bottom">
+    <p class="sub">Wir analysieren, strukturieren und skalieren. Mit Präzision, Erfahrung und dem Blick für das Wesentliche.</p>
+    <div class="hero-right">
+      <button class="btn-cta">
+        Erstgespräch buchen
+        <div class="btn-arrow">→</div>
+      </button>
+      <div class="clients">
+        <span class="client-tag">50+ Mandate</span>
+        <span class="client-tag">€120M+ Umsatz begleitet</span>
+        <span class="client-tag">10 Jahre Erfahrung</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="services">
+  <div class="service">
+    <div class="service-num">01</div>
+    <div class="service-title">Strategie & Positionierung</div>
+    <div class="service-desc">Klare Richtung für nachhaltiges Wachstum und Marktführerschaft.</div>
+  </div>
+  <div class="service">
+    <div class="service-num">02</div>
+    <div class="service-title">Prozess & Skalierung</div>
+    <div class="service-desc">Systeme, die mit deinem Unternehmen wachsen — nicht dagegen arbeiten.</div>
+  </div>
+  <div class="service">
+    <div class="service-num">03</div>
+    <div class="service-title">Digital Transformation</div>
+    <div class="service-desc">Digitale Infrastruktur für Unternehmen, die morgen denken.</div>
+  </div>
+</div>
+</body>
+</html>
