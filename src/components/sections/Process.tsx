@@ -30,16 +30,16 @@ export default function Process() {
   return (
     <section id="prozess" ref={containerRef} style={{ height: '180vh', position: 'relative' }}>
       <div style={{
-        position: 'sticky', top: 0, height: '100vh',
+        position: 'sticky', top: 0,
         background: '#FFFFFF',
-        display: 'flex', flexDirection: 'column', justifyContent: 'center',
-        paddingTop: '40px', paddingBottom: '40px',
+        display: 'flex', flexDirection: 'column',
+        padding: '64px 0 72px',
         overflow: 'hidden',
       }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 64px', width: '100%' }}>
 
           {/* Header */}
-          <div style={{ marginBottom: '40px' }}>
+          <div style={{ marginBottom: '28px' }}>
             <p className="label-sm text-accent" style={{ marginBottom: '10px' }}>{p.eyebrow}</p>
             <h2 className="heading-xl text-ink" style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}>
               {p.headline.split('\n').map((line, i) => (
@@ -51,7 +51,7 @@ export default function Process() {
           </div>
 
           {/* Track */}
-          <div style={{ position: 'relative', marginBottom: '32px' }}>
+          <div style={{ position: 'relative', marginBottom: '28px' }}>
 
             {/* Numbers */}
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>

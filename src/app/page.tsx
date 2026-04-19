@@ -7,6 +7,7 @@ import Work from '@/components/sections/Work'
 import WhySunxbu from '@/components/sections/WhySunxbu'
 import About from '@/components/sections/About'
 import Process from '@/components/sections/Process'
+import ServicesIntro from '@/components/sections/ServicesIntro'
 import Services from '@/components/sections/Services'
 import Testimonials from '@/components/sections/Testimonials'
 import FAQ from '@/components/sections/FAQ'
@@ -25,6 +26,7 @@ export default function Home() {
         <WhySunxbu />
         {/* <Work /> */}
         <Process />
+        <ServicesIntro />
         <Services />
         <Testimonials />
         <FAQ />
