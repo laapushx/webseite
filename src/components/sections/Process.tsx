@@ -28,19 +28,20 @@ export default function Process() {
   const step = p.steps[activeStep]
 
   return (
-    <section id="prozess" ref={containerRef} style={{ height: '280vh', position: 'relative' }}>
+    <section id="prozess" ref={containerRef} style={{ height: '180vh', position: 'relative' }}>
       <div style={{
         position: 'sticky', top: 0, height: '100vh',
         background: '#FFFFFF',
         display: 'flex', flexDirection: 'column', justifyContent: 'center',
+        paddingTop: '40px', paddingBottom: '40px',
         overflow: 'hidden',
       }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 64px', width: '100%' }}>
 
           {/* Header */}
-          <div style={{ marginBottom: '72px' }}>
-            <p className="label-sm text-accent" style={{ marginBottom: '14px' }}>{p.eyebrow}</p>
-            <h2 className="heading-xl text-ink">
+          <div style={{ marginBottom: '40px' }}>
+            <p className="label-sm text-accent" style={{ marginBottom: '10px' }}>{p.eyebrow}</p>
+            <h2 className="heading-xl text-ink" style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}>
               {p.headline.split('\n').map((line, i) => (
                 <span key={i} className="block">
                   {i === 1 ? <span className="italic text-muted">{line}</span> : line}
@@ -50,7 +51,7 @@ export default function Process() {
           </div>
 
           {/* Track */}
-          <div style={{ position: 'relative', marginBottom: '52px' }}>
+          <div style={{ position: 'relative', marginBottom: '32px' }}>
 
             {/* Numbers */}
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
